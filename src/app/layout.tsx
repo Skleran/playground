@@ -25,7 +25,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased min-h-[100dvh] leading-relaxed`}
+        className={`${inter.className} antialiased min-h-[100svh] leading-relaxed`}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
