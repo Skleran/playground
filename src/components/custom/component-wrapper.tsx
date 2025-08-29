@@ -240,7 +240,13 @@ export default function ComponentWrapper({
         }}
         transition={{ duration: 0.18, ease: "easeOut" }}
       >
-        <p>⬆ Top navigation / info ({Math.round(topVisibility * 100)}%)</p>
+        <p>
+          ⬆ Top navigation / info (
+          <span className="font-machina text-[#e94b1d]">
+            {Math.round(topVisibility * 100)}%
+          </span>
+          )
+        </p>
       </motion.div>
 
       <motion.div
@@ -256,7 +262,7 @@ export default function ComponentWrapper({
       </motion.div>
 
       <motion.div
-        className="h-[250px] bg-accent mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground"
+        className="h-[250px] bg-secondary mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground"
         animate={{
           scale: bottomVisibility * 0.1 + 0.9,
           // borderRadius: 32 - bottomVisibility * 32,
@@ -268,7 +274,13 @@ export default function ComponentWrapper({
         }}
         transition={{ duration: 0.18, ease: "easeOut" }}
       >
-        <p>⬇ Next / Prev / Home ({Math.round(bottomVisibility * 100)}%)</p>
+        <p>
+          ⬇ Next / Prev / Home (
+          <span className="font-machina text-[#c2fe0c]">
+            {Math.round(bottomVisibility * 100)}%
+          </span>
+          )
+        </p>
       </motion.div>
     </div>
   );
