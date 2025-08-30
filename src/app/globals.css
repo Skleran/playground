@@ -43,6 +43,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-special-orange: oklch(70% 0.23 40);
+  --color-special-blue: oklch(
+    49.9% 0.404 253.7
+  ); /* ref: #133bff, mine is a bit deeper */
+  --color-special-green: oklch(92.3% 0.292 123.6);
 }
 
 :root {

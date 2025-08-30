@@ -276,7 +276,7 @@ export default function ComponentWrapper({
       >
         <p>
           ⬇ Next / Prev / Home (
-          <span className="font-machina text-[#c2fe0c]">
+          <span className="font-machina-inktrap text-special-green">
             {Math.round(bottomVisibility * 100)}%
           </span>
           )
