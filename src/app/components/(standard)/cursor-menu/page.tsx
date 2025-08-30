@@ -19,6 +19,27 @@ export default function Page() {
 
   const [smoothPos, setSmoothPos] = useState({ x: 0, y: 0 });
 
+  const xCoordX = useMotionValue(0);
+  const xCoordY = useMotionValue(0);
+  const yCoordX = useMotionValue(0);
+  const yCoordY = useMotionValue(0);
+  const nameX = useMotionValue(0);
+  const nameY = useMotionValue(0);
+
+  // Spring configurations for bouncy text
+  // const bounceSpring = { stiffness: 100, damping: 12, mass: 0.8 };
+
+  const nameBounceSpring = { stiffness: 75, damping: 13, mass: 0.8 };
+  const xCoordBounceSpring = { stiffness: 110, damping: 9, mass: 0.45 };
+  const yCoordBounceSpring = { stiffness: 70, damping: 8, mass: 0.35 };
+
+  const xCoordXSpring = useSpring(xCoordX, xCoordBounceSpring);
+  const xCoordYSpring = useSpring(xCoordY, xCoordBounceSpring);
+  const yCoordXSpring = useSpring(yCoordX, yCoordBounceSpring);
+  const yCoordYSpring = useSpring(yCoordY, yCoordBounceSpring);
+  const nameXSpring = useSpring(nameX, nameBounceSpring);
+  const nameYSpring = useSpring(nameY, nameBounceSpring);
+
   useMotionValueEvent(smoothX, "change", (latest) => {
     setSmoothPos((prev) => ({ ...prev, x: latest }));
   });
@@ -32,34 +53,132 @@ export default function Page() {
       mouseY.set(e.clientY - 28);
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 1) {
+        return;
+      }
+
+      e.preventDefault(); // Prevent scrolling
+      const touch = e.touches[0];
+      if (touch) {
+        mouseX.set(touch.clientX - 28);
+        mouseY.set(touch.clientY - 28);
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        if (touch) {
+          mouseX.set(touch.clientX - 28);
+          mouseY.set(touch.clientY - 28);
+        }
+      }
+    };
+
+    // Mouse events
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+    // Touch events
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchstart", handleTouchStart);
+    };
   }, [mouseX, mouseY]);
 
-  // clamp helper
-  const clamp = (value: number, min: number, max: number) =>
-    Math.min(Math.max(value, min), max);
+  // clamp helper with overshoot
+  const elasticClamp = (
+    value: number,
+    min: number,
+    max: number,
+    overshootFactor = 0.1
+  ) => {
+    if (value < min) {
+      const overshoot = (min - value) * overshootFactor;
+      return min - overshoot;
+    }
+    if (value > max) {
+      const overshoot = (value - max) * overshootFactor;
+      return max + overshoot;
+    }
+    return value;
+  };
 
-  const padding = 60;
+  const padding =
+    typeof window !== "undefined" && window.innerWidth > 600 ? 60 : 30;
   const vw = typeof window !== "undefined" ? window.innerWidth : 0;
   const vh = typeof window !== "undefined" ? window.innerHeight : 0;
 
-  const xcoordX = clamp(
-    smoothPos.x + (12 / 100) * vw + 30,
-    padding,
-    vw - 2.5 * padding
-  );
-  const xcoordY = clamp(smoothPos.y - 20, padding + 10, vh - 1.25 * padding);
+  useEffect(() => {
+    // x coordinate position
+    const xcoordTargetX = smoothPos.x + (12 / 100) * vw + 30;
+    const xcoordTargetY = smoothPos.y - 20;
 
-  const ycoordX = clamp(smoothPos.x + 50, padding, vw - 2.32 * padding);
-  const ycoordY = clamp(smoothPos.y + 330, padding, vh - 1.25 * padding);
+    const clampedXcoordX = elasticClamp(
+      xcoordTargetX,
+      padding,
+      vw - 2.9 * padding
+    );
+    const clampedXcoordY = elasticClamp(
+      xcoordTargetY,
+      padding + 10,
+      vh - 1.25 * padding
+    );
 
-  const nameX = clamp(
-    smoothPos.x - (20 / 100) * vw - 200,
-    padding,
-    vw - 4 * padding
-  );
-  const nameY = clamp(smoothPos.y - 30, padding, vh - 4.35 * padding);
+    xCoordX.set(clampedXcoordX);
+    xCoordY.set(clampedXcoordY);
+
+    // y coordinate position
+    const ycoordTargetX = smoothPos.x + 50;
+    const ycoordTargetY = smoothPos.y + 330;
+
+    const clampedYcoordX = elasticClamp(
+      ycoordTargetX,
+      padding,
+      vw - 2.32 * padding
+    );
+    const clampedYcoordY = elasticClamp(
+      ycoordTargetY,
+      padding,
+      vh - 1.9 * padding
+    );
+
+    yCoordX.set(clampedYcoordX);
+    yCoordY.set(clampedYcoordY);
+
+    // name + list position
+    const nameTargetX = smoothPos.x - (20 / 100) * vw - 200;
+    const nameTargetY = smoothPos.y - 30;
+
+    const clampedNameX = elasticClamp(
+      nameTargetX,
+      2 * padding,
+      vw - 8 * padding
+    );
+    const clampedNameY = elasticClamp(
+      nameTargetY,
+      padding,
+      vh - 4.65 * padding
+    );
+
+    nameX.set(clampedNameX);
+    nameY.set(clampedNameY);
+  }, [
+    smoothPos.x,
+    smoothPos.y,
+    vw,
+    vh,
+    xCoordX,
+    xCoordY,
+    yCoordX,
+    yCoordY,
+    nameX,
+    nameY,
+  ]);
 
   return (
     <ComponentWrapper>
@@ -67,23 +186,32 @@ export default function Page() {
         <div className="min-h-[100svh]">
           <div className="absolute pointer-events-none">
             {/* coords */}
-            <span
+            <motion.span
               className="absolute font-mono text-muted-foreground/50"
-              style={{ transform: `translate(${xcoordX}px, ${xcoordY}px)` }}
+              style={{
+                x: xCoordXSpring,
+                y: xCoordYSpring,
+              }}
             >
               {Math.round(smoothPos.x)}px
-            </span>
-            <span
+            </motion.span>
+            <motion.span
               className="absolute font-mono text-muted-foreground/50"
-              style={{ transform: `translate(${ycoordX}px, ${ycoordY}px)` }}
+              style={{
+                x: yCoordXSpring,
+                y: yCoordYSpring,
+              }}
             >
               {Math.round(smoothPos.y)}px
-            </span>
+            </motion.span>
 
             {/* name + list */}
             <motion.div
               className="absolute flex flex-col text-nowrap gap-10"
-              style={{ x: nameX, y: nameY }}
+              style={{
+                x: nameXSpring,
+                y: nameYSpring,
+              }}
             >
               <div className="font-mono tracking-tighter text-xl sm:text-4xl">
                 Erdem Koyuncu
