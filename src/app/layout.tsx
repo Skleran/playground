@@ -102,7 +102,7 @@ const neueHaasDisplay = localFont({
       style: "normal",
     },
   ],
-  variable: "--neue-haas-display",
+  variable: "--font-neue-haas-display",
 });
 
 export const metadata: Metadata = {
