@@ -21,6 +21,12 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
+            <Link href="/components/neue-haas-design">
+              <HomeCard className="flex items-center justify-center font-medium">
+                Neue Haas Design
+              </HomeCard>{" "}
+            </Link>
+
             <Link href="/components/neue-machina-design">
               <HomeCard className="flex items-center justify-center font-medium">
                 Neue Machina Design
