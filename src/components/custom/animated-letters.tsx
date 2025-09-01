@@ -11,7 +11,8 @@ export default function AnimatedLetters({
   const container: Variants = {
     animate: {
       transition: {
-        staggerChildren: 0.5,
+        staggerChildren: 0.4,
+        // staggerChildren: 0.225, faster animation
         repeat: Infinity,
         repeatType: "loop",
         delayChildren: delay,
@@ -23,7 +24,8 @@ export default function AnimatedLetters({
     animate: {
       "--wght": [100, 900, 100],
       transition: {
-        duration: 4,
+        duration: 5,
+        // duration: 3,
         // ease: "easeInOut",
         repeat: Infinity,
       },

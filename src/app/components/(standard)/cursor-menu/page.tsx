@@ -8,6 +8,7 @@ import {
   useSpring,
   useMotionValueEvent,
 } from "framer-motion";
+import NumberFlow from "@number-flow/react";
 
 export default function Page() {
   const mouseX = useMotionValue(0);
@@ -187,22 +188,30 @@ export default function Page() {
           <div className="absolute pointer-events-none">
             {/* coords */}
             <motion.span
-              className="absolute font-mono text-muted-foreground/50"
+              className="absolute font-mono text-muted-foreground/50 text-nowrap"
               style={{
                 x: xCoordXSpring,
                 y: xCoordYSpring,
               }}
             >
-              {Math.round(smoothPos.x)}px
+              <NumberFlow
+                value={Math.round(smoothPos.x)}
+                transformTiming={{ duration: 350 }}
+              />
+              px
             </motion.span>
             <motion.span
-              className="absolute font-mono text-muted-foreground/50"
+              className="absolute font-mono text-muted-foreground/50 text-nowrap"
               style={{
                 x: yCoordXSpring,
                 y: yCoordYSpring,
               }}
             >
-              {Math.round(smoothPos.y)}px
+              <NumberFlow
+                value={Math.round(smoothPos.y)}
+                transformTiming={{ duration: 350 }}
+              />
+              px
             </motion.span>
 
             {/* name + list */}
