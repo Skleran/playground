@@ -21,8 +21,7 @@ export default function Page() {
           {Array.from({ length: 10 }, (_, i) => (
             <section key={i} className="space-y-4">
               <h2 className="text-2xl font-semibold">
-                This is the {i + 1}. Section, This is the {i + 1}. SectionThis
-                is the {i + 1}. Section
+                This is the {i + 1}. section
               </h2>
               <p className="text-muted-foreground">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
