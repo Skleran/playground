@@ -1,4 +1,4 @@
-import ComponentWrapper from "@/components/custom/component-wrapper";
+// import ComponentWrapper from "@/components/custom/component-wrapper";
 import {
   SideNavigation,
   TOCContent,

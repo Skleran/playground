@@ -21,6 +21,12 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
+            <Link href="/components/table-of-contents-alt">
+              <HomeCard className="flex items-center justify-center font-medium">
+                Table of Contents Alt
+              </HomeCard>{" "}
+            </Link>
+
             <Link href="/components/table-of-contents">
               <HomeCard className="flex items-center justify-center font-medium">
                 Table of Contents
