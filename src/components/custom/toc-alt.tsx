@@ -4,12 +4,6 @@ import NumberFlow from "@number-flow/react";
 import React, { useState, useEffect, useRef } from "react";
 import { ProgressiveBlur } from "../ui/progressive-blur";
 
-const easingFunctions = {
-  powerIn: "cubic-bezier(0.25, 0, 1, 1)",
-  powerOut: "cubic-bezier(0, 0, 0.25, 1)",
-  powerInOut: "cubic-bezier(0.25, 0, 0.25, 1)",
-};
-
 interface HeaderItem {
   id: string;
   text: string;
@@ -149,7 +143,7 @@ export const ScrollProgressTracker: React.FC<ScrollProgressTrackerProps> = ({
     <>
       {/* popover */}
       <div
-        className={`fixed bottom-12 bg-accent left-1/2 -translate-x-1/2 z-40 flex flex-col-reverse rounded-3xl overflow-hidden transform-gpu transition-all duration-300`}
+        className={`fixed bottom-12 bg-accent left-1/2 -translate-x-1/2 z-40 flex flex-col-reverse rounded-3xl overflow-hidden transition-all duration-300`}
         style={{
           width: isOpen ? `clamp(1rem,90vw,350px)` : "190px",
           height: isOpen ? `clamp(1rem,${contentSize.height}px,400px)` : "44px",

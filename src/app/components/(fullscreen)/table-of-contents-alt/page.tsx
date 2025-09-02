@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] mx-auto transition-all duration-400 ease-out max-w-2xl">
       <div className="text-2xl m-auto min-h-30">
-        <span>This is my navbar</span>
+        {/* <span>This is my navbar</span> */}
       </div>
       <ScrollProgressTracker>
         <div className="mx-auto p-6 space-y-8">

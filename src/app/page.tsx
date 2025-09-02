@@ -9,7 +9,7 @@ export default function Home() {
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-18 sm:py-22 text-neutral-800 dark:text-neutral-100">
       <main>
         <div className="text-[22px] font-medium tracking-tight text-primary w-full pb-3 flex flex-row justify-between">
-          <h1>Hey👋, I'm Erdem</h1>
+          <h1>Hey, I'm Erdem</h1>
           <ChangeThemeTabs animationKey="theme" key={"theme"} />
         </div>
         <div className="text-neutral-400">
