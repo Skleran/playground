@@ -249,7 +249,7 @@ export const ScrollProgressTracker: React.FC<ScrollProgressTrackerProps> = ({
         }}
       >
         <div className="flex items-center gap-2 px-2 pr-1 w-full">
-          {/* progress bar icon */}
+          {/* toggleable progress bars */}
           <div
             className="cursor-pointer flex items-center justify-center"
             onClick={(e) => {
