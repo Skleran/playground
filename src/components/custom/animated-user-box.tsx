@@ -1,6 +1,6 @@
 "use client";
 
-import { UserRound, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import { easeOut, motion, Variants, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -131,8 +131,8 @@ export default function UserBox() {
 
   const boxVariants: Variants = {
     initial: {
-      width: "28px",
-      height: "28px",
+      width: "150px",
+      height: "250px",
       zIndex: -1,
       borderRadius: "9px",
       padding: "0px",
@@ -140,8 +140,8 @@ export default function UserBox() {
       opacity: 0,
     },
     expanded: {
-      width: "270px",
-      height: "250px",
+      width: "200px",
+      height: "300px",
       zIndex: 3,
       borderRadius: "20px",
       padding: "4px",
@@ -151,8 +151,8 @@ export default function UserBox() {
 
   const innerBoxVariants: Variants = {
     initial: {
-      scale: 0.3,
-      y: "-15px",
+      scale: 0.9,
+      y: "15px",
       filter: "blur(5px)",
     },
     expanded: {
@@ -262,12 +262,14 @@ export default function UserBox() {
         createPortal(
           <div
             ref={containerRef}
-            className="absolute w-fit h-fit flex items-baseline justify-end z-50 translate-x-[40px] translate-y-[0px]"
-            style={{
-              position: "absolute",
-              top: toolboxPosition.top,
-              left: toolboxPosition.left,
-            }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex items-baseline justify-end z-10"
+            style={
+              {
+                // position: "absolute",
+                // top: toolboxPosition.top,
+                // left: toolboxPosition.left,
+              }
+            }
             role="menu"
             aria-label="User options"
           >
@@ -281,7 +283,7 @@ export default function UserBox() {
                   setShouldRender(false);
                 }
               }}
-              className={`absolute top-0 right-0 bg-card z-auto ${
+              className={` bg-card z-auto ${
                 isExpanded ? "border" : "border-transparent"
               }`}
             >
@@ -313,7 +315,7 @@ export default function UserBox() {
                   <p className="text-sm leading-4">John Doe</p>
                 </div>
                 <div className="flex gap-3 items-center text-center">
-                  <p className="leading-0">{t("Navbar.lbl_layout_selector")}</p>
+                  <p className="leading-0"></p>
                   {/* <ListLayoutSelector /> */}
                 </div>
 
