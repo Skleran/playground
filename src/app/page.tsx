@@ -21,6 +21,12 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
+            <Link href="/components/animated-navbar">
+              <HomeCard className="flex items-center justify-center font-medium">
+                Animated Navbar
+              </HomeCard>{" "}
+            </Link>
+
             <Link href="/components/hold-to-action-button">
               <HomeCard className="flex items-center justify-center font-medium">
                 Hold to Action Button
