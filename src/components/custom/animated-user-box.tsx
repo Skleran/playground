@@ -172,7 +172,7 @@ export default function UserBox() {
   };
 
   const transition: Transition = {
-    duration: 0.3,
+    duration: 0.3, // useless since transition type is spring
     type: "spring",
     stiffness: 50,
     ease: easeOut,
