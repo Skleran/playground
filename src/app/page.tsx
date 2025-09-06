@@ -21,6 +21,15 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
+            <Link href="/components/squircles">
+              <HomeCard className="flex items-center gap-3 justify-center font-medium">
+                Squircle UI Elements
+                <span className="bg-[#fcf4db] dark:bg-yellow-600/20 px-2 py-1 text-xs rounded-2xl text-[#e6961f] dark:text-yellow-500">
+                  Experimental
+                </span>
+              </HomeCard>{" "}
+            </Link>
+
             <Link href="/components/animated-glass-navbar">
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
                 Animated Glass Navbar

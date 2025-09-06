@@ -5,6 +5,7 @@ import "./globals.css";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SquircleNoScript } from "@squircle-js/react";
 
 const space_mono = Space_Mono({
   variable: "--font-space-mono",
@@ -129,6 +130,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <SquircleNoScript />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>

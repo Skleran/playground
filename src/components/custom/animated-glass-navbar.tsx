@@ -71,11 +71,13 @@ const Navbar = () => {
 
   return (
     <motion.div
-      className={`max-w-[95vw] sticky top-0 z-10 flex min-h-16 rounded-full items-center sm:flex sm:justify-between transition-transform duration-300 ${
-        visible
-          ? "translate-y-0 scale-100"
-          : "-translate-y-[calc(100%+12px)] scale-85"
-      }`}
+      className={`max-w-[95vw] sticky top-0 z-10 flex min-h-16 rounded-full items-center sm:flex sm:justify-between transition-transform duration-300 `}
+      //   ${
+      //   visible
+      //     ? "translate-y-0 scale-100"
+      //     : "-translate-y-[calc(100%+12px)] scale-85"
+      // }
+
       initial={initialRender ? { width: "1200px" } : {}}
       animate={{
         width: isAtTop ? "1200px" : "800px",
