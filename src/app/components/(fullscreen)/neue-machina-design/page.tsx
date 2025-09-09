@@ -9,7 +9,7 @@ export default function Page() {
   const { theme } = useTheme();
 
   return (
-    <ComponentWrapper>
+    <ComponentWrapper description={<div className="h-screen"></div>}>
       <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] transition-all duration-400 ease-out max-w-[1400px] mx-auto p-6 grid grid-cols-12 grid-rows-12 font-machina-inktrap overflow-hidden">
         {/* top text */}
         <div className="col-start-1 col-span-12 grid grid-cols-3 grid-rows-1 text-sm font-light tracking-wider overflow-hidden">
@@ -70,7 +70,7 @@ export default function Page() {
             }
             fill
             alt="Phantom image"
-            className="object-cover -z-1"
+            className="object-cover"
           />
           <span className="lg:hidden absoulte flex flex-col justify-between h-full">
             <span className="lg:hidden absoulte flex flex-col gap-1.5 lg:items-end max-lg:scale-85 max-lg:-translate-x-2.5 mt-2.5 z-10">
@@ -99,7 +99,7 @@ export default function Page() {
                 </span>
               </span>
             </span>
-            <span className="p-4 px-4.5">
+            <span className="p-4 px-4.5 z-10">
               <p>
                 Neue Machina is a powerful and meticulously crafted typeface
                 boasting monospace/geometric type features as well as apparent

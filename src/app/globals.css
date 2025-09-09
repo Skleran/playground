@@ -252,7 +252,7 @@
   height: 2px;
   /* background-color: #fff; */
   border-radius: 2px;
-  transform: scale(calc(180px / 18px), 5);
+  /* transform: scale(calc(180px / 18px), 5); */
   transform-origin: left center;
   will-change: transform;
   transition: transform 0.25s ease, opacity 0.25s ease,

@@ -1,12 +1,45 @@
 "use client";
 
 import { motion, animate, AnimationPlaybackControls } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
-export default function ComponentWrapper({
+// basic mobile version - no animations
+function ComponentWrapperBasic({
   children,
+  description,
 }: {
   children: React.ReactNode;
+  description?: React.ReactNode;
+}) {
+  return (
+    <div className="relative h-[100svh] overflow-y-scroll">
+      <div className="h-[250px] rounded-b-2xl flex items-center justify-center text-muted-foreground">
+        <p>⬆ Top navigation / info</p>
+      </div>
+
+      <div className="relative shadow-xl overflow-hidden">{children}</div>
+
+      <div className="h-[250px] mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground">
+        <div className="text-center px-4">
+          <p className="mb-2">⬇ Next / Prev / Home</p>
+          {description && (
+            <div className="text-sm text-muted-foreground/80 max-w-md">
+              {description}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// animated desktop version
+function ComponentWrapperAnimated({
+  children,
+  description,
+}: {
+  children: React.ReactNode;
+  description?: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isSnapping = useRef(false);
@@ -14,63 +47,103 @@ export default function ComponentWrapper({
   const rafRef = useRef<number | null>(null);
   const topBottomSectionHeight = 250;
 
+  const dimensionsCache = useRef({
+    containerHeight: 0,
+    topHeight: 0,
+    middleHeight: 0,
+    bottomHeight: 0,
+    lastUpdate: 0,
+  });
+
   const [topVisibility, setTopVisibility] = useState(0);
   const [bottomVisibility, setBottomVisibility] = useState(0);
+
+  const getDimensions = useCallback(() => {
+    const container = ref.current;
+    if (!container) return dimensionsCache.current;
+
+    const now = performance.now();
+    if (now - dimensionsCache.current.lastUpdate < 100) {
+      return dimensionsCache.current;
+    }
+
+    const topSection = container.children[0] as HTMLElement;
+    const middleSection = container.children[1] as HTMLElement;
+    const bottomSection = container.children[2] as HTMLElement;
+
+    dimensionsCache.current = {
+      containerHeight: container.clientHeight,
+      topHeight: topSection.offsetHeight,
+      middleHeight: middleSection.offsetHeight,
+      bottomHeight: bottomSection.offsetHeight,
+      lastUpdate: now,
+    };
+
+    return dimensionsCache.current;
+  }, []);
+
+  const updateEffectIntensities = useCallback(
+    (scrollTop: number) => {
+      const { containerHeight, topHeight, middleHeight, bottomHeight } =
+        getDimensions();
+
+      // top effect
+      const topEffectIntensity =
+        scrollTop <= topBottomSectionHeight
+          ? Math.max(
+              0,
+              Math.min(
+                1,
+                (topBottomSectionHeight - scrollTop) / topBottomSectionHeight
+              )
+            )
+          : 0;
+
+      // bottom effect
+      const totalScrollableHeight =
+        topHeight + middleHeight + bottomHeight - containerHeight;
+      const distanceFromBottom = totalScrollableHeight - scrollTop;
+      const bottomEffectIntensity =
+        distanceFromBottom <= topBottomSectionHeight
+          ? Math.max(
+              0,
+              Math.min(
+                1,
+                (topBottomSectionHeight - distanceFromBottom) /
+                  topBottomSectionHeight
+              )
+            )
+          : 0;
+
+      setTopVisibility((prev) =>
+        Math.abs(prev - topEffectIntensity) > 0.015 ? topEffectIntensity : prev
+      );
+      setBottomVisibility((prev) =>
+        Math.abs(prev - bottomEffectIntensity) > 0.015
+          ? bottomEffectIntensity
+          : prev
+      );
+    },
+    [getDimensions, topBottomSectionHeight]
+  );
+
+  const scheduleUpdateEffectIntensities = useCallback(
+    (scrollTop: number) => {
+      if (rafRef.current != null) return;
+
+      rafRef.current = requestAnimationFrame(() => {
+        updateEffectIntensities(scrollTop);
+        rafRef.current = null;
+      });
+    },
+    [updateEffectIntensities]
+  );
 
   useEffect(() => {
     const container = ref.current;
     if (!container) return;
 
     let debounceTimeout: NodeJS.Timeout | null = null;
-
-    const scheduleUpdateEffectIntensities = (scrollTop: number) => {
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(() => {
-        updateEffectIntensities(scrollTop);
-        rafRef.current = null;
-      });
-    };
-
-    const updateEffectIntensities = (scrollTop: number) => {
-      const containerHeight = container.clientHeight;
-      const topSection = container.children[0] as HTMLElement;
-      const middleSection = container.children[1] as HTMLElement;
-      const bottomSection = container.children[2] as HTMLElement;
-
-      const topHeight = topSection.offsetHeight;
-      const middleHeight = middleSection.offsetHeight;
-      const bottomHeight = bottomSection.offsetHeight;
-
-      // top effect
-      let topEffectIntensity = 0;
-      if (scrollTop <= topBottomSectionHeight) {
-        topEffectIntensity =
-          (topBottomSectionHeight - scrollTop) / topBottomSectionHeight;
-        topEffectIntensity = Math.max(0, Math.min(1, topEffectIntensity));
-      }
-
-      // bottom effect
-      const totalScrollableHeight =
-        topHeight + middleHeight + bottomHeight - containerHeight;
-      const distanceFromBottom = totalScrollableHeight - scrollTop;
-      let bottomEffectIntensity = 0;
-      if (distanceFromBottom <= topBottomSectionHeight) {
-        bottomEffectIntensity =
-          (topBottomSectionHeight - distanceFromBottom) /
-          topBottomSectionHeight;
-        bottomEffectIntensity = Math.max(0, Math.min(1, bottomEffectIntensity));
-      }
-
-      // update on change
-      setTopVisibility((prev) =>
-        Math.abs(prev - topEffectIntensity) > 0.01 ? topEffectIntensity : prev
-      );
-      setBottomVisibility((prev) =>
-        Math.abs(prev - bottomEffectIntensity) > 0.01
-          ? bottomEffectIntensity
-          : prev
-      );
-    };
 
     // page entry animation
     animationRef.current = animate(0, topBottomSectionHeight, {
@@ -108,7 +181,6 @@ export default function ComponentWrapper({
       }
     };
 
-    // core scroll handler
     const handleScroll = () => {
       const scrollTop = container.scrollTop;
 
@@ -122,27 +194,20 @@ export default function ComponentWrapper({
 
       if (debounceTimeout) clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
-        const containerHeight = container.clientHeight;
-        const topSection = container.children[0] as HTMLElement;
-        const middleSection = container.children[1] as HTMLElement;
-        const bottomSection = container.children[2] as HTMLElement;
-
-        const topHeight = topSection.offsetHeight;
-        const middleHeight = middleSection.offsetHeight;
-        const bottomHeight = bottomSection.offsetHeight;
+        const { containerHeight, topHeight, middleHeight, bottomHeight } =
+          getDimensions();
 
         // top zone
         if (scrollTop > 0 && scrollTop < topHeight) {
           const ratio = scrollTop / topHeight;
-          if (ratio > 0 && ratio < 1) {
+          if (ratio > 0.05 && ratio < 0.95) {
             isSnapping.current = true;
-            // start animation and store ref
             cancelRunningAnimation();
             animationRef.current = animate(
-              container.scrollTop,
+              scrollTop,
               ratio > 0.5 ? topHeight : 0,
               {
-                duration: 0.6,
+                duration: 0.5,
                 ease: [0.25, 0.1, 0.25, 1],
                 onUpdate: (v) => {
                   container.scrollTop = v;
@@ -163,16 +228,16 @@ export default function ComponentWrapper({
         if (scrollTop > bottomStart) {
           const bottomVisible = scrollTop - bottomStart;
           const ratio = bottomVisible / bottomHeight;
-          if (ratio > 0 && ratio < 1) {
+          if (ratio > 0.05 && ratio < 0.95) {
             isSnapping.current = true;
             cancelRunningAnimation();
             animationRef.current = animate(
-              container.scrollTop,
+              scrollTop,
               ratio > 0.5
                 ? topHeight + middleHeight + bottomHeight - containerHeight
                 : topHeight + middleHeight - containerHeight,
               {
-                duration: 0.6,
+                duration: 0.5,
                 ease: [0.25, 0.1, 0.25, 1],
                 onUpdate: (v) => {
                   container.scrollTop = v;
@@ -187,7 +252,7 @@ export default function ComponentWrapper({
           }
           return;
         }
-      }, 120);
+      }, 80);
     };
 
     // listen for user scroll
@@ -200,11 +265,17 @@ export default function ComponentWrapper({
       passive: true,
     });
 
+    const handleResize = () => {
+      dimensionsCache.current.lastUpdate = 0;
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
+
     return () => {
       container.removeEventListener("scroll", handleScroll);
       container.removeEventListener("wheel", onUserInterrupt);
       container.removeEventListener("touchstart", onUserInterrupt);
       container.removeEventListener("pointerdown", onUserInterrupt);
+      window.removeEventListener("resize", handleResize);
       if (debounceTimeout) clearTimeout(debounceTimeout);
       if (animationRef.current) {
         try {
@@ -214,31 +285,24 @@ export default function ComponentWrapper({
       }
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [scheduleUpdateEffectIntensities, getDimensions, topBottomSectionHeight]);
 
-  // visual effect values
   const effectIntensity = Math.max(topVisibility, bottomVisibility);
-  const scale = 1 - effectIntensity * 0.05;
   const borderRadius = effectIntensity * 32;
   const brightness = 1 - effectIntensity * 0.15;
 
   return (
-    <div
-      ref={ref}
-      className="relative bg-background h-[100svh] overflow-y-scroll"
-    >
+    <div ref={ref} className="relative h-[100svh] overflow-y-scroll">
       <motion.div
-        className="h-[250px] bg-accent rounded-b-2xl flex items-center justify-center text-muted-foreground"
+        className="h-[250px] rounded-b-2xl flex items-center justify-center text-muted-foreground"
         animate={{
-          scale: topVisibility * 0.1 + 0.9,
           borderRadius: 32 - topVisibility * 32,
           opacity: topVisibility * 0.7 + 0.3,
-          y: (1 - topVisibility) * -20,
           boxShadow: topVisibility
             ? `0 10px 30px rgba(0,0,0,${topVisibility * 0.15})`
-            : undefined,
+            : "0 0px 0px rgba(0,0,0,0)",
         }}
-        transition={{ duration: 0.18, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
       >
         <p>
           ⬆ Top navigation / info (
@@ -252,36 +316,88 @@ export default function ComponentWrapper({
       <motion.div
         className="relative shadow-xl overflow-hidden"
         animate={{
-          scale,
           borderRadius: `${borderRadius}px`,
           filter: `brightness(${brightness})`,
         }}
-        transition={{ duration: 0.18, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
       >
         {children}
       </motion.div>
 
       <motion.div
-        className="h-[250px] bg-secondary mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground"
+        className="h-[250px] mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground"
         animate={{
-          scale: bottomVisibility * 0.1 + 0.9,
-          // borderRadius: 32 - bottomVisibility * 32,
           opacity: bottomVisibility * 0.7 + 0.3,
-          y: (1 - bottomVisibility) * 20,
           boxShadow: bottomVisibility
             ? `0 -10px 30px rgba(0,0,0,${bottomVisibility * 0.15})`
-            : undefined,
+            : "0 0px 0px rgba(0,0,0,0)",
         }}
-        transition={{ duration: 0.18, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
       >
-        <p>
-          ⬇ Next / Prev / Home (
-          <span className="font-machina-inktrap text-special-green">
-            {Math.round(bottomVisibility * 100)}%
-          </span>
-          )
-        </p>
+        <div className="text-center px-4">
+          <p className="mb-2">
+            ⬇ Next / Prev / Home (
+            <span className="font-machina-inktrap text-special-green">
+              {Math.round(bottomVisibility * 100)}%
+            </span>
+            )
+          </p>
+          {description && (
+            <motion.div
+              className="text-sm text-muted-foreground/80 max-w-md"
+              animate={{
+                opacity: bottomVisibility > 0.3 ? 1 : 0.6,
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              {description}
+            </motion.div>
+          )}
+        </div>
       </motion.div>
     </div>
+  );
+}
+
+// detect screen size
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    checkIsDesktop();
+
+    window.addEventListener("resize", checkIsDesktop);
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, []);
+
+  return isDesktop;
+}
+
+// main wrapper component that chooses between versions
+export default function ComponentWrapper({
+  children,
+  description,
+}: {
+  children: React.ReactNode;
+  description?: React.ReactNode;
+}) {
+  const isDesktop = useIsDesktop();
+
+  if (isDesktop) {
+    return (
+      <ComponentWrapperAnimated description={description}>
+        {children}
+      </ComponentWrapperAnimated>
+    );
+  }
+
+  return (
+    <ComponentWrapperBasic description={description}>
+      {children}
+    </ComponentWrapperBasic>
   );
 }
