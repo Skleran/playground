@@ -1,5 +1,6 @@
 // import Image from "next/image";
 
+import ExperimentalTag from "@/components/custom/experimental-tag";
 import ChangeThemeTabs from "@/components/custom/theme-selector";
 import { HomeCard } from "@/components/ui/home-card";
 import Link from "next/link";
@@ -21,6 +22,13 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
+            <Link href="/components/view-transitions">
+              <HomeCard className="flex items-center gap-3 justify-center font-medium">
+                View Transitions
+                <ExperimentalTag />
+              </HomeCard>{" "}
+            </Link>
+
             <Link href="/components/glowing-video">
               <HomeCard className="flex items-center justify-center font-medium">
                 Glowing Video
@@ -30,18 +38,14 @@ export default function Home() {
             <Link href="/components/squircles">
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
                 Squircle UI Elements
-                <span className="bg-[#fcf4db] dark:bg-yellow-600/20 px-2 py-1 text-xs rounded-2xl text-[#e6961f] dark:text-yellow-500">
-                  Experimental
-                </span>
+                <ExperimentalTag />
               </HomeCard>{" "}
             </Link>
 
             <Link href="/components/animated-glass-navbar">
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
                 Animated Glass Navbar
-                <span className="bg-[#fcf4db] dark:bg-yellow-600/20 px-2 py-1 text-xs rounded-2xl text-[#e6961f] dark:text-yellow-500">
-                  Experimental
-                </span>
+                <ExperimentalTag />
               </HomeCard>{" "}
             </Link>
 

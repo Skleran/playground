@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SquircleNoScript } from "@squircle-js/react";
+import { ViewTransitions } from "next-view-transitions";
 
 const space_mono = Space_Mono({
   variable: "--font-space-mono",
@@ -119,22 +120,24 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${space_mono.variable} ${inter.className} ${neueMachina.variable} ${neueMachinaInktrap.variable} ${neueHaasDisplay.variable} antialiased min-h-[100svh] leading-relaxed`}
-      >
-        <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <SquircleNoScript />
-            {children}
-          </ThemeProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${space_mono.variable} ${inter.className} ${neueMachina.variable} ${neueMachinaInktrap.variable} ${neueHaasDisplay.variable} antialiased min-h-[100svh] leading-relaxed`}
+        >
+          <NextIntlClientProvider messages={messages}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <SquircleNoScript />
+              {children}
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
