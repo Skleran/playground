@@ -263,23 +263,55 @@
   navigation: auto;
 }
 
-/* Target the shared video transition */
-::view-transition-group(shared-video) {
-  animation-duration: 600ms;
-  animation-timing-function: cubic-bezier(
-    0.22,
-    1,
-    0.36,
-    1
-  ); /* smooth ease-out */
+/* ::view-transition-group(*) {
+  animation-duration: 0.5s;
+} */
+
+::view-transition-new(root),
+::view-transition-old(root) {
+  animation: none;
 }
 
-/* Remove the default cross-fade */
-::view-transition-old(shared-video),
-::view-transition-new(shared-video) {
-  animation: none;
-  mix-blend-mode: normal;
-  height: 100%;
-  overflow: clip;
-  border-radius: 1rem;
+/* Animate the new page in */
+::view-transition-new(root) {
+  animation: scaleUp 0.55s ease forwards;
+}
+
+/* Animate the old page out */
+::view-transition-old(root) {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+::view-transition-old(project-content-0),
+::view-transition-old(project-content-1),
+::view-transition-old(project-content-2) {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+::view-transition-new(project-content-0),
+::view-transition-new(project-content-1),
+::view-transition-new(project-content-2) {
+  animation: scaleUp 0.55s ease forwards;
 }

@@ -1,11 +1,15 @@
+"use client";
+
 // import Image from "next/image";
 
 import ExperimentalTag from "@/components/custom/experimental-tag";
 import ChangeThemeTabs from "@/components/custom/theme-selector";
 import { HomeCard } from "@/components/ui/home-card";
+import { useTransitionRouter } from "next-view-transitions";
 import Link from "next/link";
 
 export default function Home() {
+  const router = useTransitionRouter();
   return (
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-18 sm:py-22 text-neutral-800 dark:text-neutral-100">
       <main>
@@ -22,18 +26,26 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
-            <Link href="/components/view-transitions">
+            <button
+              onClick={() => {
+                router.push("/components/view-transitions");
+              }}
+            >
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
                 View Transitions
                 <ExperimentalTag />
               </HomeCard>{" "}
-            </Link>
+            </button>
 
-            <Link href="/components/glowing-video">
+            <button
+              onClick={() => {
+                router.push(`/components/glowing-video`);
+              }}
+            >
               <HomeCard className="flex items-center justify-center font-medium">
                 Glowing Video
               </HomeCard>{" "}
-            </Link>
+            </button>
 
             <Link href="/components/squircles">
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
