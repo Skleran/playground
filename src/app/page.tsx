@@ -4,17 +4,31 @@
 
 import ExperimentalTag from "@/components/custom/experimental-tag";
 import ChangeThemeTabs from "@/components/custom/theme-selector";
+import Link, { useScrollRestoration } from "@/components/transition-link";
 import { HomeCard } from "@/components/ui/home-card";
-import { useTransitionRouter } from "next-view-transitions";
-import Link from "next/link";
+// import { useTransitionRouter } from "next-view-transitions";
+// import Link from "next/link";
+// import { Link } from "next-view-transitions";
 
 export default function Home() {
-  const router = useTransitionRouter();
+  useScrollRestoration();
+
   return (
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-18 sm:py-22 text-neutral-800 dark:text-neutral-100">
       <main>
         <div className="text-[22px] font-medium tracking-tight text-primary w-full pb-3 flex flex-row justify-between">
-          <h1>Hey, I'm Erdem</h1>
+          <h1>
+            Hey, I'm{" "}
+            <span style={{ viewTransitionName: "name" }} className="relative">
+              {" "}
+              <div
+                role="none"
+                className="invisible absolute top-1/2 right-full"
+                style={{ viewTransitionName: "back-arrow" }}
+              />
+              Erdem
+            </span>
+          </h1>
           <ChangeThemeTabs animationKey="theme" key={"theme"} />
         </div>
         <div className="text-neutral-400">
@@ -26,26 +40,25 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
-            <button
-              onClick={() => {
-                router.push("/components/view-transitions");
-              }}
-            >
+            <Link href={"/components/view-transitions"}>
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
                 View Transitions
                 <ExperimentalTag />
               </HomeCard>{" "}
-            </button>
+            </Link>
 
-            <button
-              onClick={() => {
-                router.push(`/components/glowing-video`);
-              }}
+            <Link
+              href={"/components/glowing-video"}
+              className="relative flex w-full items-center justify-center"
             >
-              <HomeCard className="flex items-center justify-center font-medium">
+              <span
+                className="absolute w-full h-full"
+                style={{ viewTransitionName: "glowing-video" }}
+              />
+              <HomeCard className="w-full flex items-center justify-center font-medium">
                 Glowing Video
               </HomeCard>{" "}
-            </button>
+            </Link>
 
             <Link href="/components/squircles">
               <HomeCard className="flex items-center gap-3 justify-center font-medium">
@@ -62,7 +75,10 @@ export default function Home() {
             </Link>
 
             <Link href="/components/animated-user-box">
-              <HomeCard className="flex items-center justify-center font-medium">
+              <HomeCard
+                className="flex items-center justify-center font-medium"
+                style={{ viewTransitionName: "component-wrapper" }}
+              >
                 Animated User Box
               </HomeCard>{" "}
             </Link>

@@ -315,3 +315,11 @@
 ::view-transition-new(project-content-2) {
   animation: scaleUp 0.55s ease forwards;
 }
+
+::view-transition-old(name) {
+  animation: fadeOut 0.25s ease-out forwards;
+}
+
+::view-transition-new(name) {
+  animation: scaleUp 0.25s ease-out forwards;
+}

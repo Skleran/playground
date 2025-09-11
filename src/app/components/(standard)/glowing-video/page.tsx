@@ -51,6 +51,7 @@ export default function Page() {
         loop
         muted
         playsInline
+        style={{ viewTransitionName: "glowing-video" }}
         className="rounded-xl shadow-lg relative z-10 max-w-full w-[700px]"
       />
     </div>
