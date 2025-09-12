@@ -2,11 +2,12 @@
 
 // import Image from "next/image";
 
-import ExperimentalTag from "@/components/custom/experimental-tag";
+// import ExperimentalTag from "@/components/custom/experimental-tag";
 import ChangeThemeTabs from "@/components/custom/theme-selector";
 import Link, { useScrollRestoration } from "@/components/transition-link";
 import { HomeCard } from "@/components/ui/home-card";
 import { useViewTransition } from "@/utils/useViewTransitionActive";
+import ProjectCard, { ProjectCardProps } from "@/components/ui/project-card";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
@@ -15,13 +16,91 @@ export default function Home() {
   useScrollRestoration();
   const { activeProject, setActiveProject } = useViewTransition();
 
+  const projects: ProjectCardProps[] = [
+    {
+      name: "View Transitions",
+      subdomain: "view-transitions",
+      isExperimental: true,
+    },
+    {
+      name: "Glowing Video",
+      subdomain: "glowing-video",
+      isExperimental: false,
+    },
+    {
+      name: "Squircle UI Elements",
+      subdomain: "squircles",
+      isExperimental: true,
+    },
+    {
+      name: "Animated Glass Navbar",
+      subdomain: "animated-glass-navbar",
+      isExperimental: true,
+    },
+    {
+      name: "Animated User Box",
+      subdomain: "animated-user-box",
+      isExperimental: false,
+    },
+    {
+      name: "Animated Navbar",
+      subdomain: "animated-navbar",
+      isExperimental: false,
+    },
+    {
+      name: "Hold To Action Button",
+      subdomain: "hold-to-action-button",
+      isExperimental: false,
+    },
+    {
+      name: "The End is Never",
+      subdomain: "the-end-is-never",
+      isExperimental: false,
+    },
+    {
+      name: "Table of Contents Alt",
+      subdomain: "table-of-contents-alt",
+      isExperimental: false,
+    },
+    {
+      name: "Table of Contents",
+      subdomain: "table-of-contents",
+      isExperimental: false,
+    },
+    {
+      name: "Neue Haas Design",
+      subdomain: "neue-haas-design",
+      isExperimental: false,
+    },
+    {
+      name: "Neue Machina Design",
+      subdomain: "neue-machina-design",
+      isExperimental: false,
+    },
+    {
+      name: "Cursor Tracking Menu",
+      subdomain: "cursor-menu",
+      isExperimental: false,
+    },
+    {
+      name: "Component Wrapper",
+      subdomain: "component-wrapper",
+      isExperimental: false,
+    },
+  ];
+
   return (
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-18 sm:py-22 text-neutral-800 dark:text-neutral-100">
       <main>
         <div className="text-[22px] font-medium tracking-tight text-primary w-full pb-3 flex flex-row justify-between">
           <h1>
             Hey, I'm{" "}
-            <span style={{ viewTransitionName: "name" }} className="relative">
+            <span
+              style={
+                activeProject === null ? {} : { viewTransitionName: "name" }
+              }
+              className="relative"
+            >
               {" "}
               <div
                 role="none"
@@ -42,153 +121,14 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">Projects</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
-            <Link href={"/components/view-transitions"}>
-              <HomeCard className="flex items-center gap-3 justify-center font-medium">
-                View Transitions
-                <ExperimentalTag />
-              </HomeCard>{" "}
-            </Link>
-
-            <Link
-              href={"/components/glowing-video"}
-              className="relative flex w-full items-center justify-center"
-            >
-              <span
-                className="absolute w-full h-full"
-                style={{ viewTransitionName: "glowing-video" }}
+            {projects.map((project, i) => (
+              <ProjectCard
+                key={i}
+                name={project.name}
+                subdomain={project.subdomain}
+                isExperimental={project.isExperimental}
               />
-              <HomeCard className="w-full flex items-center justify-center font-medium">
-                Glowing Video
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/squircles">
-              <HomeCard className="flex items-center gap-3 justify-center font-medium">
-                Squircle UI Elements
-                <ExperimentalTag />
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/animated-glass-navbar">
-              <HomeCard className="flex items-center gap-3 justify-center font-medium">
-                Animated Glass Navbar
-                <ExperimentalTag />
-              </HomeCard>{" "}
-            </Link>
-
-            <Link
-              href="/components/animated-user-box"
-              className="relative"
-              onClick={() => setActiveProject("animated-user-box")}
-            >
-              <div
-                className="absolute top-3 w-full"
-                style={
-                  activeProject === "animated-user-box"
-                    ? { viewTransitionName: "component-header" }
-                    : {}
-                }
-              />
-              <div
-                className="absolute bottom-3 w-full"
-                style={
-                  activeProject === "animated-user-box"
-                    ? { viewTransitionName: "component-desc" }
-                    : {}
-                }
-              />
-              <HomeCard
-                className="relative flex items-center justify-center font-medium"
-                style={
-                  activeProject === "animated-user-box"
-                    ? { viewTransitionName: "component-wrapper" }
-                    : {}
-                }
-              >
-                <span>Animated User Box</span>
-              </HomeCard>
-            </Link>
-
-            <Link href="/components/animated-navbar">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Animated Navbar
-              </HomeCard>{" "}
-            </Link>
-
-            <Link
-              href="/components/hold-to-action-button"
-              className="relative"
-              onClick={() => setActiveProject("hold-to-action-button")}
-            >
-              <div
-                className="absolute top-3 w-full"
-                style={
-                  activeProject === "hold-to-action-button"
-                    ? { viewTransitionName: "component-header" }
-                    : {}
-                }
-              />
-              <div
-                className="absolute bottom-3 w-full"
-                style={
-                  activeProject === "hold-to-action-button"
-                    ? { viewTransitionName: "component-desc" }
-                    : {}
-                }
-              />
-              <HomeCard
-                className="relative flex items-center justify-center font-medium bg-accent"
-                style={
-                  activeProject === "hold-to-action-button"
-                    ? { viewTransitionName: "component-wrapper" }
-                    : {}
-                }
-              >
-                <span>Hold To Action Button</span>
-              </HomeCard>
-            </Link>
-
-            <Link href="/components/the-end-is-never">
-              <HomeCard className="flex items-center justify-center font-medium">
-                The End is Never
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/table-of-contents-alt">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Table of Contents Alt
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/table-of-contents">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Table of Contents
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/neue-haas-design">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Neue Haas Design
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/neue-machina-design">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Neue Machina Design
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/cursor-menu">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Cursor Tracking Menu
-              </HomeCard>{" "}
-            </Link>
-
-            <Link href="/components/component-wrapper">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Component Wrapper
-              </HomeCard>
-            </Link>
+            ))}
           </div>
         </div>
         <div className="mt-26">

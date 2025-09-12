@@ -8,7 +8,7 @@ import React from "react";
 export default function Page() {
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[1280px] mx-auto p-6 pt-4 overflow-hidden">
-      <header className="max-xl:max-w-[652px] max-xl:mx-auto max-xl:mb-8 pt-12 xl:fixed xl:w-[270px] xl:flex justify-end">
+      <header className="max-xl:max-w-[652px] max-xl:mx-auto max-xl:mb-8 pt-6 xl:pt-12 xl:fixed xl:w-[270px] xl:flex justify-end">
         <nav>
           <Link href={"/"}>
             <div className="w-fit flex items-center gap-2 text-muted-foreground/85 hover:text-primary/85 transition-colors ease-out text-sm font-semibold">
@@ -34,7 +34,9 @@ export default function Page() {
               style={{ viewTransitionName: "component-header" }}
             >
               <div className="flex-1">
-                <h1 className="text-xl font-semibold">Title Of Component</h1>
+                <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+                  Title Of Component
+                </h1>
                 <div>
                   <span className="text-muted-foreground text-sm font-medium">
                     June 2025
@@ -59,20 +61,19 @@ export default function Page() {
             </div>
             <div
               style={{ viewTransitionName: "component-wrapper" }}
-              className="w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-accent ring-1 ring-border flex items-center justify-center overflow-hidden"
+              className="w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-accent dark:bg-card ring-1 ring-border flex items-center justify-center overflow-hidden"
             >
               <HoldToActionButton className="w-50" />
             </div>
           </header>
-          <div
+          <p
             style={{ viewTransitionName: "component-desc" }}
-            className="py-10"
+            className="py-10 text-primary/75 text-lg leading-8"
           >
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
-            totam earum omnis illum praesentium, doloribus ipsum veritatis nobis
-            impedit unde minus molestiae officia aliquid ea quaerat accusamus
-            voluptatibus autem in nostrum voluptatem ullam consequuntur magnam!
-          </div>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque
+            beatae id perferendis assumenda hic esse natus maxime repellendus
+            alias explicabo?
+          </p>
         </article>
       </main>
     </div>

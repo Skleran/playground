@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 type ViewTransitionContextType = {
   activeProject: string | null;
@@ -17,22 +18,30 @@ export function ViewTransitionProvider({
   children: React.ReactNode;
 }) {
   const [activeProject, setActiveProject] = useState<string | null>(null);
+  const pathname = usePathname();
 
+  // Reset after a view transition ends
   useEffect(() => {
-    // Listen for the end of a view transition
     const handleTransitionEnd = () => {
-      // Delay just a tick to make sure animations have fully completed
       requestAnimationFrame(() => {
-        setActiveProject(null);
+        if (pathname === "/") setActiveProject(null);
       });
     };
 
     document.addEventListener("viewtransitionend", handleTransitionEnd);
-
-    return () => {
+    return () =>
       document.removeEventListener("viewtransitionend", handleTransitionEnd);
-    };
-  }, []);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!activeProject || pathname !== "/") return;
+
+    const timeoutId = setTimeout(() => {
+      setActiveProject(null);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [activeProject, pathname]);
 
   return (
     <ViewTransitionContext.Provider value={{ activeProject, setActiveProject }}>
