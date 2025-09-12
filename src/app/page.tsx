@@ -6,12 +6,14 @@ import ExperimentalTag from "@/components/custom/experimental-tag";
 import ChangeThemeTabs from "@/components/custom/theme-selector";
 import Link, { useScrollRestoration } from "@/components/transition-link";
 import { HomeCard } from "@/components/ui/home-card";
+import { useViewTransition } from "@/utils/useViewTransitionActive";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
 
 export default function Home() {
   useScrollRestoration();
+  const { activeProject, setActiveProject } = useViewTransition();
 
   return (
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-18 sm:py-22 text-neutral-800 dark:text-neutral-100">
@@ -74,13 +76,37 @@ export default function Home() {
               </HomeCard>{" "}
             </Link>
 
-            <Link href="/components/animated-user-box">
+            <Link
+              href="/components/animated-user-box"
+              className="relative"
+              onClick={() => setActiveProject("animated-user-box")}
+            >
+              <div
+                className="absolute top-3 w-full"
+                style={
+                  activeProject === "animated-user-box"
+                    ? { viewTransitionName: "component-header" }
+                    : {}
+                }
+              />
+              <div
+                className="absolute bottom-3 w-full"
+                style={
+                  activeProject === "animated-user-box"
+                    ? { viewTransitionName: "component-desc" }
+                    : {}
+                }
+              />
               <HomeCard
-                className="flex items-center justify-center font-medium"
-                style={{ viewTransitionName: "component-wrapper" }}
+                className="relative flex items-center justify-center font-medium"
+                style={
+                  activeProject === "animated-user-box"
+                    ? { viewTransitionName: "component-wrapper" }
+                    : {}
+                }
               >
-                Animated User Box
-              </HomeCard>{" "}
+                <span>Animated User Box</span>
+              </HomeCard>
             </Link>
 
             <Link href="/components/animated-navbar">
@@ -89,10 +115,37 @@ export default function Home() {
               </HomeCard>{" "}
             </Link>
 
-            <Link href="/components/hold-to-action-button">
-              <HomeCard className="flex items-center justify-center font-medium">
-                Hold to Action Button
-              </HomeCard>{" "}
+            <Link
+              href="/components/hold-to-action-button"
+              className="relative"
+              onClick={() => setActiveProject("hold-to-action-button")}
+            >
+              <div
+                className="absolute top-3 w-full"
+                style={
+                  activeProject === "hold-to-action-button"
+                    ? { viewTransitionName: "component-header" }
+                    : {}
+                }
+              />
+              <div
+                className="absolute bottom-3 w-full"
+                style={
+                  activeProject === "hold-to-action-button"
+                    ? { viewTransitionName: "component-desc" }
+                    : {}
+                }
+              />
+              <HomeCard
+                className="relative flex items-center justify-center font-medium bg-accent"
+                style={
+                  activeProject === "hold-to-action-button"
+                    ? { viewTransitionName: "component-wrapper" }
+                    : {}
+                }
+              >
+                <span>Hold To Action Button</span>
+              </HomeCard>
             </Link>
 
             <Link href="/components/the-end-is-never">

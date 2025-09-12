@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SquircleNoScript } from "@squircle-js/react";
 import { ViewTransitions } from "next-view-transitions";
+import { ViewTransitionProvider } from "@/utils/useViewTransitionActive";
 
 const space_mono = Space_Mono({
   variable: "--font-space-mono",
@@ -125,17 +126,19 @@ export default async function RootLayout({
         <body
           className={`${space_mono.variable} ${inter.className} ${neueMachina.variable} ${neueMachinaInktrap.variable} ${neueHaasDisplay.variable} antialiased min-h-[100svh] leading-relaxed`}
         >
-          <NextIntlClientProvider messages={messages}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <SquircleNoScript />
-              {children}
-            </ThemeProvider>
-          </NextIntlClientProvider>
+          <ViewTransitionProvider>
+            <NextIntlClientProvider messages={messages}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <SquircleNoScript />
+                {children}
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </ViewTransitionProvider>
         </body>
       </html>
     </ViewTransitions>

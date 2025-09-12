@@ -323,3 +323,8 @@
 ::view-transition-new(name) {
   animation: scaleUp 0.25s ease-out forwards;
 }
+
+::view-transition-group(component-wrapper) {
+  z-index: 10;
+  /* background-color: var(--primary-foreground); */
+}
