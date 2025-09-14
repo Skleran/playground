@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "../transition-link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../ui/button";
+import { Link } from "next-view-transitions";
 
 export default function ComponentWrapper({
   title,
@@ -18,21 +18,27 @@ export default function ComponentWrapper({
 }) {
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[1280px] mx-auto p-6 pt-4 overflow-hidden">
-      <header className="max-xl:max-w-[652px] max-xl:mx-auto max-xl:mb-8 pt-6 xl:pt-12 xl:fixed xl:w-[270px] xl:flex justify-end">
+      <header className="max-xl:max-w-[652px] max-xl:mx-auto max-xl:mb-5 pt-4 xl:pt-12 xl:fixed xl:w-[270px] xl:flex justify-end">
         <nav>
           <Link href={"/"}>
-            <div className="w-fit flex items-center gap-2 text-muted-foreground/85 hover:text-primary/85 transition-colors ease-out text-sm font-semibold">
-              <div style={{ viewTransitionName: "back-arrow" }}>
-                <ArrowLeft className="h-5.25 w-5" />
-              </div>
-              <div className="relative">
-                {" "}
-                <span style={{ viewTransitionName: "name" }}>Erdem</span>
-                {/* <span className="invisible absolute left-0 top-full whitespace-nowrap">
+            <Button
+              asChild
+              variant={"ghost"}
+              className="max-xl:-translate-x-4.5 xl:-translate-y-1.5"
+            >
+              <div className="w-fit flex items-center gap-2 text-muted-foreground/85 hover:text-primary/85 transition-colors ease-out text-sm font-semibold">
+                <div style={{ viewTransitionName: "back-arrow" }}>
+                  <ArrowLeft className="" />
+                </div>
+                <div className="relative">
+                  {" "}
+                  <span style={{ viewTransitionName: "name" }}>Erdem</span>
+                  {/* <span className="invisible absolute left-0 top-full whitespace-nowrap">
                   Software Engineering Student
                 </span> */}
+                </div>
               </div>
-            </div>
+            </Button>
           </Link>
         </nav>
       </header>
