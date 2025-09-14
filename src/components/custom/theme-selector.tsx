@@ -30,8 +30,13 @@ export default function ChangeThemeTabs({
   const toggleTheme = async (id: string) => {
     if (!ref.current) return;
 
-    if ((document as any).startViewTransition) {
-      await (document as any).startViewTransition(() => {
+    // TypeScript-safe access to startViewTransition
+    const docWithViewTransition = document as Document & {
+      startViewTransition?: (callback: () => void) => { ready: Promise<void> };
+    };
+
+    if (docWithViewTransition.startViewTransition) {
+      await docWithViewTransition.startViewTransition(() => {
         flushSync(() => {
           setTheme(id);
         });

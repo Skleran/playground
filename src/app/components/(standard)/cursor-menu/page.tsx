@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ComponentWrapper from "@/components/custom/component-wrapper";
+import ComponentWrapper from "@/components/custom/fullscreen-component-wrapper";
 import {
   motion,
   useMotionValue,

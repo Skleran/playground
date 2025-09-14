@@ -1,6 +1,6 @@
 "use client";
 
-import ComponentWrapper from "@/components/custom/component-wrapper";
+import ComponentWrapper from "@/components/custom/fullscreen-component-wrapper";
 import React from "react";
 import AnimatedLetters from "@/components/custom/animated-letters";
 

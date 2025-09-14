@@ -3,6 +3,7 @@ import Link from "../transition-link";
 import { useViewTransition } from "@/utils/useViewTransitionActive";
 import { HomeCard } from "./home-card";
 import ExperimentalTag from "../custom/experimental-tag";
+import Image from "next/image";
 
 export type ProjectCardProps = {
   name: string;
@@ -50,12 +51,23 @@ export default function ProjectCard({
             : {}
         }
       >
-        {imageUrl && <img src={imageUrl} alt={name} className="h-8 w-8 mr-2" />}
+        {imageUrl === undefined ? (
+          <div className="flex flex-col gap-4 items-center">
+            <span>{name}</span>
+            {isExperimental === true ? <ExperimentalTag /> : ""}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2 h-full w-full">
+            <div className="h-full relative rounded-lg overflow-clip">
+              {" "}
+              <Image src={imageUrl} alt={name} fill className="object-cover" />
+            </div>
 
-        <span>{name}</span>
-        {isExperimental === true ? <ExperimentalTag /> : ""}
-        {category && (
-          <span className="ml-2 text-xs text-muted">{category}</span>
+            <div className="flex justify-between">
+              <div className="font-medium tracking-tight">{name}</div>
+              {isExperimental === true ? <ExperimentalTag /> : ""}
+            </div>
+          </div>
         )}
       </HomeCard>
     </Link>

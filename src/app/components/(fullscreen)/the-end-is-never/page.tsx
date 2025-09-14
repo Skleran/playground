@@ -1,4 +1,4 @@
-import ComponentWrapper from "@/components/custom/component-wrapper";
+import ComponentWrapper from "@/components/custom/fullscreen-component-wrapper";
 import ScrollBaseAnimation from "@/components/ui/text-marquee";
 import React from "react";
 
