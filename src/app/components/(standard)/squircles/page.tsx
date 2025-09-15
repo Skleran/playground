@@ -1,12 +1,17 @@
+import FixedReturnButton from "@/components/custom/fixed-return-button";
 import { Button } from "@/components/ui/button";
 import { Squircle } from "@squircle-js/react";
-import { SquircleIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 export default function Page() {
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[700px] px-6 py-[clamp(5rem,20vw,10rem)] mx-auto overflow-hidden grid grid-cols-2 gap-4">
+      <div className="fixed top-8 left-6 lg:left-[calc(50%-450px)]">
+        <header className="max-xl:-translate-x-4.5">
+          <FixedReturnButton />
+        </header>
+      </div>
       {/* squircle column - left */}
       <div className="w-full flex flex-col items-center gap-10">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">

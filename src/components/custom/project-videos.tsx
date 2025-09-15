@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { HomeCard } from "@/components/ui/home-card";
 import { useTransitionRouter } from "next-view-transitions";
 
 const projects = [
@@ -13,7 +12,7 @@ const projects = [
 export default function ProjectVideos() {
   const router = useTransitionRouter();
   return (
-    <div className="w-fit grid sm:grid-cols-2 gap-4 mt-5">
+    <div className="w-fit grid sm:grid-cols-2 gap-4 pt-5">
       {" "}
       {projects.map((project, i) => (
         <button

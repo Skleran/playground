@@ -1,4 +1,5 @@
 "use client";
+import FixedReturnButton from "@/components/custom/fixed-return-button";
 import React, { useEffect, useRef } from "react";
 
 export default function Page() {
@@ -38,6 +39,12 @@ export default function Page() {
 
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] p-6 mx-auto overflow-hidden flex items-center justify-center relative">
+      <div className="fixed top-8 left-6 lg:left-[calc(50%-470px)]">
+        <header className="max-xl:-translate-x-4.5">
+          <FixedReturnButton />
+        </header>
+      </div>
+
       {/* glowing canvas */}
       <canvas
         ref={canvasRef}
@@ -51,7 +58,7 @@ export default function Page() {
         loop
         muted
         playsInline
-        style={{ viewTransitionName: "glowing-video" }}
+        style={{ viewTransitionName: "component-wrapper" }}
         className="rounded-xl shadow-lg relative z-10 max-w-full w-[700px]"
       />
     </div>

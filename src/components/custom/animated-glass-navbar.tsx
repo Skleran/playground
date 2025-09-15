@@ -2,13 +2,6 @@
 
 import { useState, useEffect } from "react";
 // import { Button } from "./button";
-import { Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 // import { Link } from "react-router-dom";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
@@ -16,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import GlassSurface from "../GlassSurface";
+import FixedReturnButton from "./fixed-return-button";
 // import UserBox from "../custom/user-box";
 // import api from "@/utils/api";
 
@@ -25,7 +19,7 @@ const Navbar = () => {
     name: string;
   }
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
   const [isAtTop, setIsAtTop] = useState(true);
   const [initialRender, setInitialRender] = useState(true);
   // const [categories, setCategories] = useState<Category[]>([]);
@@ -44,7 +38,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
 
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 250);
+      // setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 250);
 
       setIsAtTop(currentScrollPos < 10);
 
@@ -100,42 +94,9 @@ const Navbar = () => {
           className={`relative flex items-center w-full justify-between sm:ml-3.5 sm:mr-2.5`}
         >
           <div className="flex items-center justify-between gap-3">
-            <Sheet>
-              <SheetTrigger className="ml-4">
-                <Menu className="h-6 w-6 md:hidden" />
-              </SheetTrigger>
-              <SheetContent side="left" className="">
-                <SheetHeader className="pl-6">
-                  <Link className="text-3xl font-serif" href={"/"}>
-                    Home
-                  </Link>
-                  <div className="w-full h-[1px] bg-accent" />
-                </SheetHeader>
-                <div>
-                  <p className="pl-6">Categories</p>
-                  <div className="w-[calc(100%-40px)] ml-6 h-[1px] mt-1 bg-accent" />
-                </div>
-
-                <nav className="flex flex-col font-light gap-4 pl-4">
-                  {categories.length > 0
-                    ? categories.map((category) => (
-                        <Button
-                          key={category.id}
-                          variant={"link"}
-                          className="w-fit mx-4 px-0"
-                        >
-                          {/* <Link
-                          href={`/${category.name.toLowerCase()}`}
-                          key={category.id}
-                        > */}
-                          {category.name}
-                          {/* </Link> */}
-                        </Button>
-                      ))
-                    : ""}
-                </nav>
-              </SheetContent>
-            </Sheet>
+            <div className="inline md:hidden">
+              <FixedReturnButton />
+            </div>
           </div>
 
           {/* <Link to="/" className="flex flex-row gap-2 md:absolute"> */}

@@ -1,4 +1,5 @@
 import Navbar from "@/components/custom/animated-glass-navbar";
+import FixedReturnButton from "@/components/custom/fixed-return-button";
 import Image from "next/image";
 import React from "react";
 
@@ -8,6 +9,11 @@ export default function Page() {
       <Navbar />
 
       <div className="max-w-[800px] mt-10">
+        <div className="hidden lg:block fixed top-37.5 left-[calc(50%-520px)]">
+          <header className="">
+            <FixedReturnButton />
+          </header>
+        </div>
         <div>
           {" "}
           <h2 className="text-3xl font-extrabold my-4 scroll-mt-20" id="intro">
