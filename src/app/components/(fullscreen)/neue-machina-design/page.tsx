@@ -112,7 +112,7 @@ export default function Page() {
               </p>
             </span>
           </span>
-          <span className="max-lg:hidden col-start-2 col-span-1 leading-normal pr-10">
+          <span className="max-lg:hidden col-start-2 col-span-1 leading-normal pr-10 z-10">
             <p>
               Neue Machina is a powerful and meticulously crafted typeface
               boasting monospace/geometric type features as well as apparent and

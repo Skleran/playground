@@ -1,1 +1,27 @@
-{ "lorem": { "lorem": "qwe" } }
+{
+  "LocaleSwitcher": {
+    "label": "Language"
+  },
+  "HomePage": {
+    "intro": "Hey, I'm",
+    "projects": "Projects",
+    "work": "Work",
+    "view_transitions": "View Transitions Demo",
+    "glowing_video": "Glowing Video",
+    "squircle_ui_elements": "Squircle UI Elements",
+    "animated_glass_navbar": "Animated Glass Navbar",
+    "animated_user_box": "Animated User Box",
+    "animated_navbar": "Animated Navbar",
+    "hold_to_action_button": "Hold To Action Button",
+    "the_end_is_never": "The End is Never",
+    "table_of_contents_alt": "Table of Contents Alt",
+    "table_of_contents": "Table of Contents",
+    "neue_haas_design": "Neue Haas Design",
+    "neue_machina_design": "Neue Machina Design",
+    "cursor_tracking_menu": "Cursor Tracking Menu",
+    "component_wrapper": "Component Wrapper"
+  },
+  "ExperimentalIndicator": {
+    "experimental": "Experimental"
+  }
+}

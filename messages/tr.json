@@ -1,1 +1,27 @@
-{ "lorem": { "lorem": "qwe" } }
+{
+  "LocaleSwitcher": {
+    "label": "Dil"
+  },
+  "HomePage": {
+    "intro": "Merhaba, ben",
+    "projects": "Projeler",
+    "work": "Çalışmalar",
+    "view_transitions": "View Transitions Demo",
+    "glowing_video": "Parlayan Video",
+    "squircle_ui_elements": "Squircle UI Öğeleri",
+    "animated_glass_navbar": "Animasyonlu Sıvı Cam Navbar",
+    "animated_user_box": "Animasyonlu Kullanıcı Kutusu",
+    "animated_navbar": "Animasyonlu Navbar",
+    "hold_to_action_button": "Basılı Tutma Butonu",
+    "the_end_is_never": "The End is Never",
+    "table_of_contents_alt": "İçindekiler Tablosu (Alternatif)",
+    "table_of_contents": "İçindekiler Tablosu",
+    "neue_haas_design": "Neue Haas Tasarımı",
+    "neue_machina_design": "Neue Machina Tasarımı",
+    "cursor_tracking_menu": "İmleç Takipli Menü",
+    "component_wrapper": "Component Wrapper"
+  },
+  "ExperimentalIndicator": {
+    "experimental": "Deneysel"
+  }
+}

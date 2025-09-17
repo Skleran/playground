@@ -3,11 +3,12 @@
 // import Image from "next/image";
 
 // import ExperimentalTag from "@/components/custom/experimental-tag";
-import ChangeThemeTabs from "@/components/custom/theme-selector";
-import Link, { useScrollRestoration } from "@/components/transition-link";
+import { useScrollRestoration } from "@/components/transition-link";
 import { HomeCard } from "@/components/ui/home-card";
 import { useViewTransition } from "@/utils/useViewTransitionActive";
 import ProjectCard, { ProjectCardProps } from "@/components/ui/project-card";
+import { useTranslations } from "next-intl";
+import SettingsBox from "@/components/custom/settings-box";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
@@ -15,75 +16,77 @@ import ProjectCard, { ProjectCardProps } from "@/components/ui/project-card";
 export default function Home() {
   useScrollRestoration();
   const { activeProject, setActiveProject } = useViewTransition();
+  const t = useTranslations();
+  // const locale = useLocale();
 
   const projects: ProjectCardProps[] = [
     {
-      name: "View Transitions",
+      name: t("HomePage.view_transitions"),
       subdomain: "view-transitions",
       isExperimental: true,
     },
     {
-      name: "Glowing Video",
+      name: t("HomePage.glowing_video"),
       subdomain: "glowing-video",
       isExperimental: false,
     },
     {
-      name: "Squircle UI Elements",
+      name: t("HomePage.squircle_ui_elements"),
       subdomain: "squircles",
       isExperimental: true,
     },
     {
-      name: "Animated Glass Navbar",
+      name: t("HomePage.animated_glass_navbar"),
       subdomain: "animated-glass-navbar",
       isExperimental: true,
     },
     {
-      name: "Animated User Box",
+      name: t("HomePage.animated_user_box"),
       subdomain: "animated-user-box",
       isExperimental: false,
     },
     {
-      name: "Animated Navbar",
+      name: t("HomePage.animated_navbar"),
       subdomain: "animated-navbar",
       isExperimental: false,
     },
     {
-      name: "Hold To Action Button",
+      name: t("HomePage.hold_to_action_button"),
       subdomain: "hold-to-action-button",
       isExperimental: false,
     },
     {
-      name: "The End is Never",
+      name: t("HomePage.the_end_is_never"),
       subdomain: "the-end-is-never",
       isExperimental: false,
     },
     {
-      name: "Table of Contents Alt",
+      name: t("HomePage.table_of_contents_alt"),
       subdomain: "table-of-contents-alt",
       isExperimental: false,
     },
     {
-      name: "Table of Contents",
+      name: t("HomePage.table_of_contents"),
       subdomain: "table-of-contents",
       isExperimental: false,
     },
     {
-      name: "Neue Haas Design",
+      name: t("HomePage.neue_haas_design"),
       subdomain: "neue-haas-design",
       isExperimental: false,
     },
     {
-      name: "Neue Machina Design",
+      name: t("HomePage.neue_machina_design"),
       subdomain: "neue-machina-design",
       isExperimental: false,
     },
     {
-      name: "Cursor Tracking Menu",
+      name: t("HomePage.cursor_tracking_menu"),
       subdomain: "cursor-menu",
       isExperimental: false,
     },
     {
-      name: "Component Wrapper",
+      name: t("HomePage.component_wrapper"),
       subdomain: "component-wrapper",
       isExperimental: false,
     },
@@ -94,7 +97,7 @@ export default function Home() {
       <main>
         <div className="text-[22px] font-medium tracking-tight text-primary w-full pb-3 flex flex-row justify-between">
           <h1>
-            Hey, I'm{" "}
+            {t("HomePage.intro")}
             <span
               style={
                 activeProject === null ? {} : { viewTransitionName: "name" }
@@ -110,16 +113,21 @@ export default function Home() {
               Erdem
             </span>
           </h1>
-          <ChangeThemeTabs animationKey="theme" key={"theme"} />
+          <SettingsBox />
+          {/* <LocaleSelectBox />
+          <ChangeThemeTabs animationKey="theme" key={"theme"} /> */}
         </div>
-        <div className="text-neutral-400">
+        <div className="text-muted-foreground">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore
           cupiditate saepe architecto doloribus voluptatibus officiis, sint,
           obcaecati incidunt possimus quisquam sequi dolores, voluptatum
           eligendi assumenda.
         </div>
         <div className="mt-26">
-          <p className="font-medium tracking-tight">Projects</p>
+          <p className="font-medium tracking-tight">
+            {t("HomePage.projects")}
+            {/* Projects */}
+          </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
             {projects.map((project, i) => (
               <ProjectCard
@@ -132,7 +140,10 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-26">
-          <p className="font-medium tracking-tight">Work</p>
+          <p className="font-medium tracking-tight">
+            {t("HomePage.work")}
+            {/* Work */}
+          </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
             <HomeCard />
             <HomeCard />
