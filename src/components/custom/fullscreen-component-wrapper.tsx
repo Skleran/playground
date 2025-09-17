@@ -2,6 +2,7 @@
 
 import { motion, animate, AnimationPlaybackControls } from "motion/react";
 import { useEffect, useRef, useState, useCallback } from "react";
+import FixedReturnButton from "./fixed-return-button";
 
 // basic mobile version - no animations
 function ComponentWrapperBasic({
@@ -13,8 +14,10 @@ function ComponentWrapperBasic({
 }) {
   return (
     <div className="relative h-[100svh] overflow-y-scroll">
-      <div className="h-[250px] rounded-b-2xl flex items-center justify-center text-muted-foreground">
-        <p>⬆ Top navigation / info</p>
+      <div className="h-[250px] rounded-b-2xl relative">
+        <header className="absolute pt-8 px-1.5">
+          <FixedReturnButton />
+        </header>
       </div>
 
       <div className="relative shadow-xl overflow-hidden">{children}</div>
@@ -294,30 +297,29 @@ function ComponentWrapperAnimated({
   return (
     <div ref={ref} className="relative h-[100svh] overflow-y-scroll">
       <motion.div
-        className="h-[250px] rounded-b-2xl flex items-center justify-center text-muted-foreground"
+        className="h-[250px] flex items-center justify-center mx-6 relative border-1 border-t-0 border-muted-foreground/10 dark:border-muted-foreground/16 bg-accent dark:bg-accent/15"
         animate={{
-          borderRadius: 32 - topVisibility * 32,
+          borderRadius: `0 0 ${borderRadius}px ${borderRadius}px`,
           opacity: topVisibility * 0.7 + 0.3,
           boxShadow: topVisibility
-            ? `0 10px 30px rgba(0,0,0,${topVisibility * 0.15})`
+            ? `0 10px 30px rgba(0,0,0,${topVisibility * 0.1})`
             : "0 0px 0px rgba(0,0,0,0)",
+          scale: topVisibility * 0.1 + 0.9,
         }}
         transition={{ duration: 0.15, ease: "easeOut" }}
       >
-        <p>
-          ⬆ Top navigation / info (
-          <span className="font-machina text-[#e94b1d]">
-            {Math.round(topVisibility * 100)}%
-          </span>
-          )
-        </p>
+        <header className="absolute top-10 left-[calc(50%-520px)]">
+          <FixedReturnButton />
+        </header>
       </motion.div>
 
       <motion.div
-        className="relative shadow-xl overflow-hidden"
+        className="relative overflow-hidden"
         animate={{
           borderRadius: `${borderRadius}px`,
           filter: `brightness(${brightness})`,
+          boxShadow: `0 0 30px rgba(0,0,0,${brightness * 0.1}`,
+          scale: 1 - (topVisibility * 0.025 + bottomVisibility * 0.025),
         }}
         transition={{ duration: 0.15, ease: "easeOut" }}
       >
@@ -325,12 +327,14 @@ function ComponentWrapperAnimated({
       </motion.div>
 
       <motion.div
-        className="h-[250px] mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground"
+        className="h-[250px] flex items-center justify-center mx-6 relative border-1 border-b-0 border-muted-foreground/10 dark:border-muted-foreground/16 bg-accent dark:bg-accent/15"
         animate={{
+          borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
           opacity: bottomVisibility * 0.7 + 0.3,
           boxShadow: bottomVisibility
-            ? `0 -10px 30px rgba(0,0,0,${bottomVisibility * 0.15})`
+            ? `0 -10px 30px rgba(0,0,0,${bottomVisibility * 0.1})`
             : "0 0px 0px rgba(0,0,0,0)",
+          scale: bottomVisibility * 0.1 + 0.9,
         }}
         transition={{ duration: 0.15, ease: "easeOut" }}
       >
@@ -342,7 +346,7 @@ function ComponentWrapperAnimated({
             </span>
             )
           </p>
-          {description && (
+          {/* {description && (
             <motion.div
               className="text-sm text-muted-foreground/80 max-w-md"
               animate={{
@@ -352,7 +356,7 @@ function ComponentWrapperAnimated({
             >
               {description}
             </motion.div>
-          )}
+          )} */}
         </div>
       </motion.div>
     </div>

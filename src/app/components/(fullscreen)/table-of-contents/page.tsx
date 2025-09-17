@@ -1,4 +1,5 @@
 // import ComponentWrapper from "@/components/custom/component-wrapper";
+import FixedReturnButton from "@/components/custom/fixed-return-button";
 import {
   SideNavigation,
   TOCContent,
@@ -12,11 +13,21 @@ export default function Page() {
   return (
     // <ComponentWrapper>
     <TOCProvider>
+      <div className="min-h-8 relative lg:hidden">
+        <header className="absolute pt-6 px-1.5">
+          <FixedReturnButton />
+        </header>
+      </div>
+      <div className="max-lg:hidden min-h-20 fixed top-6 left-[calc(50%-460px)] z-10">
+        <header className="">
+          <FixedReturnButton />
+        </header>
+      </div>
       <SideNavigation>
         <div>
           <TOCHeader id="intro">Introduction</TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p>
                 This is the introduction content of the page. Lorem ipsum dolor
                 sit amet consectetur adipisicing elit. Delectus quaerat tempora
@@ -64,7 +75,7 @@ export default function Page() {
             Timing: When to prioritize enterprise readiness
           </TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Information about timing and prioritization... Lorem ipsum dolor
               sit, amet consectetur adipisicing elit. Sed, laborum! Dolor in nam
@@ -120,7 +131,7 @@ export default function Page() {
         <div>
           <TOCHeader id="personas">Personas: Know your customer(s)</TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Details about customer personas and their needs... Lorem ipsum
               dolor sit amet, consectetur adipisicing elit. Voluptatum saepe
@@ -176,7 +187,7 @@ export default function Page() {
         <div>
           <TOCHeader id="this">How does This Vault work?</TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Details about customer personas and their needs... Lorem ipsum
               dolor sit amet, consectetur adipisicing elit. Voluptatum saepe
@@ -234,7 +245,7 @@ export default function Page() {
             Data Revocation and Cryptographic Deletion
           </TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Details about customer personas and their needs... Lorem ipsum
               dolor sit amet, consectetur adipisicing elit. Voluptatum saepe
@@ -292,7 +303,7 @@ export default function Page() {
             Bring-Your-Own-Key (BYOK) for Ultimate Data Control
           </TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Details about customer personas and their needs... Lorem ipsum
               dolor sit amet, consectetur adipisicing elit. Voluptatum saepe
@@ -350,7 +361,7 @@ export default function Page() {
             Auditability: Full Transparency and Control
           </TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Details about customer personas and their needs... Lorem ipsum
               dolor sit amet, consectetur adipisicing elit. Voluptatum saepe
@@ -406,7 +417,7 @@ export default function Page() {
         <div>
           <TOCHeader id="qwe">Speed is Critical</TOCHeader>
           <TOCContent>
-            <div className="relative flex flex-col">
+            <div className="relative flex flex-col text-muted-foreground">
               <p></p>
               Details about customer personas and their needs... Lorem ipsum
               dolor sit amet, consectetur adipisicing elit. Voluptatum saepe

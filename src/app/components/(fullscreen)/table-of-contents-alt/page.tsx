@@ -1,16 +1,24 @@
 "use client";
 
+import FixedReturnButton from "@/components/custom/fixed-return-button";
 import { ScrollProgressTracker } from "@/components/custom/toc-alt";
 import React from "react";
 
 export default function Page() {
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] mx-auto transition-all duration-400 ease-out max-w-2xl">
-      <div className="text-2xl m-auto min-h-30">
-        {/* <span>This is my navbar</span> */}
+      <div className="min-h-13 relative lg:hidden">
+        <header className="absolute pt-6 px-1.5">
+          <FixedReturnButton />
+        </header>
+      </div>
+      <div className="max-lg:hidden min-h-20 fixed top-10 left-[calc(50%-420px)]">
+        <header className="">
+          <FixedReturnButton />
+        </header>
       </div>
       <ScrollProgressTracker>
-        <div className="mx-auto p-6 space-y-8">
+        <div className="mx-auto p-6 space-y-8 mt-20">
           <header className="text-center mb-16">
             <h1 className="text-4xl font-bold mb-4">Demo Blog Post</h1>
             <p className="text-muted-foreground">
