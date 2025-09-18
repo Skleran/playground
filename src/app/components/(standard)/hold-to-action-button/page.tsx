@@ -8,6 +8,7 @@ export default function Page() {
       date="August 2025"
       title="Hold To Action Button"
       githubUrl="/"
+      subdomain="hold-to-action-button"
       description={
         <>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium

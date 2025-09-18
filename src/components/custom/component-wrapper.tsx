@@ -2,20 +2,28 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
+import { projects } from "@/lib/projects";
 
 export default function ComponentWrapper({
   title,
   date,
   githubUrl,
+  subdomain, // <-- add this
   children,
   description,
 }: {
   title: string;
   date: string;
   githubUrl: string;
+  subdomain: string; // <-- add this
   children: React.ReactNode;
   description?: React.ReactNode;
 }) {
+  const currentIndex = projects.findIndex((p) => p.subdomain === subdomain);
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const nextProject =
+    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[1280px] mx-auto p-6 pt-4 overflow-hidden">
       <header className="max-xl:max-w-[652px] max-xl:mx-auto max-xl:mb-5 pt-4 xl:pt-12 xl:fixed xl:w-[270px] xl:flex justify-end">
@@ -88,6 +96,46 @@ export default function ComponentWrapper({
           >
             {description}
           </p>
+          {/* Previous / Next navigation */}
+          <div className="flex justify-between pt-6">
+            {prevProject ? (
+              <Button
+                asChild
+                variant={"none"}
+                className="flex flex-col items-start pl-0 group gap-1.5"
+              >
+                <Link href={`/components/${prevProject.subdomain}`}>
+                  <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                    Previous
+                  </p>
+                  <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                    {prevProject.name}
+                  </p>
+                </Link>
+              </Button>
+            ) : (
+              <div />
+            )}
+
+            {nextProject ? (
+              <Button
+                asChild
+                variant={"none"}
+                className="flex flex-col items-end pl-0 group gap-1.5"
+              >
+                <Link href={`/components/${nextProject.subdomain}`}>
+                  <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                    Next
+                  </p>
+                  <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                    {nextProject.name}
+                  </p>
+                </Link>
+              </Button>
+            ) : (
+              <div />
+            )}
+          </div>
         </article>
       </main>
     </div>

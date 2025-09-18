@@ -8,6 +8,7 @@ export default function Page() {
       date="June 2025"
       title="Animated User Box"
       githubUrl="/"
+      subdomain="animated-user-box"
       description={
         <>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
