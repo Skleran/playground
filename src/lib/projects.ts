@@ -5,11 +5,6 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-  {
-    name: "View Transitions",
-    subdomain: "view-transitions",
-    isExperimental: true,
-  },
   { name: "Glowing Video", subdomain: "glowing-video", isExperimental: false },
   {
     name: "Squircle UI Elements",

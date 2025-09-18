@@ -15,16 +15,11 @@ import SettingsBox from "@/components/custom/settings-box";
 
 export default function Home() {
   useScrollRestoration();
-  const { activeProject, setActiveProject } = useViewTransition();
+  const { activeProject } = useViewTransition();
   const t = useTranslations();
   // const locale = useLocale();
 
   const projects: ProjectCardProps[] = [
-    {
-      name: t("HomePage.view_transitions"),
-      subdomain: "view-transitions",
-      isExperimental: true,
-    },
     {
       name: t("HomePage.glowing_video"),
       subdomain: "glowing-video",

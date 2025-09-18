@@ -182,7 +182,7 @@ export default function Page() {
   ]);
 
   return (
-    <ComponentWrapper>
+    <ComponentWrapper subdomain="cursor-menu">
       <div className="flex overflow-hidden cursor-none">
         <div className="min-h-[100svh]">
           <div className="absolute pointer-events-none">

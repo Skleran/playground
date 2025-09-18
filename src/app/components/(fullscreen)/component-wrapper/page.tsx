@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Page() {
   return (
-    <ComponentWrapper>
+    <ComponentWrapper subdomain="component-wrapper">
       <div className="p-5 lg:px-11 lg:py-0 grid grid-cols-12 grid-rows-4 min-h-[100svh] bg-special-orange text-[#f2f2f2]">
         <h1 className="text-[clamp(2rem,12vw,9rem)] max-sm:leading-[12vw] col-span-10 sm:text-nowrap tracking-tight font-machina font-black">
           Page <span className="text-nowrap">Section 0</span>

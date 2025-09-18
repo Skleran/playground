@@ -9,7 +9,10 @@ export default function Page() {
   const { theme } = useTheme();
 
   return (
-    <ComponentWrapper description={<div className="h-screen"></div>}>
+    <ComponentWrapper
+      description={<div className="h-screen"></div>}
+      subdomain="neue-machina-design"
+    >
       <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] transition-all duration-400 ease-out max-w-[1400px] mx-auto p-6 grid grid-cols-12 grid-rows-12 font-machina-inktrap overflow-hidden">
         {/* top text */}
         <div className="col-start-1 col-span-12 grid grid-cols-3 grid-rows-1 text-sm font-light tracking-wider overflow-hidden">

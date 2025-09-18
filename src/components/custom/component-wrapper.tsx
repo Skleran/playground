@@ -8,14 +8,14 @@ export default function ComponentWrapper({
   title,
   date,
   githubUrl,
-  subdomain, // <-- add this
+  subdomain,
   children,
   description,
 }: {
   title: string;
   date: string;
   githubUrl: string;
-  subdomain: string; // <-- add this
+  subdomain: string;
   children: React.ReactNode;
   description?: React.ReactNode;
 }) {
@@ -96,13 +96,13 @@ export default function ComponentWrapper({
           >
             {description}
           </p>
-          {/* Previous / Next navigation */}
-          <div className="flex justify-between pt-6">
+          {/* previous / next navigation */}
+          <div className="flex justify-between pt-6 pb-10">
             {prevProject ? (
               <Button
                 asChild
                 variant={"none"}
-                className="flex flex-col items-start pl-0 group gap-1.5"
+                className="flex flex-col items-start px-0 group gap-1.5"
               >
                 <Link href={`/components/${prevProject.subdomain}`}>
                   <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
@@ -121,7 +121,7 @@ export default function ComponentWrapper({
               <Button
                 asChild
                 variant={"none"}
-                className="flex flex-col items-end pl-0 group gap-1.5"
+                className="flex flex-col items-end px-0 group gap-1.5"
               >
                 <Link href={`/components/${nextProject.subdomain}`}>
                   <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">

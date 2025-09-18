@@ -3,32 +3,119 @@
 import { motion, animate, AnimationPlaybackControls } from "motion/react";
 import { useEffect, useRef, useState, useCallback } from "react";
 import FixedReturnButton from "./fixed-return-button";
+import { projects } from "@/lib/projects";
+import { Button } from "../ui/button";
+import { Link } from "next-view-transitions";
 
 // basic mobile version - no animations
 function ComponentWrapperBasic({
   children,
   description,
+  subdomain,
 }: {
   children: React.ReactNode;
   description?: React.ReactNode;
+  subdomain: string;
 }) {
+  const currentIndex = projects.findIndex((p) => p.subdomain === subdomain);
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const nextProject =
+    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
   return (
     <div className="relative h-[100svh] overflow-y-scroll">
       <div className="h-[250px] rounded-b-2xl relative">
         <header className="absolute pt-8 px-1.5">
           <FixedReturnButton />
         </header>
+        <div className="flex w-full absolute justify-between bottom-10">
+          {prevProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-start px-0 group gap-1.5"
+            >
+              <Link href={`/components/${prevProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Previous
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {prevProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
+
+          {nextProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-end px-0 group gap-1.5"
+            >
+              <Link href={`/components/${nextProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Next
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {nextProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
 
       <div className="relative shadow-xl overflow-hidden">{children}</div>
 
-      <div className="h-[250px] mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground">
+      <div className="h-[200px] mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground relative">
         <div className="text-center px-4">
-          <p className="mb-2">⬇ Next / Prev / Home</p>
+          {/* <p className="mb-2">⬇ Next / Prev / Home</p> */}
           {description && (
             <div className="text-sm text-muted-foreground/80 max-w-md">
-              {description}
+              {/* {description} */}
             </div>
+          )}
+        </div>
+        <div className="flex w-full absolute justify-between bottom-15">
+          {prevProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-start px-0 group gap-1.5"
+            >
+              <Link href={`/components/${prevProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Previous
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {prevProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
+
+          {nextProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-end px-0 group gap-1.5"
+            >
+              <Link href={`/components/${nextProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Next
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {nextProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
           )}
         </div>
       </div>
@@ -40,15 +127,21 @@ function ComponentWrapperBasic({
 function ComponentWrapperAnimated({
   children,
   description,
+  subdomain,
 }: {
   children: React.ReactNode;
   description?: React.ReactNode;
+  subdomain: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isSnapping = useRef(false);
   const animationRef = useRef<AnimationPlaybackControls | null>(null);
   const rafRef = useRef<number | null>(null);
   const topBottomSectionHeight = 250;
+  const currentIndex = projects.findIndex((p) => p.subdomain === subdomain);
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const nextProject =
+    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
   const dimensionsCache = useRef({
     containerHeight: 0,
@@ -311,6 +404,45 @@ function ComponentWrapperAnimated({
         <header className="absolute top-10 left-[calc(50%-520px)]">
           <FixedReturnButton />
         </header>
+        <div className="flex w-full max-w-[700px] mx-auto justify-between mt-20">
+          {prevProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-start px-0 group gap-1.5"
+            >
+              <Link href={`/components/${prevProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Previous
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {prevProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
+
+          {nextProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-end px-0 group gap-1.5"
+            >
+              <Link href={`/components/${nextProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Next
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {nextProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
+        </div>
       </motion.div>
 
       <motion.div
@@ -339,13 +471,6 @@ function ComponentWrapperAnimated({
         transition={{ duration: 0.15, ease: "easeOut" }}
       >
         <div className="text-center px-4">
-          <p className="mb-2">
-            ⬇ Next / Prev / Home (
-            <span className="font-machina-inktrap text-special-green">
-              {Math.round(bottomVisibility * 100)}%
-            </span>
-            )
-          </p>
           {/* {description && (
             <motion.div
               className="text-sm text-muted-foreground/80 max-w-md"
@@ -357,6 +482,45 @@ function ComponentWrapperAnimated({
               {description}
             </motion.div>
           )} */}
+        </div>
+        <div className="flex w-full max-w-[700px] mx-auto justify-between mt-20">
+          {prevProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-start px-0 group gap-1.5"
+            >
+              <Link href={`/components/${prevProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Previous
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {prevProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
+
+          {nextProject ? (
+            <Button
+              asChild
+              variant={"none"}
+              className="flex flex-col items-end px-0 group gap-1.5"
+            >
+              <Link href={`/components/${nextProject.subdomain}`}>
+                <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
+                  Next
+                </p>
+                <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
+                  {nextProject.name}
+                </p>
+              </Link>
+            </Button>
+          ) : (
+            <div />
+          )}
         </div>
       </motion.div>
     </div>
@@ -385,22 +549,24 @@ function useIsDesktop() {
 export default function ComponentWrapper({
   children,
   description,
+  subdomain,
 }: {
   children: React.ReactNode;
   description?: React.ReactNode;
+  subdomain: string;
 }) {
   const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (
-      <ComponentWrapperAnimated description={description}>
+      <ComponentWrapperAnimated description={description} subdomain={subdomain}>
         {children}
       </ComponentWrapperAnimated>
     );
   }
 
   return (
-    <ComponentWrapperBasic description={description}>
+    <ComponentWrapperBasic description={description} subdomain={subdomain}>
       {children}
     </ComponentWrapperBasic>
   );

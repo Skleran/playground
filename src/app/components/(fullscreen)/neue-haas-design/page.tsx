@@ -6,7 +6,7 @@ import AnimatedLetters from "@/components/custom/animated-letters";
 
 export default function Page() {
   return (
-    <ComponentWrapper>
+    <ComponentWrapper subdomain="neue-haas-design">
       <div className="bg-special-orange text-neutral-100">
         <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] transition-all duration-400 ease-out max-w-[1400px] mx-auto p-6 md:pt-[clamp(0.1rem,3vw,3rem)] grid grid-cols-12 grid-rows-12 overflow-hidden">
           <div className="col-span-12 row-start-1 row-span-9 flex flex-col items-center justify-center">
