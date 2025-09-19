@@ -4,11 +4,13 @@
 
 // import ExperimentalTag from "@/components/custom/experimental-tag";
 import { useScrollRestoration } from "@/components/transition-link";
-import { HomeCard } from "@/components/ui/home-card";
+// import { HomeCard } from "@/components/ui/home-card";
 import { useViewTransition } from "@/utils/useViewTransitionActive";
 import ProjectCard, { ProjectCardProps } from "@/components/ui/project-card";
 import { useTranslations } from "next-intl";
 import SettingsBox from "@/components/custom/settings-box";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
@@ -17,6 +19,12 @@ export default function Home() {
   useScrollRestoration();
   const { activeProject } = useViewTransition();
   const t = useTranslations();
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   // const locale = useLocale();
 
   const projects: ProjectCardProps[] = [
@@ -121,6 +129,23 @@ export default function Home() {
         <div className="mt-26">
           <p className="font-medium tracking-tight">
             {t("HomePage.projects")}
+            {/* Work */}
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
+            <ProjectCard
+              name="Skleran List"
+              subdomain="skleran-list"
+              imageUrl={
+                !mounted || resolvedTheme === "dark"
+                  ? "/images/skleran-list-dark.png"
+                  : "/images/skleran-list-light.png"
+              }
+            />
+          </div>
+        </div>
+        <div className="mt-26">
+          <p className="font-medium tracking-tight">
+            {t("HomePage.work")}
             {/* Projects */}
           </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
@@ -132,16 +157,6 @@ export default function Home() {
                 isExperimental={project.isExperimental}
               />
             ))}
-          </div>
-        </div>
-        <div className="mt-26">
-          <p className="font-medium tracking-tight">
-            {t("HomePage.work")}
-            {/* Work */}
-          </p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-5">
-            <HomeCard />
-            <HomeCard />
           </div>
         </div>
       </main>

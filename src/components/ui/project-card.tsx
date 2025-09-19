@@ -17,7 +17,7 @@ export default function ProjectCard({
   name,
   subdomain,
   imageUrl,
-  category,
+  // category,
   isExperimental,
 }: ProjectCardProps) {
   const { activeProject, setActiveProject } = useViewTransition();
@@ -43,24 +43,36 @@ export default function ProjectCard({
             : {}
         }
       />
-      <HomeCard
-        className="relative flex items-center justify-center font-medium"
-        style={
-          activeProject === subdomain
-            ? { viewTransitionName: "component-wrapper" }
-            : {}
-        }
-      >
-        {imageUrl === undefined ? (
+      {imageUrl === undefined ? (
+        <HomeCard
+          className="relative flex items-center justify-center font-medium"
+          style={
+            activeProject === subdomain
+              ? { viewTransitionName: "component-wrapper" }
+              : {}
+          }
+        >
           <div className="flex flex-col gap-4 items-center">
             <span>{name}</span>
             {isExperimental === true ? <ExperimentalTag /> : ""}
           </div>
-        ) : (
+        </HomeCard>
+      ) : (
+        <HomeCard className="relative flex items-center justify-center font-medium">
           <div className="flex flex-col gap-2 h-full w-full">
             <div className="h-full relative rounded-lg overflow-clip">
               {" "}
-              <Image src={imageUrl} alt={name} fill className="object-cover" />
+              <Image
+                src={imageUrl}
+                alt={name}
+                fill
+                className="object-cover"
+                style={
+                  activeProject === subdomain
+                    ? { viewTransitionName: "component-wrapper" }
+                    : {}
+                }
+              />
             </div>
 
             <div className="flex justify-between">
@@ -68,8 +80,8 @@ export default function ProjectCard({
               {isExperimental === true ? <ExperimentalTag /> : ""}
             </div>
           </div>
-        )}
-      </HomeCard>
+        </HomeCard>
+      )}
     </Link>
   );
 }

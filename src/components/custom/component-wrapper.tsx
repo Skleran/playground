@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import { projects } from "@/lib/projects";
+import { cn } from "@/lib/utils";
 
 export default function ComponentWrapper({
   title,
@@ -11,6 +12,7 @@ export default function ComponentWrapper({
   subdomain,
   children,
   description,
+  className,
 }: {
   title: string;
   date: string;
@@ -18,6 +20,7 @@ export default function ComponentWrapper({
   subdomain: string;
   children: React.ReactNode;
   description?: React.ReactNode;
+  className?: string;
 }) {
   const currentIndex = projects.findIndex((p) => p.subdomain === subdomain);
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
@@ -85,7 +88,10 @@ export default function ComponentWrapper({
             </div>
             <div
               style={{ viewTransitionName: "component-wrapper" }}
-              className="w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-accent dark:bg-card ring-1 ring-border flex items-center justify-center overflow-hidden"
+              className={cn(
+                "w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-accent dark:bg-card ring-1 ring-border flex items-center justify-center overflow-hidden",
+                className
+              )}
             >
               {children}
             </div>
