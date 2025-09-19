@@ -126,11 +126,11 @@ function ComponentWrapperBasic({
 // animated desktop version
 function ComponentWrapperAnimated({
   children,
-  description,
+  // description,
   subdomain,
 }: {
   children: React.ReactNode;
-  description?: React.ReactNode;
+  // description?: React.ReactNode;
   subdomain: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -559,7 +559,10 @@ export default function ComponentWrapper({
 
   if (isDesktop) {
     return (
-      <ComponentWrapperAnimated description={description} subdomain={subdomain}>
+      <ComponentWrapperAnimated
+        //  description={description}
+        subdomain={subdomain}
+      >
         {children}
       </ComponentWrapperAnimated>
     );

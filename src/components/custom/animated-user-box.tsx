@@ -1,6 +1,13 @@
 "use client";
 
-import { X } from "lucide-react";
+import {
+  Bookmark,
+  Layout,
+  LayoutDashboard,
+  LogOut,
+  Settings,
+  X,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { easeOut, motion, Variants, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -141,7 +148,7 @@ export default function UserBox() {
     },
     expanded: {
       width: "200px",
-      height: "300px",
+      height: "250px",
       zIndex: 3,
       borderRadius: "20px",
       padding: "4px",
@@ -152,7 +159,7 @@ export default function UserBox() {
   const innerBoxVariants: Variants = {
     initial: {
       scale: 0.9,
-      y: "15px",
+      y: "-20px",
       filter: "blur(5px)",
     },
     expanded: {
@@ -171,11 +178,18 @@ export default function UserBox() {
     },
   };
 
-  const transition: Transition = {
-    duration: 0.3, // useless since transition type is spring
+  const springTransition: Transition = {
     type: "spring",
-    stiffness: 50,
+    stiffness: 100,
+    bounce: 0.24,
+    damping: 10,
+    mass: 1,
     ease: easeOut,
+  };
+
+  const linearTransition: Transition = {
+    duration: 0.15,
+    ease: "easeOut",
   };
   const backdropTransition: Transition = { duration: 0.2, ease: "easeInOut" };
 
@@ -226,11 +240,12 @@ export default function UserBox() {
 
   return (
     <>
+      {/* <div className=" absolute border shadow-xs border-neutral-300/50 dark:border-accent bg-neutral-200/50 dark:bg-secondary w-2/3 max-w-[400px] h-15 flex justify-end p-4 px-2.5 rounded-full"></div> */}
       <Button
         ref={iconRef}
         variant="ghost"
         size="icon"
-        className={`hover:cursor-pointer transition-all h-10 w-10 rounded-full bg-accent relative -m-1.5 mr-[0px]`}
+        className={`hover:cursor-pointer transition-all h-10 w-10 rounded-full relative -m-1.5 mr-[0px]`}
         onClick={handleClick}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -262,22 +277,20 @@ export default function UserBox() {
         createPortal(
           <div
             ref={containerRef}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex items-baseline justify-end z-10"
-            style={
-              {
-                // position: "absolute",
-                // top: toolboxPosition.top,
-                // left: toolboxPosition.left,
-              }
-            }
+            className="z-10"
+            style={{
+              position: "absolute",
+              top: toolboxPosition.top,
+              right: toolboxPosition.left,
+            }}
             role="menu"
-            aria-label="User options"
+            aria-label="User menu"
           >
             <motion.div
               animate={isExpanded ? "expanded" : "initial"}
               initial="initial"
               variants={boxVariants}
-              transition={transition}
+              transition={isExpanded ? springTransition : linearTransition}
               onAnimationComplete={(definition) => {
                 if (definition === "initial") {
                   setShouldRender(false);
@@ -308,25 +321,40 @@ export default function UserBox() {
                 animate={isExpanded ? "expanded" : "initial"}
                 initial="initial"
                 variants={innerBoxVariants}
-                transition={transition}
+                transition={isExpanded ? springTransition : linearTransition}
                 className={`w-full h-[calc(100%-40px)] rounded-2xl p-2 flex flex-col items-center justify-between overflow-hidden bg-accent-foreground/5`}
               >
-                <div className="w-full text-center h-fit flex flex-col">
-                  <p className="text-sm leading-4">John Doe</p>
-                </div>
-                <div className="flex gap-3 items-center text-center">
-                  <p className="leading-0"></p>
-                  {/* <ListLayoutSelector /> */}
-                </div>
-
-                <div className="w-full h-fit flex flex-col items-center gap-4 justify-between">
-                  <div className="w-full flex items-center justify-between">
-                    {/* <LocaleSelectBox /> */}
-                    <ChangeThemeTabs animationKey="theme" />
-                  </div>
-
-                  {/* <SignOut /> */}
-                </div>
+                <Button
+                  className="w-full rounded-t-xl flex items-center justify-center"
+                  size={"lg"}
+                >
+                  <Layout />
+                  Dashboard
+                </Button>
+                <Button
+                  className="w-full flex items-center justify-center"
+                  size={"lg"}
+                >
+                  <Settings />
+                  Settings
+                </Button>
+                <Button
+                  className="w-full flex items-center justify-center rounded-b-xl"
+                  size={"lg"}
+                >
+                  <Bookmark />
+                  Saved
+                </Button>
+                <div className="w-full border-t " />
+                <Button
+                  className="w-full flex items-center justify-center rounded-full"
+                  size={"lg"}
+                  variant={"destructive"}
+                >
+                  <LogOut className="stroke-3" />
+                  <p>Log Out</p>
+                </Button>
+                {/* <SignOut /> */}
               </motion.div>
             </motion.div>
           </div>,

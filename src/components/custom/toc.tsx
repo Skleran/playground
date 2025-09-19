@@ -179,7 +179,7 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({ children }) => {
       setInitialHeight(innerRef.current.offsetHeight);
       setHeightCaptured(true);
     }
-  }, [initialHeight]);
+  }, [initialHeight, heightCaptured]);
 
   useEffect(() => {
     if (!heightCaptured) {

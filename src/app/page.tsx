@@ -126,7 +126,7 @@ export default function Home() {
           obcaecati incidunt possimus quisquam sequi dolores, voluptatum
           eligendi assumenda.
         </div>
-        <div className="mt-26">
+        <div className="mt-23">
           <p className="font-medium tracking-tight">
             {t("HomePage.projects")}
             {/* Work */}

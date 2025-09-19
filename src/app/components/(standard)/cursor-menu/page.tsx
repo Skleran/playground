@@ -179,6 +179,7 @@ export default function Page() {
     yCoordY,
     nameX,
     nameY,
+    padding,
   ]);
 
   return (
