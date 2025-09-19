@@ -27,7 +27,7 @@ function ComponentWrapperBasic({
         <header className="absolute pt-8 px-1.5">
           <FixedReturnButton />
         </header>
-        <div className="flex w-full absolute justify-between bottom-10">
+        <div className="flex w-full absolute justify-between bottom-10 px-6">
           {prevProject ? (
             <Button
               asChild
@@ -70,7 +70,7 @@ function ComponentWrapperBasic({
 
       <div className="relative shadow-xl overflow-hidden">{children}</div>
 
-      <div className="h-[200px] mx-2.5 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground relative">
+      <div className="h-[200px] mx-6 sm:mx-6 rounded-t-2xl flex items-center justify-center text-muted-foreground relative">
         <div className="text-center px-4">
           {/* <p className="mb-2">⬇ Next / Prev / Home</p> */}
           {description && (

@@ -18,6 +18,8 @@ export default function Page() {
       title="Skleran List"
       githubUrl="/"
       subdomain="skleran-list"
+      active
+      siteUrl="https://skleran-list.erdemkoyuncu.com/"
       className={"p-0 m-0 relative min-h-min aspect-[3/2]"}
     >
       <Link href={"https://skleran-list.erdemkoyuncu.com/"} target="_blank">
