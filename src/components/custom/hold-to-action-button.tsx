@@ -34,7 +34,7 @@ export const HoldToActionButton = forwardRef<
   ) => {
     HoldToActionButton.displayName = "HoldToActionButton";
     const holdTimeout = useRef<NodeJS.Timeout | null>(null);
-    const deleteTimeout = useRef<NodeJS.Timeout | null>(null);
+    // Removed deleteTimeout since it's not used anywhere
     const [isHolding, setIsHolding] = useState(false);
     const [hasTriggered, setHasTriggered] = useState(false);
     const [isKeyDown, setIsKeyDown] = useState(false);
@@ -90,13 +90,11 @@ export const HoldToActionButton = forwardRef<
     };
 
     useEffect(() => {
+      // Copy the ref value to a variable inside the effect
+      const holdTimeoutId = holdTimeout.current;
+
       return () => {
-        const holdTimeoutId = holdTimeout.current;
-        const deleteTimeoutId = deleteTimeout.current;
-
         if (holdTimeoutId) clearTimeout(holdTimeoutId);
-        if (deleteTimeoutId) clearTimeout(deleteTimeoutId);
-
         setIsKeyDown(false);
       };
     }, []);

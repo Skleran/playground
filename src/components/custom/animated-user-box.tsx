@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Bookmark,
-  Layout,
-  LayoutDashboard,
-  LogOut,
-  Settings,
-  X,
-} from "lucide-react";
+import { Bookmark, Layout, LogOut, Settings, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { easeOut, motion, Variants, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -20,7 +13,6 @@ import Image from "next/image";
 import type { Transition } from "framer-motion";
 // import ListLayoutSelector from "./list-layout-selector";
 import { useTranslations } from "next-intl";
-import ChangeThemeTabs from "./theme-selector";
 // import LocaleSelectBox from "./locale-select-box";
 
 export default function UserBox() {
