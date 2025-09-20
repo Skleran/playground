@@ -11,6 +11,9 @@ import { useTranslations } from "next-intl";
 import SettingsBox from "@/components/custom/settings-box";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
@@ -125,6 +128,44 @@ export default function Home() {
           cupiditate saepe architecto doloribus voluptatibus officiis, sint,
           obcaecati incidunt possimus quisquam sequi dolores, voluptatum
           eligendi assumenda.
+        </div>
+        <div className="flex flex-row gap-4 mt-6">
+          <Button
+            asChild
+            variant={"secondary"}
+            size={"lg"}
+            className="rounded-full text-base"
+          >
+            <Link target="_blank" href={"mailto:iletisim@erdemkoyuncu.com"}>
+              Mail
+              <ArrowUpRight className="size-5" />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant={"secondary"}
+            size={"lg"}
+            className="rounded-full text-base"
+          >
+            <Link target="_blank" href={"https://github.com/Skleran"}>
+              GitHub
+              <ArrowUpRight className="size-5" />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant={"secondary"}
+            size={"lg"}
+            className="rounded-full text-base"
+          >
+            <Link
+              target="_blank"
+              href={"https://www.linkedin.com/in/erdemkoyuncu"}
+            >
+              LinkedIn
+              <ArrowUpRight className="size-5" />
+            </Link>
+          </Button>
         </div>
         <div className="mt-23">
           <p className="font-medium tracking-tight">

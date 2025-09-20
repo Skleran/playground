@@ -21,7 +21,18 @@
     "cursor_tracking_menu": "İmleç Takibi",
     "component_wrapper": "Component Wrapper"
   },
+  "ComponentWrapper": {
+    "visit": "Ziyaret Et",
+    "previous": "Önceki",
+    "next": "Sonraki"
+  },
   "ExperimentalIndicator": {
     "experimental": "Deneysel"
+  },
+  "UserBox": {
+    "dashboard": "Kontrol Paneli",
+    "settings": "Ayarlar",
+    "bookmarks": "Yer İmleri",
+    "log_out": "Çıkış Yap"
   }
 }

@@ -117,7 +117,7 @@ export const HoldToActionButton = forwardRef<
         aria-pressed={isHolding}
         disabled={hasTriggered}
         className={cn(
-          "relative w-full hover:cursor-pointer text-sm flex h-10 items-center justify-center gap-2 rounded-full bg-gray-100 px-6 font-medium text-gray-900 select-none transition-transform duration-150 ease-out active:scale-[0.97] group focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2",
+          "relative w-full hover:cursor-pointer text-sm flex h-10 items-center justify-center gap-2 rounded-full bg-destructive dark:bg-red-500 px-6 font-medium text-secondary dark:text-primary select-none transition-transform duration-150 ease-out active:scale-[0.97] group focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2 dark:ring-red-800 dark:focus:ring-offset-0",
           hasTriggered && "opacity-50 cursor-not-allowed",
           className,
           buttonClass
@@ -127,7 +127,7 @@ export const HoldToActionButton = forwardRef<
         <div
           aria-hidden="true"
           className={cn(
-            "absolute inset-0 flex items-center justify-center gap-2 rounded-full bg-red-100 text-red-600 transition-all duration-200 ease-out group-active:transition-all group-active:duration-[1000ms] group-active:ease-linear [clip-path:inset(0px_100%_0px_0px)] group-active:[clip-path:inset(0px_0px_0px_0px)]",
+            "absolute inset-0 flex items-center justify-center gap-2 rounded-full bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 transition-all duration-200 ease-out group-active:transition-all group-active:duration-[1000ms] group-active:ease-linear [clip-path:inset(0px_100%_0px_0px)] group-active:[clip-path:inset(0px_0px_0px_0px)]",
             isHolding &&
               "[clip-path:inset(0px_0px_0px_0px)] transition-all duration-[1000ms] ease-linear",
             hasTriggered && "opacity-0",

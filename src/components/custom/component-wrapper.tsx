@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import { projects } from "@/lib/projects";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export default function ComponentWrapper({
   title,
@@ -30,6 +31,8 @@ export default function ComponentWrapper({
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+
+  const t = useTranslations();
 
   return (
     <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[1280px] mx-auto p-6 pt-4 overflow-hidden">
@@ -132,7 +135,9 @@ export default function ComponentWrapper({
                     >
                       <Link href={siteUrl} target="_blank">
                         <div className="flex items-center gap-1.5 mx-1">
-                          <p className="text-base">Visit</p>
+                          <p className="text-base">
+                            {t("ComponentWrapper.visit")}{" "}
+                          </p>
                           <ArrowUpRight className="size-5" />
                         </div>
                       </Link>
@@ -167,7 +172,7 @@ export default function ComponentWrapper({
               >
                 <Link href={`/components/${prevProject.subdomain}`}>
                   <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                    Previous
+                    {t("ComponentWrapper.previous")}
                   </p>
                   <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                     {prevProject.name}
@@ -186,7 +191,7 @@ export default function ComponentWrapper({
               >
                 <Link href={`/components/${nextProject.subdomain}`}>
                   <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                    Next
+                    {t("ComponentWrapper.next")}
                   </p>
                   <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                     {nextProject.name}

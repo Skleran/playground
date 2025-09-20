@@ -329,21 +329,24 @@ export default function UserBox() {
                   size={"lg"}
                 >
                   <Layout />
-                  Dashboard
+                  {t("UserBox.dashboard")}
+                  {/* Dashboard */}
                 </Button>
                 <Button
                   className="w-full flex items-center justify-center"
                   size={"lg"}
                 >
                   <Settings />
-                  Settings
+                  {/* Settings */}
+                  {t("UserBox.settings")}
                 </Button>
                 <Button
                   className="w-full flex items-center justify-center rounded-b-xl"
                   size={"lg"}
                 >
                   <Bookmark />
-                  Saved
+                  {/* Saved */}
+                  {t("UserBox.bookmarks")}
                 </Button>
                 <div className="w-full border-t " />
                 <Button
@@ -352,7 +355,8 @@ export default function UserBox() {
                   variant={"destructive"}
                 >
                   <LogOut className="stroke-3" />
-                  <p>Log Out</p>
+                  {/* <p>Log Out</p> */}
+                  {t("UserBox.log_out")}
                 </Button>
                 {/* <SignOut /> */}
               </motion.div>

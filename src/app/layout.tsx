@@ -109,7 +109,7 @@ const neueHaasDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Playground",
+  title: "Erdem Koyuncu",
   description: "UI/Frontend playground by Skleran",
 };
 

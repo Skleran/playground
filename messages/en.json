@@ -21,7 +21,18 @@
     "cursor_tracking_menu": "Cursor Tracking",
     "component_wrapper": "Component Wrapper"
   },
+  "ComponentWrapper": {
+    "visit": "Visit",
+    "previous": "Previous",
+    "next": "Next"
+  },
   "ExperimentalIndicator": {
     "experimental": "Experimental"
+  },
+  "UserBox": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "bookmarks": "Bookmarks",
+    "log_out": "Log Out"
   }
 }
