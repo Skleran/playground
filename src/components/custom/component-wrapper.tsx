@@ -35,7 +35,7 @@ export default function ComponentWrapper({
   const t = useTranslations();
 
   return (
-    <div className="h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[1280px] mx-auto p-6 pt-4 overflow-hidden">
+    <div className="min-h-[100dvh] sm:h-auto sm:min-h-[100dvh] max-w-[1280px] mx-auto p-6 pt-4 overflow-hidden">
       <header className="max-xl:max-w-[652px] max-xl:mx-auto max-xl:mb-5 pt-4 xl:pt-12 xl:fixed xl:w-[270px] xl:flex justify-end">
         <nav>
           <Link href={"/"}>
