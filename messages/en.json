@@ -19,7 +19,8 @@
     "neue_haas_design": "Neue Haas Design",
     "neue_machina_design": "Neue Machina Design",
     "cursor_tracking_menu": "Cursor Tracking",
-    "component_wrapper": "Component Wrapper"
+    "component_wrapper": "Component Wrapper",
+    "led_matrix_display": "LED Matrix Display"
   },
   "ComponentWrapper": {
     "visit": "Visit",

@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "next-themes";
 import React, { useRef, useEffect } from "react";
 
 interface LedTickerProps {
@@ -24,15 +25,23 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
   dotSpacing = 1,
   step = 2,
   fps = 10,
-  color = "#0f0",
+  color,
   glow = false,
   glowStrength = 2, // default glow strength
-  offColor = "#222",
+  offColor,
   charSpacing = 1, // default 1 column spacing between characters
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const charWidth = 5;
+  // const charWidth = 5;
   const charHeight = 7;
+  const { resolvedTheme } = useTheme();
+
+  const themeColor = color ?? (resolvedTheme === "dark" ? "#0f0" : "#0b0");
+  // const themeGlow = glow ?? (resolvedTheme === "dark" ? true : false);
+  // const themeGlowStrength =
+  //   glowStrength ?? (resolvedTheme === "dark" ? 2 : 1.5);
+  const themeOffColor =
+    offColor ?? (resolvedTheme === "dark" ? "#222" : "#ccc");
 
   // Custom font definition - each character is a 5x7 matrix
   const charToLED = (theChar?: string): boolean[][] => {
@@ -90,8 +99,8 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
           [false, true, true, true, true, true, false],
           [true, false, false, false, false, false, true],
           [true, false, false, false, false, false, true],
-          [true, false, false, false, true, false, true],
-          [true, true, false, false, true, true, true],
+          [true, false, false, true, false, false, true],
+          [false, true, false, true, true, true, false],
         ];
       case "H":
         return [
@@ -103,11 +112,9 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
         ];
       case "I":
         return [
-          [false, false, false, false, false, false, false],
           [true, false, false, false, false, false, true],
           [true, true, true, true, true, true, true],
           [true, false, false, false, false, false, true],
-          [false, false, false, false, false, false, false],
         ];
       case "J":
         return [
@@ -284,11 +291,9 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
 
       case "1":
         return [
-          [false, false, false, false, false, false, false],
           [false, true, false, false, false, false, true],
           [true, true, true, true, true, true, true],
           [false, false, false, false, false, false, true],
-          [false, false, false, false, false, false, false],
         ];
 
       case "2":
@@ -368,6 +373,19 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
     }
   };
 
+  const getCharWidth = (char: boolean[][]): number => {
+    if (char.length === 0) return 1;
+
+    // For characters like ':' and '·' that have 3 columns
+    if (char.length === 3) return 3;
+
+    // For regular 5-column characters
+    if (char.length === 5) return 5;
+
+    // For spacing (single column)
+    return 1;
+  };
+
   // convert text to LED matrix
   const textToLED = (
     text: string
@@ -377,14 +395,16 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
     text = text.toUpperCase();
 
     for (let i = 0; i < text.length; i++) {
-      message.push(charToLED(text.charAt(i)));
-      totalWidth += charWidth;
+      const char = charToLED(text.charAt(i));
+      message.push(char);
+      totalWidth += getCharWidth(char);
 
-      // add spacing columns between characters
+      // Add spacing columns between characters (but not after the last character)
       if (i < text.length - 1) {
         for (let j = 0; j < charSpacing; j++) {
-          message.push(charToLED());
-          totalWidth += 1;
+          const spacingChar = charToLED(); // This returns the default case: [[false, false, false, false, false, false, false]]
+          message.push(spacingChar);
+          totalWidth += getCharWidth(spacingChar);
         }
       }
     }
@@ -398,18 +418,21 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // calculate glow padding to prevent clipping
+    // Calculate glow padding to prevent clipping
     const glowRadius = glow ? dotSize * glowStrength : 0;
     const padding = Math.ceil(glowRadius);
 
+    // Calculate grid dimensions based on original dimensions
     const gridWidth = Math.floor(width / (dotSize + dotSpacing));
     const gridHeight = Math.floor(height / (dotSize + dotSpacing));
 
+    // Set canvas size with padding for glow
     const canvasWidth = width + padding * 2;
     const canvasHeight = height + padding * 2;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
+    // Adjust canvas display size to match the intended dimensions plus glow
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
 
@@ -429,25 +452,26 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+      // Draw background "off" dots (with padding offset)
       for (let row = 0; row < gridHeight; row++) {
         for (let col = 0; col < gridWidth; col++) {
           const x = col * (dotSize + dotSpacing) + dotSize / 2 + padding;
           const y = row * (dotSize + dotSpacing) + dotSize / 2 + padding;
 
           ctx.beginPath();
-          ctx.fillStyle = offColor;
+          ctx.fillStyle = themeOffColor;
           ctx.arc(x, y, dotSize / 2, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
-      // draw text
+      // Draw text
       let currentX = Math.floor(offsetX / (dotSize + dotSpacing));
       let messageIndex = 0;
 
       while (messageIndex < message.length && currentX < gridWidth) {
         const char = message[messageIndex];
-        const currentCharWidth = char.length > 1 ? charWidth : 1; // 5 for actual chars, 1 for spacing columns, !!! some chars are not 5 px wide !!!
+        const currentCharWidth = getCharWidth(char);
 
         for (let col = 0; col < currentCharWidth; col++) {
           const screenCol = currentX + col;
@@ -463,12 +487,12 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
 
                 if (glow) {
                   ctx.shadowBlur = dotSize * glowStrength;
-                  ctx.shadowColor = color;
+                  ctx.shadowColor = themeColor;
                 } else {
                   ctx.shadowBlur = 0;
                 }
 
-                ctx.fillStyle = color;
+                ctx.fillStyle = themeColor;
                 ctx.arc(x, y, dotSize / 2, 0, Math.PI * 2);
                 ctx.fill();
 
@@ -501,10 +525,10 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
     dotSpacing,
     step,
     fps,
-    color,
+    themeColor,
     glow,
     glowStrength,
-    offColor,
+    themeOffColor,
     charSpacing,
   ]);
 

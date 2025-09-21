@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.led_matrix_display"),
+      subdomain: "led-matrix-display",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.glowing_video"),
       subdomain: "glowing-video",
       isExperimental: false,

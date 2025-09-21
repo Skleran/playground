@@ -6,8 +6,8 @@ import React from "react";
 export default function Page() {
   return (
     <ComponentWrapper
-      date="August 2025"
-      title="Led Matrix Display"
+      date="September 2025"
+      title="LED Matrix Display"
       githubUrl="/"
       subdomain="led-matrix-display"
       description={
@@ -20,27 +20,27 @@ export default function Page() {
       className="flex-col gap-4 sm:gap-8"
     >
       <LedTicker
-        text="DISK:12% · CPU:9% · MEMORY:76% · STATUS:OK"
+        text="DISK:12% · CPU:9% · MEMORY:56% · STATUS:OK"
         height={28}
         dotSize={3}
         step={2}
         fps={30}
-        color="#0c0"
+        // color="#0c0"
         glow={true}
-        offColor="#222"
+        // offColor="#222"
         dotSpacing={1}
         charSpacing={1}
         glowStrength={3}
       />
       <LedTicker
-        text="Wellcome to my playground"
+        text="Welcome to my playground"
         height={42}
         dotSize={5}
         step={10}
         fps={6}
-        color="#0c0"
+        // color="#0c0"
         glow={true}
-        offColor="#222"
+        // offColor="#222"
         dotSpacing={1}
         charSpacing={1}
         glowStrength={5}

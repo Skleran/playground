@@ -19,7 +19,8 @@
     "neue_haas_design": "Neue Haas Tasarımı",
     "neue_machina_design": "Neue Machina Tasarımı",
     "cursor_tracking_menu": "İmleç Takibi",
-    "component_wrapper": "Component Wrapper"
+    "component_wrapper": "Component Wrapper",
+    "led_matrix_display": "LED Matris Ekran"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

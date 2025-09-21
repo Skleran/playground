@@ -5,6 +5,16 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    name: "Skleran List",
+    subdomain: "skleran-list",
+    isExperimental: false,
+  },
+  {
+    name: "LED Matrix Display",
+    subdomain: "led-matrix-display",
+    isExperimental: false,
+  },
   { name: "Glowing Video", subdomain: "glowing-video", isExperimental: false },
   {
     name: "Squircle UI Elements",
