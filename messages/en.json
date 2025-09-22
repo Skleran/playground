@@ -2,6 +2,11 @@
   "LocaleSwitcher": {
     "label": "Language"
   },
+  "Date": {
+    "july": "July",
+    "august": "August",
+    "september": "September"
+  },
   "HomePage": {
     "intro": "Hey, I'm",
     "projects": "Projects",
@@ -20,7 +25,8 @@
     "neue_machina_design": "Neue Machina Design",
     "cursor_tracking_menu": "Cursor Tracking",
     "component_wrapper": "Component Wrapper",
-    "led_matrix_display": "LED Matrix Display"
+    "led_matrix_display": "LED Matrix Display",
+    "outline_orbit_button": "Outline Orbit Button"
   },
   "ComponentWrapper": {
     "visit": "Visit",

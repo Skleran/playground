@@ -1,16 +1,17 @@
-import UserBox from "@/components/custom/animated-user-box";
 import ComponentWrapper from "@/components/custom/component-wrapper";
+import OutlineOrbitButton from "@/components/custom/outline-orbit-button";
 import { useTranslations } from "next-intl";
+
 import React from "react";
 
 export default function Page() {
   const t = useTranslations();
   return (
     <ComponentWrapper
-      date={t("Date.july") + " 2025"}
-      title={t("HomePage.animated_user_box")}
+      date={t("Date.september") + " 2025"}
+      title={t("HomePage.outline_orbit_button")}
       githubUrl="/"
-      subdomain="animated-user-box"
+      subdomain="outline-orbit-button"
       description={
         <>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
@@ -18,8 +19,9 @@ export default function Page() {
           Voluptas, nobis?
         </>
       }
+      // className=""
     >
-      <UserBox />
+      <OutlineOrbitButton />
     </ComponentWrapper>
   );
 }

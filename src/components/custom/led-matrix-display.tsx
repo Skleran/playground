@@ -376,13 +376,10 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
   const getCharWidth = (char: boolean[][]): number => {
     if (char.length === 0) return 1;
 
-    // For characters like ':' and '·' that have 3 columns
     if (char.length === 3) return 3;
 
-    // For regular 5-column characters
     if (char.length === 5) return 5;
 
-    // For spacing (single column)
     return 1;
   };
 
@@ -399,10 +396,9 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
       message.push(char);
       totalWidth += getCharWidth(char);
 
-      // Add spacing columns between characters (but not after the last character)
       if (i < text.length - 1) {
         for (let j = 0; j < charSpacing; j++) {
-          const spacingChar = charToLED(); // This returns the default case: [[false, false, false, false, false, false, false]]
+          const spacingChar = charToLED();
           message.push(spacingChar);
           totalWidth += getCharWidth(spacingChar);
         }
@@ -418,21 +414,18 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Calculate glow padding to prevent clipping
+    // calculate glow padding to prevent clipping
     const glowRadius = glow ? dotSize * glowStrength : 0;
     const padding = Math.ceil(glowRadius);
 
-    // Calculate grid dimensions based on original dimensions
     const gridWidth = Math.floor(width / (dotSize + dotSpacing));
     const gridHeight = Math.floor(height / (dotSize + dotSpacing));
 
-    // Set canvas size with padding for glow
     const canvasWidth = width + padding * 2;
     const canvasHeight = height + padding * 2;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    // Adjust canvas display size to match the intended dimensions plus glow
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
 
@@ -452,7 +445,7 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Draw background "off" dots (with padding offset)
+      // draw background "off" dots (with padding offset)
       for (let row = 0; row < gridHeight; row++) {
         for (let col = 0; col < gridWidth; col++) {
           const x = col * (dotSize + dotSpacing) + dotSize / 2 + padding;
@@ -465,7 +458,7 @@ const LedTickerCustomFont: React.FC<LedTickerProps> = ({
         }
       }
 
-      // Draw text
+      // draw text
       let currentX = Math.floor(offsetX / (dotSize + dotSpacing));
       let messageIndex = 0;
 

@@ -1,13 +1,15 @@
 import ComponentWrapper from "@/components/custom/component-wrapper";
 import LedTicker from "@/components/custom/led-matrix-display";
+import { useTranslations } from "next-intl";
 
 import React from "react";
 
 export default function Page() {
+  const t = useTranslations();
   return (
     <ComponentWrapper
-      date="September 2025"
-      title="LED Matrix Display"
+      date={t("Date.september") + " 2025"}
+      title={t("HomePage.led_matrix_display")}
       githubUrl="/"
       subdomain="led-matrix-display"
       description={

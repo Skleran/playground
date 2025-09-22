@@ -2,6 +2,11 @@
   "LocaleSwitcher": {
     "label": "Dil"
   },
+  "Date": {
+    "july": "Temmuz",
+    "august": "Ağustos",
+    "september": "Eylül"
+  },
   "HomePage": {
     "intro": "Merhaba, ben",
     "projects": "Projeler",
@@ -20,7 +25,8 @@
     "neue_machina_design": "Neue Machina Tasarımı",
     "cursor_tracking_menu": "İmleç Takibi",
     "component_wrapper": "Component Wrapper",
-    "led_matrix_display": "LED Matris Ekran"
+    "led_matrix_display": "LED Matris Ekran",
+    "outline_orbit_button": "Anahat Yörünge Butonu"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",
