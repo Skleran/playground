@@ -26,7 +26,8 @@
     "cursor_tracking_menu": "İmleç Takibi",
     "component_wrapper": "Component Wrapper",
     "led_matrix_display": "LED Matris Ekran",
-    "outline_orbit_button": "Anahat Yörünge Butonu"
+    "outline_orbit_button": "Anahat Yörünge Butonu",
+    "dynamic_island": "Dinamik Ada"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

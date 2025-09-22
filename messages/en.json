@@ -26,7 +26,8 @@
     "cursor_tracking_menu": "Cursor Tracking",
     "component_wrapper": "Component Wrapper",
     "led_matrix_display": "LED Matrix Display",
-    "outline_orbit_button": "Outline Orbit Button"
+    "outline_orbit_button": "Outline Orbit Button",
+    "dynamic_island": "Dynamic Island"
   },
   "ComponentWrapper": {
     "visit": "Visit",

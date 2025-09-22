@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Dynamic Island",
+    subdomain: "dynamic-island",
+    isExperimental: false,
+  },
+  {
     name: "Outline Orbit Button",
     subdomain: "outline-orbit-button",
     isExperimental: false,
