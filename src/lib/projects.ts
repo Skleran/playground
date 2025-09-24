@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Animated Button Background",
+    subdomain: "animated-button-bg",
+    isExperimental: false,
+  },
+  {
     name: "Dynamic Island",
     subdomain: "dynamic-island",
     isExperimental: false,

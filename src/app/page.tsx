@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.animated_button_bg"),
+      subdomain: "animated-button-bg",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.dynamic_island"),
       subdomain: "dynamic-island",
       isExperimental: false,

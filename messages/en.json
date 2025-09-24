@@ -27,7 +27,8 @@
     "component_wrapper": "Component Wrapper",
     "led_matrix_display": "LED Matrix Display",
     "outline_orbit_button": "Outline Orbit Button",
-    "dynamic_island": "Dynamic Island"
+    "dynamic_island": "Dynamic Island",
+    "animated_button_bg": "Animated Button Background"
   },
   "ComponentWrapper": {
     "visit": "Visit",

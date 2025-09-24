@@ -27,7 +27,8 @@
     "component_wrapper": "Component Wrapper",
     "led_matrix_display": "LED Matris Ekran",
     "outline_orbit_button": "Anahat Yörünge Butonu",
-    "dynamic_island": "Dinamik Ada"
+    "dynamic_island": "Dinamik Ada",
+    "animated_button_bg": "Animasyonlu Buton Arkaplanı"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",
