@@ -28,7 +28,8 @@
     "led_matrix_display": "LED Matris Ekran",
     "outline_orbit_button": "Anahat Yörünge Butonu",
     "dynamic_island": "Dinamik Ada",
-    "animated_button_bg": "Animasyonlu Buton Arkaplanı"
+    "animated_button_bg": "Animasyonlu Buton Arkaplanı",
+    "game_store_interaction": "Oyun Magazası Etkileşimi"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

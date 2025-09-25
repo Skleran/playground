@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.game_store_interaction"),
+      subdomain: "game-store-interaction",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.animated_button_bg"),
       subdomain: "animated-button-bg",
       isExperimental: false,

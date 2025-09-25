@@ -23,7 +23,7 @@ export default function AnimatedButtonBg() {
           <motion.li
             layout
             className={clsx(
-              "relative cursor-pointer px-4 py-2 sm:px-2 sm:py-1 text-sm outline-none transition-colors w-fit",
+              "relative cursor-pointer px-4 py-2 text-sm outline-none transition-colors w-fit",
               activeTab === tab ? "text-primary/80" : "text-primary"
             )}
             tabIndex={0}
@@ -35,7 +35,7 @@ export default function AnimatedButtonBg() {
             {activeTab === tab ? (
               <motion.div
                 layoutId="tab-indicator"
-                className="absolute inset-0 rounded-lg bg-muted"
+                className="absolute inset-0 rounded-lg bg-muted-foreground/10 dark:bg-muted"
               />
             ) : null}
             <span className="relative z-10">{tab.name}</span>

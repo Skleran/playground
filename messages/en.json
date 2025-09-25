@@ -28,7 +28,8 @@
     "led_matrix_display": "LED Matrix Display",
     "outline_orbit_button": "Outline Orbit Button",
     "dynamic_island": "Dynamic Island",
-    "animated_button_bg": "Animated Button Background"
+    "animated_button_bg": "Animated Button Background",
+    "game_store_interaction": "Game Store Interaction"
   },
   "ComponentWrapper": {
     "visit": "Visit",

@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Game Store Interction",
+    subdomain: "game-store-interaction",
+    isExperimental: false,
+  },
+  {
     name: "Animated Button Background",
     subdomain: "animated-button-bg",
     isExperimental: false,
