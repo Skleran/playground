@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.animate_height"),
+      subdomain: "animate-height",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.drag_gesture"),
       subdomain: "drag-gesture",
       isExperimental: false,

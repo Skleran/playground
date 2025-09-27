@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Animate Height",
+    subdomain: "animate-height",
+    isExperimental: false,
+  },
+  {
     name: "Drag Gesture",
     subdomain: "drag-gesture",
     isExperimental: false,

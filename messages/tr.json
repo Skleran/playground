@@ -31,7 +31,8 @@
     "animated_button_bg": "Animasyonlu Buton Arkaplanı",
     "game_store_interaction": "Oyun Magazası Etkileşimi",
     "loading_button": "Yüklenme Animasyonlu Buton",
-    "drag_gesture": "Sürükleme Hareketi"
+    "drag_gesture": "Sürükleme Hareketi",
+    "animate_height": "Uzunluk Animasyonu"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",
