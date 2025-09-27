@@ -1,0 +1,27 @@
+import ComponentWrapper from "@/components/custom/component-wrapper";
+import DragGesture from "@/components/custom/drag-gesture";
+import { useTranslations } from "next-intl";
+
+import React from "react";
+
+export default function Page() {
+  const t = useTranslations();
+  return (
+    <ComponentWrapper
+      date={t("Date.september") + " 2025"}
+      title={t("HomePage.drag_gesture")}
+      githubUrl="/"
+      subdomain="drag-gesture"
+      description={
+        <>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
+          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
+          Voluptas, nobis?
+        </>
+      }
+      className="w-full h-full px-0 py-0 sm:py-0"
+    >
+      <DragGesture />
+    </ComponentWrapper>
+  );
+}

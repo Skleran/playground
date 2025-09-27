@@ -32,6 +32,16 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.drag_gesture"),
+      subdomain: "drag-gesture",
+      isExperimental: false,
+    },
+    {
+      name: t("HomePage.loading_button"),
+      subdomain: "loading-button",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.game_store_interaction"),
       subdomain: "game-store-interaction",
       isExperimental: false,

@@ -29,7 +29,9 @@
     "outline_orbit_button": "Outline Orbit Button",
     "dynamic_island": "Dynamic Island",
     "animated_button_bg": "Animated Button Background",
-    "game_store_interaction": "Game Store Interaction"
+    "game_store_interaction": "Game Store Interaction",
+    "loading_button": "Button with Loading Animation",
+    "drag_gesture": "Drag Gesture"
   },
   "ComponentWrapper": {
     "visit": "Visit",

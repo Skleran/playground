@@ -11,6 +11,16 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Drag Gesture",
+    subdomain: "drag-gesture",
+    isExperimental: false,
+  },
+  {
+    name: "Loading Button",
+    subdomain: "loading-button",
+    isExperimental: false,
+  },
+  {
     name: "Game Store Interction",
     subdomain: "game-store-interaction",
     isExperimental: false,

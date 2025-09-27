@@ -29,7 +29,9 @@
     "outline_orbit_button": "Anahat Yörünge Butonu",
     "dynamic_island": "Dinamik Ada",
     "animated_button_bg": "Animasyonlu Buton Arkaplanı",
-    "game_store_interaction": "Oyun Magazası Etkileşimi"
+    "game_store_interaction": "Oyun Magazası Etkileşimi",
+    "loading_button": "Yüklenme Animasyonlu Buton",
+    "drag_gesture": "Sürükleme Hareketi"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",
