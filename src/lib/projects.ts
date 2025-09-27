@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Feedback Box",
+    subdomain: "feedback-box",
+    isExperimental: false,
+  },
+  {
     name: "Animate Height",
     subdomain: "animate-height",
     isExperimental: false,

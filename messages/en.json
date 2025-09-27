@@ -32,7 +32,8 @@
     "game_store_interaction": "Game Store Interaction",
     "loading_button": "Button with Loading Animation",
     "drag_gesture": "Drag Gesture",
-    "animate_height": "Animate Height"
+    "animate_height": "Animate Height",
+    "feedback_box": "Feedback Box"
   },
   "ComponentWrapper": {
     "visit": "Visit",

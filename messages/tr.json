@@ -32,7 +32,8 @@
     "game_store_interaction": "Oyun Magazası Etkileşimi",
     "loading_button": "Yüklenme Animasyonlu Buton",
     "drag_gesture": "Sürükleme Hareketi",
-    "animate_height": "Uzunluk Animasyonu"
+    "animate_height": "Uzunluk Animasyonu",
+    "feedback_box": "Geridönüş Kutusu"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

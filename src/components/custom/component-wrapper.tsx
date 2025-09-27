@@ -149,7 +149,7 @@ export default function ComponentWrapper({
             <div
               style={{ viewTransitionName: "component-wrapper" }}
               className={cn(
-                "w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-accent dark:bg-card ring-1 ring-border flex items-center justify-center overflow-hidden",
+                "w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-neutral-50 dark:bg-card ring-1 ring-border flex items-center justify-center overflow-hidden",
                 className
               )}
             >

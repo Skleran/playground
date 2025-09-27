@@ -350,3 +350,7 @@
 .animate-spinner-leaf-fade {
   animation: spinner-leaf-fade 1s linear infinite;
 }
+
+[data-feedback="true"] {
+  opacity: 0 !important;
+}

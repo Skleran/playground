@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.feedback_box"),
+      subdomain: "feedback-box",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.animate_height"),
       subdomain: "animate-height",
       isExperimental: false,
