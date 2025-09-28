@@ -106,7 +106,7 @@ export default function MultistepDialog() {
                 setDiraction(-1);
               }}
               variant={"secondary"}
-              className="rounded-full px-5"
+              className="rounded-full px-5 bg-neutral-200 hover:bg-neutral-200/70 dark:bg-secondary dark:hover:bg-secondary/80"
             >
               Back
             </Button>
@@ -121,6 +121,7 @@ export default function MultistepDialog() {
                 setCurrentStep((prev) => prev + 1);
                 setDiraction(1);
               }}
+              variant={"secondary"}
               className="bg-special-orange hover:bg-special-orange/85 text-white rounded-full px-7"
             >
               Next
