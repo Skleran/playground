@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.folder_interaction"),
+      subdomain: "folder-interaction",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.multistep_dialog"),
       subdomain: "multistep-dialog",
       isExperimental: false,

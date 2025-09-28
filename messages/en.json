@@ -34,7 +34,8 @@
     "drag_gesture": "Drag Gesture",
     "animate_height": "Animate Height",
     "feedback_box": "Feedback Box",
-    "multistep_dialog": "Multistep Dialog"
+    "multistep_dialog": "Multistep Dialog",
+    "folder_interaction": "Folder Interaction"
   },
   "ComponentWrapper": {
     "visit": "Visit",
