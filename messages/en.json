@@ -33,7 +33,8 @@
     "loading_button": "Button with Loading Animation",
     "drag_gesture": "Drag Gesture",
     "animate_height": "Animate Height",
-    "feedback_box": "Feedback Box"
+    "feedback_box": "Feedback Box",
+    "multistep_dialog": "Multistep Dialog"
   },
   "ComponentWrapper": {
     "visit": "Visit",

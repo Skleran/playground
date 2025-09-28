@@ -32,6 +32,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.multistep_dialog"),
+      subdomain: "multistep-dialog",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.feedback_box"),
       subdomain: "feedback-box",
       isExperimental: false,

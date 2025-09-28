@@ -33,7 +33,8 @@
     "loading_button": "Yüklenme Animasyonlu Buton",
     "drag_gesture": "Sürükleme Hareketi",
     "animate_height": "Uzunluk Animasyonu",
-    "feedback_box": "Geridönüş Kutusu"
+    "feedback_box": "Geridönüş Kutusu",
+    "multistep_dialog": "Çok Adımlı Diyalog"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",
