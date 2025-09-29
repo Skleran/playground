@@ -1,16 +1,16 @@
 "use client";
 
-import { ArrowLeft, CheckCircle, Paperclip, Send } from "lucide-react";
+import { CheckCircle, Paperclip, Send, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import useMeasure from "react-use-measure";
 
 const IMAGES = [
-  { id: 1, src: "/images/SwiftGlow.jpg" },
-  { id: 2, src: "/images/Mistnova.jpeg" },
-  { id: 3, src: "/images/BlueRays.jpeg" },
-  { id: 4, src: "/images/Celestials.jpeg" },
+  { id: 1, src: "/images/folder-interaction-images/SwiftGlow_square.jpg" },
+  { id: 2, src: "/images/folder-interaction-images/Mistnova_square.jpg" },
+  { id: 3, src: "/images/folder-interaction-images/BlueRays_square.jpg" },
+  { id: 4, src: "/images/folder-interaction-images/Celestials_square.jpg" },
 ];
 
 export default function FolderInteraction() {
@@ -84,7 +84,9 @@ export default function FolderInteraction() {
                             exit={{ opacity: 0, transition: { duration: 0 } }}
                             className="absolute pointer-events-none right-2 bottom-2 flex size-4 items-center justify-center rounded-full border border-white/50 z-1"
                           >
-                            {isSelected ? <CheckCircle /> : null}
+                            {isSelected ? (
+                              <CheckCircle className="stroke-white" />
+                            ) : null}
                           </motion.div>
 
                           <motion.img
@@ -112,8 +114,12 @@ export default function FolderInteraction() {
                   className="w-full flex rounded-xl"
                 >
                   <div className="flex w-full justify-between gap-1">
-                    <Button variant={"secondary"} className="rounded-full">
-                      <ArrowLeft /> Back
+                    <Button
+                      onClick={() => setImagesToSend([])}
+                      variant={"secondary"}
+                      className="rounded-full"
+                    >
+                      <X /> Clear
                     </Button>
                     <motion.div layoutId="button">
                       <Button
@@ -150,26 +156,26 @@ export default function FolderInteraction() {
                 initial={{ scale: 1.2, filter: "blur(4px)", opacity: 0 }}
                 animate={{ scale: 1, filter: "blur(0px)", opacity: 1 }}
                 exit={{ scale: 1.2, filter: "blur(4px)", opacity: 0 }}
-                className="absolute left-2"
+                className="absolute"
               >
                 <svg
-                  width="120"
+                  width="128"
                   height="180"
-                  viewBox="0 0 200 300"
+                  viewBox="0 0 128 180"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="fill-muted-foreground/80"
+                  className="fill-muted-foreground/28 dark:fill-muted-foreground/80"
                 >
                   <path
                     d="
-                M 30 20
-                Q 20 20 20 30
-                L 20 270
-                Q 20 280 30 280
-                L 170 280
-                Q 180 280 180 270
-                L 180 30
-                Q 180 20 170 20
-                Z"
+                      M 18 12
+                      Q 12 12 12 18
+                      L 12 162
+                      Q 12 168 18 168
+                      L 110 168
+                      Q 116 168 116 162
+                      L 116 18
+                      Q 116 12 110 12
+                      Z"
                     stroke="none"
                   />
                 </svg>
@@ -210,7 +216,7 @@ export default function FolderInteraction() {
                   height="180"
                   viewBox="0 0 200 300"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="fill-muted-foreground"
+                  className="fill-neutral-200 dark:fill-muted-foreground"
                 >
                   <path
                     d="
