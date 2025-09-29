@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import PersonalInfo from "@/components/custom/personal-info";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
@@ -154,17 +155,23 @@ export default function Home() {
   ];
 
   return (
-    <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-14 sm:py-22 text-neutral-800 dark:text-neutral-100">
+    <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-10 sm:py-18 text-neutral-800 dark:text-neutral-100">
       <main>
-        <img
-          src={
-            !mounted || resolvedTheme === "dark"
-              ? "/me-icon-dark.svg"
-              : "/me-icon-light.svg"
-          }
-          alt=""
-          className="size-15 mb-4"
-        />
+        <div className="flex items-center justify-between mb-10 sm:mb-12">
+          {" "}
+          <img
+            src={
+              !mounted || resolvedTheme === "dark"
+                ? "/me-icon-dark.svg"
+                : "/me-icon-light.svg"
+            }
+            alt=""
+            className="size-15"
+            draggable={false}
+          />
+          {/* <PersonalInfo /> */}
+        </div>
+
         <div className="text-[22px] font-medium tracking-tight text-primary w-full pb-3 flex flex-row justify-between">
           <h1>
             {t("HomePage.intro")}
@@ -190,8 +197,7 @@ export default function Home() {
         <div className="text-muted-foreground">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore
           cupiditate saepe architecto doloribus voluptatibus officiis, sint,
-          obcaecati incidunt possimus quisquam sequi dolores, voluptatum
-          eligendi assumenda.
+          obcaecati incidunt.
         </div>
         <div className="flex flex-row gap-4 mt-6">
           <Button

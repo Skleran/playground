@@ -10,6 +10,7 @@
   "HomePage": {
     "intro": "Hey, I'm",
     "projects": "Projects",
+    "local_time": "local time",
     "work": "Work",
     "view_transitions": "View Transitions Demo",
     "glowing_video": "Glowing Video",
@@ -50,5 +51,9 @@
     "settings": "Settings",
     "bookmarks": "Bookmarks",
     "log_out": "Log Out"
+  },
+  "FolderInteraction": {
+    "clear": "Clear",
+    "attach_images": "Attach Images"
   }
 }

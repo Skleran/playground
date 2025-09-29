@@ -10,6 +10,7 @@
   "HomePage": {
     "intro": "Merhaba, ben",
     "projects": "Projeler",
+    "local_time": "yerel saat",
     "work": "Çalışmalar",
     "view_transitions": "View Transitions Demo",
     "glowing_video": "Parlayan Video",
@@ -50,5 +51,10 @@
     "settings": "Ayarlar",
     "bookmarks": "Yer İmleri",
     "log_out": "Çıkış Yap"
+  },
+  "FolderInteraction": {
+    "clear": "Temizle",
+    "attach_images": "Resimleri Ekle",
+    "send_images": "Resmi Gönder"
   }
 }

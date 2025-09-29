@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import useMeasure from "react-use-measure";
+import { useLocale, useTranslations } from "next-intl";
 
 const IMAGES = [
   { id: 1, src: "/images/folder-interaction-images/SwiftGlow_square.jpg" },
@@ -18,6 +19,8 @@ export default function FolderInteraction() {
   const [readyToSend, setReadyToSend] = useState<boolean>(false);
   const [sent, setSent] = useState<boolean>(false);
   const [ref, bounds] = useMeasure();
+  const t = useTranslations();
+  const locale = useLocale();
 
   const imagesToShow = readyToSend
     ? IMAGES.filter((img) => !imagesToSend.includes(img.src))
@@ -119,7 +122,7 @@ export default function FolderInteraction() {
                       variant={"secondary"}
                       className="rounded-full"
                     >
-                      <X /> Clear
+                      <X /> {t("FolderInteraction.clear")}
                     </Button>
                     <motion.div layoutId="button">
                       <Button
@@ -132,7 +135,7 @@ export default function FolderInteraction() {
                         }}
                         className="text-white bg-special-orange hover:bg-special-orange/85 rounded-full"
                       >
-                        <Paperclip /> Attach Images
+                        <Paperclip /> {t("FolderInteraction.attach_images")}
                       </Button>
                     </motion.div>
                   </div>
@@ -266,7 +269,16 @@ export default function FolderInteraction() {
                 }}
                 className="text-white bg-special-orange hover:bg-special-orange/85 rounded-full w-40"
               >
-                <Send /> Send {imagesToSend.length} images
+                {locale === "tr" ? (
+                  <>
+                    <Send /> {imagesToSend.length}{" "}
+                    {t("FolderInteraction.send_images")}{" "}
+                  </>
+                ) : (
+                  <>
+                    <Send /> Send {imagesToSend.length} images
+                  </>
+                )}
               </Button>
             </motion.div>
           ) : null}
