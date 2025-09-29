@@ -99,11 +99,12 @@ export default function FeedbackBox() {
                   <textarea
                     required
                     autoFocus
+                    name="textarea"
                     onChange={(e) => setFeedback(e.target.value)}
-                    className="h-32 w-full resize-none outline-none"
+                    className="h-30 w-full resize-none outline-none text-base"
                   />
                   <div className="absolute w-full border-t-2 left-0 border-neutral-200 dark:border-accent border-dashed bottom-14" />
-                  <div className="w-full ml-2 flex justify-end">
+                  <div className="w-full ml-2 mt-2 flex justify-end">
                     <button
                       className="px-3 py-2 bg-special-orange rounded-lg w-[140px] text-white text-sm relative overflow-hidden transition-transform hover:cursor-pointer active:scale-97"
                       type="submit"

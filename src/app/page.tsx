@@ -156,6 +156,15 @@ export default function Home() {
   return (
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-14 sm:py-22 text-neutral-800 dark:text-neutral-100">
       <main>
+        <img
+          src={
+            !mounted || resolvedTheme === "dark"
+              ? "/me-icon-dark.svg"
+              : "/me-icon-light.svg"
+          }
+          alt=""
+          className="size-15 mb-4"
+        />
         <div className="text-[22px] font-medium tracking-tight text-primary w-full pb-3 flex flex-row justify-between">
           <h1>
             {t("HomePage.intro")}

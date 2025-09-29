@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Folder Interaction",
+    subdomain: "folder-interaction",
+    isExperimental: false,
+  },
+  {
     name: "Multistep Dialog",
     subdomain: "multistep-dialog",
     isExperimental: false,
