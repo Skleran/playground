@@ -31,8 +31,8 @@ export default function PersonalInfo() {
   const imageSrc = useMemo(
     () =>
       !mounted || resolvedTheme === "dark"
-        ? "/me-icon-dark.svg"
-        : "/me-icon-light.svg",
+        ? "/images/my-logo/simplified-logo-dark.svg"
+        : "/images/my-logo/simplified-logo-light.svg",
     [mounted, resolvedTheme]
   );
 
@@ -104,7 +104,7 @@ export default function PersonalInfo() {
                 Its kinda late for me,
               </p>
               <p className="text-sm">
-                so i'm probably sleeping right now
+                so i&apos;m probably sleeping right now
                 <Bed className="inline-flex size-[17px]" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
