@@ -11,6 +11,18 @@
     "intro": "Merhaba, ben",
     "projects": "Projeler",
     "local_time": "yerel saat",
+    "greeting": {
+      "morning": "Günaydın!",
+      "afternoon": "İyi Günler!",
+      "evening": "İyi Akşamlar!",
+      "night": "Benim için biraz geç,"
+    },
+    "activity": {
+      "morning": "muhtemelen şu an kahve içiyorum",
+      "afternoon": "muhtemelen harika bir şey üzerinde çalışıyorum",
+      "evening": "muhtemelen şu an müzik dinliyorum",
+      "night": "yani muhtemelen şu an uyuyorum"
+    },
     "work": "Çalışmalar",
     "view_transitions": "View Transitions Demo",
     "glowing_video": "Parlayan Video",

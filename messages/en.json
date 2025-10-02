@@ -11,6 +11,18 @@
     "intro": "Hey, I'm",
     "projects": "Projects",
     "local_time": "local time",
+    "greeting": {
+      "morning": "Good Morning!",
+      "afternoon": "Good Afternoon!",
+      "evening": "Good Evening!",
+      "night": "It's kinda late for me,"
+    },
+    "activity": {
+      "morning": "probably having coffee right now",
+      "afternoon": "probably working on something cool",
+      "evening": "probably listening to music right now",
+      "night": "so I'm probably sleeping right now"
+    },
     "work": "Work",
     "view_transitions": "View Transitions Demo",
     "glowing_video": "Glowing Video",
