@@ -3,18 +3,23 @@
 import NumberFlow from "@number-flow/react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import React, { useState, useEffect, useMemo } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { AnimatePresence, motion, useMotionValue } from "motion/react";
 import { Button } from "../ui/button";
-import { Bed } from "lucide-react";
+import { GripVertical, Music } from "lucide-react";
+import { animate } from "motion";
 
 export default function PersonalInfo() {
   const [timeParts, setTimeParts] = useState({ h: 0, m: 0, s: 0 });
   const t = useTranslations();
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
-
+  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const y = useMotionValue(0);
+  const DRAG_THRESHOLD = 125;
 
   const formatter = useMemo(
     () =>
@@ -36,6 +41,7 @@ export default function PersonalInfo() {
     [mounted, resolvedTheme]
   );
 
+  // set clock on mount
   useEffect(() => {
     setMounted(true);
 
@@ -57,12 +63,48 @@ export default function PersonalInfo() {
     return () => clearInterval(id);
   }, [formatter]);
 
+  // clickOutside and close on scroll logic
+  useEffect(() => {
+    function onClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      if (
+        ref.current &&
+        !ref.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    function onScroll() {
+      setIsOpen(false);
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", onClickOutside);
+      window.addEventListener("scroll", onScroll, true);
+    }
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener("scroll", onScroll, true);
+    };
+  }, [isOpen]);
+
+  // close isAddOpen when isOpen closes
+  useEffect(() => {
+    if (!isOpen) {
+      setIsAddOpen(false);
+    }
+  }, [isOpen, isAddOpen]);
+
   return (
     <div className="w-full relative pb-10 sm:pb-12">
       <div className="relative w-full h-15 flex items-center justify-between">
         <img src={imageSrc} alt="" className="size-15" draggable={false} />
 
         <Button
+          ref={buttonRef}
           variant={"secondary"}
           onClick={() => {
             setIsOpen(!isOpen);
@@ -90,20 +132,47 @@ export default function PersonalInfo() {
           </span>
         </Button>
       </div>
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="sync">
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, filter: "blur(4px)", y: -6 }}
+            initial={{ opacity: 0, filter: "blur(4px)", y: -30 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            exit={{ opacity: 0, filter: "blur(4px)", y: -6 }}
+            exit={{ opacity: 0, filter: "blur(4px)", y: -30 }}
             transition={{ duration: 0.2, bounce: 0 }}
-            className="absolute h-auto w-full top-[80%] rounded-xl z-10 bg-background backdrop-blur-[3px] "
+            onPan={(_, info) => {
+              y.set(info.offset.y);
+            }}
+            onPanEnd={() => {
+              const currentY = y.get();
+
+              // open or close if dragged up past threshold
+              if (currentY < -(DRAG_THRESHOLD / 2)) {
+                setIsOpen(false);
+              } else if (currentY >= DRAG_THRESHOLD) {
+                setIsAddOpen(true);
+              }
+              // animate back
+              animate(y, 0, {
+                type: "spring",
+                bounce: 0.3,
+                duration: 0.6,
+                // mass: 2,
+              });
+            }}
+            style={{
+              y,
+              // prevent touch scrolling/zooming interference
+              touchAction: "none",
+            }}
+            className="absolute h-auto w-full top-[80%] rounded-xl z-10 bg-background backdrop-blur-[3px] shadow-xl dark:shadow-background/50 hover:cursor-grab active:cursor-grabbing select-none"
           >
-            <div className="rounded-xl ring-1 ring-ring/40 h-full p-3 flex flex-col">
-              <p className="text-4xl tracking-tighter font-bold">
-                Its kinda late for me,
-              </p>
-              <p className="text-sm">
+            <div ref={ref} className="rounded-xl h-full p-3">
+              <div className="flex h-full">
+                <div className="w-full flex flex-col">
+                  <p className="text-4xl tracking-tighter font-bold text-balance scroll-m-20 leading-9.25 pb-1">
+                    Good Morning!
+                  </p>
+                  {/* <p className="text-sm">
                 so i&apos;m probably sleeping right now
                 <Bed className="inline-flex size-[17px]" />
                 <svg
@@ -116,7 +185,29 @@ export default function PersonalInfo() {
                 >
                   <path d="M 10.4922 26.8750 L 25.3984 26.8750 C 26.5234 26.8750 27.1563 26.2656 27.1563 25.2344 C 27.1563 24.2032 26.5234 23.6172 25.3984 23.6172 L 12.8828 23.6172 L 12.8828 23.5234 L 26.0078 7.7032 C 26.7578 6.8125 26.9453 6.2734 26.9453 5.5703 C 26.9453 4.2813 26.0547 3.4844 24.5078 3.4844 L 9.9297 3.4844 C 8.8047 3.4844 8.1719 4.0703 8.1719 5.1016 C 8.1719 6.1563 8.8047 6.7422 9.9297 6.7422 L 22.4219 6.7422 L 22.4219 6.8359 L 8.9922 23.0547 C 8.4531 23.6875 8.3125 24.1563 8.3125 24.8359 C 8.3125 26.0547 9.1797 26.8750 10.4922 26.8750 Z M 34.3047 39.4844 L 46.1172 39.4844 C 47.2188 39.4844 47.8281 38.9219 47.8281 37.8906 C 47.8281 36.9297 47.2188 36.3437 46.1172 36.3437 L 36.5078 36.3437 L 36.5078 36.25 L 46.5390 24.1563 C 47.3359 23.1953 47.5937 22.6563 47.5937 22 C 47.5937 20.7344 46.75 19.9610 45.25 19.9610 L 33.7422 19.9610 C 32.6641 19.9610 32.0312 20.5469 32.0312 21.5313 C 32.0312 22.5391 32.6641 23.1016 33.7422 23.1016 L 43.3281 23.1016 L 43.3281 23.1953 L 33.0156 35.6641 C 32.4063 36.3906 32.1953 36.8594 32.1953 37.5391 C 32.1953 38.6875 33.0156 39.4844 34.3047 39.4844 Z M 17.3828 52.5156 L 26.8516 52.5156 C 27.8594 52.5156 28.4453 51.9532 28.4453 51.0391 C 28.4453 50.1016 27.8594 49.5859 26.8516 49.5859 L 19.4453 49.5859 L 19.4453 49.4922 L 27.2266 40.0234 C 27.9766 39.1094 28.2109 38.5469 28.2109 37.8672 C 28.2109 36.7422 27.4375 36.1094 26.1719 36.1094 L 16.7969 36.1094 C 15.7890 36.1094 15.2266 36.6484 15.2266 37.5625 C 15.2266 38.5 15.7890 39.0391 16.7969 39.0391 L 24.3203 39.0391 L 24.3203 39.1094 L 16.1641 48.9531 C 15.6016 49.6563 15.4141 50.0547 15.4141 50.7110 C 15.4141 51.7656 16.1875 52.5156 17.3828 52.5156 Z" />
                 </svg>
-              </p>
+              </p> */}
+                  <p className="text-sm">
+                    i&apos;m probably listening to music right now
+                    <Music className="inline-flex" />
+                  </p>
+                </div>
+                <div className=" w-fit min-h-full flex items-center">
+                  <GripVertical className="sm:size-7" />
+                </div>
+              </div>
+
+              {isAddOpen ? (
+                <motion.div
+                  initial={{ opacity: 0, filter: "blur(4px)", y: -20 }}
+                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                  exit={{ opacity: 0, filter: "blur(4px)", y: -20 }}
+                  transition={{ duration: 0.2, bounce: 0 }}
+                >
+                  <p className="scroll-m-20 mt-2 text-3xl font-semibold tracking-tight leading-8">
+                    You find the easter egg!
+                  </p>
+                </motion.div>
+              ) : null}
             </div>
           </motion.div>
         )}
