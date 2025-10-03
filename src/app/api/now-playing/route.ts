@@ -49,7 +49,9 @@ export async function GET() {
   return NextResponse.json({
     isPlaying: true,
     title: song.item.name,
-    artist: song.item.artists.map((artist: any) => artist.name).join(", "),
+    artist: song.item.artists
+      .map((artist: { name: string }) => artist.name)
+      .join(", "),
     album: song.item.album.name,
     albumArt: song.item.album.images[0]?.url,
     songUrl: song.item.external_urls.spotify,

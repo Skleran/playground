@@ -4,11 +4,17 @@ import NumberFlow from "@number-flow/react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { AnimatePresence, motion, useMotionValue } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  MotionConfig,
+  useMotionValue,
+} from "motion/react";
 import { Button } from "../ui/button";
 import { Coffee, GripVertical, Laptop, MoonStar, Music } from "lucide-react";
 import { animate } from "motion";
 import MusicInfo from "./music-info";
+import useMeasure from "react-use-measure";
 
 export default function PersonalInfo() {
   const [timeParts, setTimeParts] = useState({ h: 0, m: 0, s: 0 });
@@ -21,6 +27,8 @@ export default function PersonalInfo() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const y = useMotionValue(0);
   const DRAG_THRESHOLD = 100;
+  const [height, bounds] = useMeasure();
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const getTimeBasedMessage = () => {
     const hour = timeParts.h;
@@ -175,107 +183,125 @@ export default function PersonalInfo() {
   }, [isOpen]);
 
   return (
-    <div className="w-full relative pb-10 sm:pb-12">
-      <div className="relative w-full h-15 flex items-center justify-between">
-        <img src={imageSrc} alt="" className="size-15" draggable={false} />
+    <MotionConfig transition={{ type: "spring", duration: 0.3, bounce: 0 }}>
+      <div className="w-full relative pb-10 sm:pb-12">
+        <div className="relative w-full h-15 flex items-center justify-between">
+          <img src={imageSrc} alt="" className="size-15" draggable={false} />
 
-        <Button
-          ref={buttonRef}
-          variant={"secondary"}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-          className="absolute right-0 flex flex-col h-12 w-auto p-1.5 px-2 m-0 items-end gap-0 z-10 pb-3.5 rounded-xl"
-        >
-          <span className="tabular-nums font-mono text-base">
-            <NumberFlow
-              value={timeParts.h}
-              format={{ minimumIntegerDigits: 2 }}
-            />
-            :
-            <NumberFlow
-              value={timeParts.m}
-              format={{ minimumIntegerDigits: 2 }}
-            />
-            :
-            <NumberFlow
-              value={timeParts.s}
-              format={{ minimumIntegerDigits: 2 }}
-            />
-          </span>
-          <span className="leading-0 text-sm text-end mt-1 text-muted-foreground">
-            {t("HomePage.local_time")}
-          </span>
-        </Button>
-      </div>
-      <AnimatePresence mode="sync">
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, filter: "blur(4px)", y: -30 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            exit={{ opacity: 0, filter: "blur(4px)", y: -30 }}
-            transition={{ duration: 0.2, bounce: 0 }}
-            onPan={(_, info) => {
-              y.set(info.offset.y);
+          <Button
+            ref={buttonRef}
+            variant={"secondary"}
+            onClick={() => {
+              setIsOpen(!isOpen);
             }}
-            onPanEnd={() => {
-              const currentY = y.get();
-
-              // open or close if dragged up past threshold
-              if (currentY < -(DRAG_THRESHOLD / 4)) {
-                setIsOpen(false);
-              } else if (currentY >= DRAG_THRESHOLD) {
-                setIsAddOpen(true);
-              }
-              // animate back
-              animate(y, 0, {
-                type: "spring",
-                bounce: 0.3,
-                duration: 0.6,
-                // mass: 2,
-              });
-            }}
-            style={{
-              y,
-              // prevent touch scrolling/zooming interference
-              touchAction: "none",
-            }}
-            className="absolute h-auto w-full top-[80%] rounded-xl z-10 bg-[#f2f2f2] dark:bg-[#212121] backdrop-blur-[3px] shadow-[0_7px_15px_rgba(0,0,0,0.25)] dark:shadow-background/50 dark:ring ring-ring/20 hover:cursor-grab active:cursor-grabbing select-none"
+            className="absolute right-0 flex flex-col h-12 w-auto p-1.5 px-2 m-0 items-end gap-0 z-10 pb-3.5 rounded-xl"
           >
-            <div ref={ref} className="rounded-xl h-full">
-              <div
-                className={`flex h-full p-3 bg-background rounded-xl ${
-                  isAddOpen ? "shadow-xs dark:shadow-none" : ""
-                }`}
-              >
-                <div className="w-full flex flex-col">
-                  <p className="text-4xl tracking-tighter font-bold text-balance scroll-m-20 leading-9.25 pb-1">
-                    {t(`HomePage.greeting.${timeOfDay}`)}
-                  </p>
-                  <p className="text-sm mt-1">
-                    {t(`HomePage.activity.${timeOfDay}`)}
-                    {getTimeIcon()}
-                  </p>
-                </div>
-                <div className=" w-fit min-h-full flex items-center">
-                  <GripVertical className="sm:size-7" />
+            <span className="tabular-nums font-mono text-base">
+              <NumberFlow
+                value={timeParts.h}
+                format={{ minimumIntegerDigits: 2 }}
+              />
+              :
+              <NumberFlow
+                value={timeParts.m}
+                format={{ minimumIntegerDigits: 2 }}
+              />
+              :
+              <NumberFlow
+                value={timeParts.s}
+                format={{ minimumIntegerDigits: 2 }}
+              />
+            </span>
+            <span className="leading-0 text-sm text-end mt-1 text-muted-foreground">
+              {t("HomePage.local_time")}
+            </span>
+          </Button>
+        </div>
+        <AnimatePresence mode="sync">
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, filter: "blur(4px)", y: -30 }}
+              animate={{
+                opacity: 1,
+                filter: "blur(0px)",
+                y: 0,
+                height: bounds.height || "auto",
+              }}
+              exit={{ opacity: 0, filter: "blur(4px)", y: -30 }}
+              onPan={(_, info) => {
+                y.set(info.offset.y);
+              }}
+              onPanEnd={() => {
+                const currentY = y.get();
+
+                // open or close if dragged up past threshold
+                if (currentY < -(DRAG_THRESHOLD / 4)) {
+                  setIsOpen(false);
+                } else if (currentY >= DRAG_THRESHOLD) {
+                  setIsAddOpen(true);
+                }
+                // animate back
+                animate(y, 0, {
+                  type: "spring",
+                  bounce: 0.3,
+                  duration: 0.6,
+                  // mass: 2,
+                });
+              }}
+              style={{
+                y,
+                // prevent touch scrolling/zooming interference
+                touchAction: "none",
+              }}
+              className="absolute overflow-hidden w-full top-[80%] rounded-xl z-10 bg-[#f2f2f2] dark:bg-[#212121] backdrop-blur-[3px] shadow-[0_7px_15px_rgba(0,0,0,0.25)] dark:shadow-background/50 dark:ring ring-ring/20 hover:cursor-grab active:cursor-grabbing select-none"
+            >
+              <div ref={height}>
+                <div ref={ref} className="rounded-xl h-full">
+                  <div
+                    className={`flex h-full p-3 bg-background rounded-xl z-100 ${
+                      isAddOpen ? "shadow-xs dark:shadow-none " : ""
+                    }`}
+                  >
+                    <div className="w-full flex flex-col">
+                      <p className="text-4xl tracking-tighter font-bold text-balance scroll-m-20 leading-9.25 pb-1">
+                        {t(`HomePage.greeting.${timeOfDay}`)}
+                      </p>
+                      <p className="text-sm mt-1">
+                        {t(`HomePage.activity.${timeOfDay}`)}
+                        {getTimeIcon()}
+                      </p>
+                    </div>
+                    <div
+                      onClick={() => setIsAddOpen(!isAddOpen)}
+                      className=" w-fit min-h-full flex items-center"
+                    >
+                      <GripVertical className="sm:size-7" />
+                    </div>
+                  </div>
+                  <AnimatePresence mode="popLayout">
+                    {isAddOpen && (
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                          filter: "blur(4px)",
+                          y: -90,
+                        }}
+                        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                        exit={{ opacity: 0, filter: "blur(4px)", y: -80 }}
+                        onAnimationStart={() => setIsAnimating(true)}
+                        onAnimationComplete={() => setIsAnimating(false)}
+                        className={`relative ${isAnimating ? "-z-10" : ""}`}
+                      >
+                        <MusicInfo nowPlaying={nowPlaying} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
-
-              {isAddOpen ? (
-                <motion.div
-                  initial={{ opacity: 0, filter: "blur(4px)", y: -20 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                  exit={{ opacity: 0, filter: "blur(4px)", y: -20 }}
-                  transition={{ duration: 0.2, bounce: 0 }}
-                >
-                  <MusicInfo nowPlaying={nowPlaying} />
-                </motion.div>
-              ) : null}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </MotionConfig>
   );
 }
