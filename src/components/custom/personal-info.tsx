@@ -8,6 +8,7 @@ import { AnimatePresence, motion, useMotionValue } from "motion/react";
 import { Button } from "../ui/button";
 import { Coffee, GripVertical, Laptop, MoonStar, Music } from "lucide-react";
 import { animate } from "motion";
+import MusicInfo from "./music-info";
 
 export default function PersonalInfo() {
   const [timeParts, setTimeParts] = useState({ h: 0, m: 0, s: 0 });
@@ -142,6 +143,37 @@ export default function PersonalInfo() {
     }
   }, [isOpen, isAddOpen]);
 
+  const [nowPlaying, setNowPlaying] = useState<{
+    isPlaying: boolean;
+    title?: string;
+    artist?: string;
+    album?: string;
+    albumArt?: string;
+    songUrl?: string;
+  } | null>(null);
+
+  // now-listening
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const fetchNowPlaying = async () => {
+      try {
+        const res = await fetch("/api/now-playing");
+        const data = await res.json();
+        setNowPlaying(data);
+      } catch (error) {
+        console.error("Failed to fetch now playing:", error);
+        setNowPlaying({ isPlaying: false });
+      }
+    };
+
+    fetchNowPlaying();
+
+    const interval = setInterval(fetchNowPlaying, 30000);
+
+    return () => clearInterval(interval);
+  }, [isOpen]);
+
   return (
     <div className="w-full relative pb-10 sm:pb-12">
       <div className="relative w-full h-15 flex items-center justify-between">
@@ -208,10 +240,14 @@ export default function PersonalInfo() {
               // prevent touch scrolling/zooming interference
               touchAction: "none",
             }}
-            className="absolute h-auto w-full top-[80%] rounded-xl z-10 bg-background backdrop-blur-[3px] shadow-[0_7px_15px_rgba(0,0,0,0.25)] dark:shadow-background/50 dark:ring ring-ring/20 hover:cursor-grab active:cursor-grabbing select-none"
+            className="absolute h-auto w-full top-[80%] rounded-xl z-10 bg-[#f2f2f2] dark:bg-[#212121] backdrop-blur-[3px] shadow-[0_7px_15px_rgba(0,0,0,0.25)] dark:shadow-background/50 dark:ring ring-ring/20 hover:cursor-grab active:cursor-grabbing select-none"
           >
-            <div ref={ref} className="rounded-xl h-full p-3">
-              <div className="flex h-full">
+            <div ref={ref} className="rounded-xl h-full">
+              <div
+                className={`flex h-full p-3 bg-background rounded-xl ${
+                  isAddOpen ? "shadow-xs dark:shadow-none" : ""
+                }`}
+              >
                 <div className="w-full flex flex-col">
                   <p className="text-4xl tracking-tighter font-bold text-balance scroll-m-20 leading-9.25 pb-1">
                     {t(`HomePage.greeting.${timeOfDay}`)}
@@ -233,9 +269,7 @@ export default function PersonalInfo() {
                   exit={{ opacity: 0, filter: "blur(4px)", y: -20 }}
                   transition={{ duration: 0.2, bounce: 0 }}
                 >
-                  <p className="scroll-m-20 mt-2 text-3xl font-semibold tracking-tight leading-8">
-                    You find the easter egg!
-                  </p>
+                  <MusicInfo nowPlaying={nowPlaying} />
                 </motion.div>
               ) : null}
             </div>
