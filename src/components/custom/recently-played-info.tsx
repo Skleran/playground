@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-interface Track {
+export interface Track {
   title: string;
   artist: string;
   album: string;

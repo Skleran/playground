@@ -15,7 +15,7 @@ import { Coffee, GripVertical, Laptop, MoonStar, Music } from "lucide-react";
 import { animate } from "motion";
 import MusicInfo from "./music-info";
 import useMeasure from "react-use-measure";
-import RecentlyPlayedInfo from "./recently-played-info";
+import RecentlyPlayedInfo, { Track } from "./recently-played-info";
 
 export default function PersonalInfo() {
   const [timeParts, setTimeParts] = useState({ h: 0, m: 0, s: 0 });
@@ -162,7 +162,7 @@ export default function PersonalInfo() {
     albumArt?: string;
     songUrl?: string;
   } | null>(null);
-  const [recentTracks, setRecentTracks] = useState<any[] | null>(null);
+  const [recentTracks, setRecentTracks] = useState<Track[] | null>(null);
 
   // fetch recently played + now playing
   useEffect(() => {
