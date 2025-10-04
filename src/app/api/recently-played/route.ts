@@ -1,4 +1,3 @@
-// app/api/recently-played/route.ts
 import { NextResponse } from "next/server";
 
 const client_id = process.env.SPOTIFY_CLIENT_ID!;
@@ -7,7 +6,41 @@ const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN!;
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 
-const getAccessToken = async () => {
+interface SpotifyTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  scope: string;
+}
+
+interface SpotifyArtist {
+  name: string;
+}
+
+interface SpotifyAlbum {
+  name: string;
+  images: { url: string }[];
+}
+
+interface SpotifyTrack {
+  name: string;
+  artists: SpotifyArtist[];
+  album: SpotifyAlbum;
+  external_urls: {
+    spotify: string;
+  };
+}
+
+interface SpotifyRecentlyPlayedItem {
+  track: SpotifyTrack;
+  played_at: string;
+}
+
+interface SpotifyRecentlyPlayedResponse {
+  items: SpotifyRecentlyPlayedItem[];
+}
+
+const getAccessToken = async (): Promise<SpotifyTokenResponse> => {
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -43,11 +76,11 @@ export async function GET() {
     );
   }
 
-  const data = await response.json();
+  const data: SpotifyRecentlyPlayedResponse = await response.json();
 
-  const tracks = data.items.map((item: any) => ({
+  const tracks = data.items.map((item) => ({
     title: item.track.name,
-    artist: item.track.artists.map((artist: any) => artist.name).join(", "),
+    artist: item.track.artists.map((artist) => artist.name).join(", "),
     album: item.track.album.name,
     albumArt: item.track.album.images[0]?.url,
     songUrl: item.track.external_urls.spotify,
