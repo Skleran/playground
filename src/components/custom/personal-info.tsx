@@ -15,6 +15,7 @@ import { Coffee, GripVertical, Laptop, MoonStar, Music } from "lucide-react";
 import { animate } from "motion";
 import MusicInfo from "./music-info";
 import useMeasure from "react-use-measure";
+import RecentlyPlayedInfo from "./recently-played-info";
 
 export default function PersonalInfo() {
   const [timeParts, setTimeParts] = useState({ h: 0, m: 0, s: 0 });
@@ -29,6 +30,7 @@ export default function PersonalInfo() {
   const DRAG_THRESHOLD = 100;
   const [height, bounds] = useMeasure();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isRecentOpen, setRecentOpen] = useState(false);
 
   const getTimeBasedMessage = () => {
     const hour = timeParts.h;
@@ -144,10 +146,11 @@ export default function PersonalInfo() {
     };
   }, [isOpen]);
 
-  // close isAddOpen when isOpen closes
+  // close isAddOpen and recents when isOpen closes
   useEffect(() => {
     if (!isOpen) {
       setIsAddOpen(false);
+      setRecentOpen(false);
     }
   }, [isOpen, isAddOpen]);
 
@@ -159,25 +162,33 @@ export default function PersonalInfo() {
     albumArt?: string;
     songUrl?: string;
   } | null>(null);
+  const [recentTracks, setRecentTracks] = useState<any[] | null>(null);
 
-  // now-listening
+  // fetch recently played + now playing
   useEffect(() => {
     if (!isOpen) return;
 
-    const fetchNowPlaying = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch("/api/now-playing");
-        const data = await res.json();
-        setNowPlaying(data);
+        const [nowPlayingRes, recentRes] = await Promise.all([
+          fetch("/api/now-playing"),
+          fetch("/api/recently-played?limit=5"),
+        ]);
+
+        const nowPlayingData = await nowPlayingRes.json();
+        const recentData = await recentRes.json();
+
+        setNowPlaying(nowPlayingData);
+        setRecentTracks(recentData.tracks || []);
       } catch (error) {
-        console.error("Failed to fetch now playing:", error);
+        console.error("Failed to fetch Spotify data:", error);
         setNowPlaying({ isPlaying: false });
+        setRecentTracks([]);
       }
     };
 
-    fetchNowPlaying();
-
-    const interval = setInterval(fetchNowPlaying, 30000);
+    fetchData();
+    const interval = setInterval(fetchData, 30000);
 
     return () => clearInterval(interval);
   }, [isOpen]);
@@ -258,7 +269,7 @@ export default function PersonalInfo() {
               <div ref={height}>
                 <div ref={ref} className="rounded-xl h-full">
                   <div
-                    className={`flex h-full p-3 bg-background rounded-xl z-100 ${
+                    className={`flex h-full items-center p-3 bg-background rounded-xl z-100 ${
                       isAddOpen ? "shadow-xs dark:shadow-none " : ""
                     }`}
                   >
@@ -271,12 +282,17 @@ export default function PersonalInfo() {
                         {getTimeIcon()}
                       </p>
                     </div>
-                    <div
-                      onClick={() => setIsAddOpen(!isAddOpen)}
-                      className=" w-fit min-h-full flex items-center"
+                    <Button
+                      variant={"none"}
+                      size={"sm"}
+                      onClick={() => {
+                        setIsAddOpen(!isAddOpen);
+                        setRecentOpen(false);
+                      }}
+                      className="w-fit min-h-full flex items-center hover:opacity-80"
                     >
-                      <GripVertical className="sm:size-7" />
-                    </div>
+                      <GripVertical className="sm:size-7 translate-x-0.75 sm:translate-x-1" />
+                    </Button>
                   </div>
                   <AnimatePresence mode="popLayout">
                     {isAddOpen && (
@@ -292,7 +308,25 @@ export default function PersonalInfo() {
                         onAnimationComplete={() => setIsAnimating(false)}
                         className={`relative ${isAnimating ? "-z-10" : ""}`}
                       >
-                        <MusicInfo nowPlaying={nowPlaying} />
+                        <AnimatePresence mode="popLayout">
+                          {isRecentOpen && (
+                            <motion.div
+                              initial={{
+                                opacity: 0,
+                                filter: "blur(4px)",
+                              }}
+                              animate={{ opacity: 1, filter: "blur(0px)" }}
+                              exit={{ opacity: 0, filter: "blur(4px)" }}
+                            >
+                              <RecentlyPlayedInfo recentTracks={recentTracks} />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                        <MusicInfo
+                          nowPlaying={nowPlaying}
+                          isExpand={isRecentOpen}
+                          setExpand={setRecentOpen}
+                        />
                       </motion.div>
                     )}
                   </AnimatePresence>

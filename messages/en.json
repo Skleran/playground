@@ -23,6 +23,14 @@
       "evening": "probably listening to music right now",
       "night": "so I'm probably sleeping right now"
     },
+    "music": {
+      "currently_playing": "Currently Playing",
+      "not_listening": "I'm not listening to anything right now",
+      "sad": ":(",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "recently_played": "Recently Played"
+    },
     "work": "Work",
     "view_transitions": "View Transitions Demo",
     "glowing_video": "Glowing Video",

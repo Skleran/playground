@@ -23,6 +23,15 @@
       "evening": "muhtemelen şu an müzik dinliyorum",
       "night": "yani muhtemelen şu an uyuyorum"
     },
+
+    "music": {
+      "currently_playing": "Şu Anda Çalıyor",
+      "not_listening": "Şu anda bir şey dinlemiyorum",
+      "sad": ":(",
+      "expand": "Genişlet",
+      "collapse": "Daralt",
+      "recently_played": "Son Çalınanlar"
+    },
     "work": "Çalışmalar",
     "view_transitions": "View Transitions Demo",
     "glowing_video": "Parlayan Video",
