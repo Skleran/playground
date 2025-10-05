@@ -253,7 +253,7 @@ export default function PersonalInfo() {
                       }}
                       className="w-fit min-h-full flex items-center hover:opacity-80"
                     >
-                      <GripVertical className="sm:size-7 translate-x-0.75 sm:translate-x-1" />
+                      <GripVertical className="sm:size-7 translate-x-3" />
                     </Button>
                   </div>
                   <AnimatePresence mode="popLayout">

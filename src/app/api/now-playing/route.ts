@@ -36,7 +36,7 @@ export async function GET() {
   const response = await getNowPlaying();
 
   if (response.status === 204 || response.status > 400) {
-    return NextResponse.json({ isPlaying: false });
+    return NextResponse.json({ isPlaying: null });
   }
 
   const song = await response.json();
@@ -46,7 +46,7 @@ export async function GET() {
   }
 
   return NextResponse.json({
-    isPlaying: true,
+    isPlaying: song.is_playing,
     title: song.item.name,
     artist: song.item.artists
       .map((artist: { name: string }) => artist.name)

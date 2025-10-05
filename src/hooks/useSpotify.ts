@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 export interface NowPlayingData {
-  isPlaying: boolean;
+  isPlaying: boolean | null;
   title?: string;
   artist?: string;
   album?: string;
@@ -54,7 +54,7 @@ export function useSpotify(enabled: boolean) {
     if (!enabled) return;
 
     fetchSpotifyData();
-    const interval = setInterval(fetchSpotifyData, 30000);
+    const interval = setInterval(fetchSpotifyData, 10000);
 
     return () => clearInterval(interval);
   }, [enabled, fetchSpotifyData]);
