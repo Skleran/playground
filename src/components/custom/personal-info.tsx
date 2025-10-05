@@ -28,7 +28,7 @@ export default function PersonalInfo() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const y = useMotionValue(0);
-  const DRAG_THRESHOLD = 100;
+  const DRAG_THRESHOLD = 50;
   const [height, bounds] = useMeasure();
   const [isRecentOpen, setRecentOpen] = useState(false);
   const { nowPlaying, recentTracks, refetch } = useSpotify(isOpen);
@@ -208,7 +208,7 @@ export default function PersonalInfo() {
                 const currentY = y.get();
 
                 // open or close if dragged up past threshold
-                if (currentY < -(DRAG_THRESHOLD / 4)) {
+                if (currentY < -(DRAG_THRESHOLD / 3)) {
                   setIsOpen(false);
                 } else if (currentY >= DRAG_THRESHOLD) {
                   setIsAddOpen(true);

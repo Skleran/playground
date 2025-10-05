@@ -8,10 +8,10 @@ import useMeasure from "react-use-measure";
 import { useLocale, useTranslations } from "next-intl";
 
 const IMAGES = [
-  { id: 1, src: "/images/folder-interaction-images/SwiftGlow_square.jpg" },
-  { id: 2, src: "/images/folder-interaction-images/Mistnova_square.jpg" },
-  { id: 3, src: "/images/folder-interaction-images/BlueRays_square.jpg" },
-  { id: 4, src: "/images/folder-interaction-images/Celestials_square.jpg" },
+  { id: 1, src: "/images/folder-interaction-images/SwiftGlow_square.avif" },
+  { id: 2, src: "/images/folder-interaction-images/Mistnova_square.avif" },
+  { id: 3, src: "/images/folder-interaction-images/BlueRays_square.avif" },
+  { id: 4, src: "/images/folder-interaction-images/Celestials_square.avif" },
 ];
 
 export default function FolderInteraction() {

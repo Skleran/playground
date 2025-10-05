@@ -92,8 +92,6 @@ export default function MusicInfo({
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  console.log(nowPlaying.isPlaying);
-
   return (
     <div className="py-3 space-y-3 mx-3">
       {nowPlaying.isPlaying === null ? (
@@ -183,8 +181,12 @@ export default function MusicInfo({
                   value={(currentProgress / nowPlaying.duration) * 100}
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>{formatTime(currentProgress)}</span>
-                  <span>{formatTime(nowPlaying.duration)}</span>
+                  <span className="tabular-nums">
+                    {formatTime(currentProgress)}
+                  </span>
+                  <span className="tabular-nums">
+                    {formatTime(nowPlaying.duration)}
+                  </span>
                 </div>
               </div>
             )}
