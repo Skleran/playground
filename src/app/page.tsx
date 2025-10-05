@@ -247,8 +247,8 @@ export default function Home() {
               subdomain="skleran-list"
               imageUrl={
                 !mounted || resolvedTheme === "dark"
-                  ? "/images/skleran-list-dark.png"
-                  : "/images/skleran-list-light.png"
+                  ? "/images/skleran-list-dark.webp"
+                  : "/images/skleran-list-light.webp"
               }
             />
           </div>

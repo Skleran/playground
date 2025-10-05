@@ -15,7 +15,8 @@ import { Coffee, GripVertical, Laptop, MoonStar, Music } from "lucide-react";
 import { animate } from "motion";
 import MusicInfo from "./music-info";
 import useMeasure from "react-use-measure";
-import RecentlyPlayedInfo, { Track } from "./recently-played-info";
+import RecentlyPlayedInfo from "./recently-played-info";
+import { useSpotify } from "@/hooks/useSpotify";
 
 export default function PersonalInfo() {
   const [timeParts, setTimeParts] = useState({ h: 0, m: 0, s: 0 });
@@ -30,6 +31,7 @@ export default function PersonalInfo() {
   const DRAG_THRESHOLD = 100;
   const [height, bounds] = useMeasure();
   const [isRecentOpen, setRecentOpen] = useState(false);
+  const { nowPlaying, recentTracks, refetch } = useSpotify(isOpen);
 
   const getTimeBasedMessage = () => {
     const hour = timeParts.h;
@@ -152,45 +154,6 @@ export default function PersonalInfo() {
       setRecentOpen(false);
     }
   }, [isOpen, isAddOpen]);
-
-  const [nowPlaying, setNowPlaying] = useState<{
-    isPlaying: boolean;
-    title?: string;
-    artist?: string;
-    album?: string;
-    albumArt?: string;
-    songUrl?: string;
-  } | null>(null);
-  const [recentTracks, setRecentTracks] = useState<Track[] | null>(null);
-
-  // fetch recently played + now playing
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const fetchData = async () => {
-      try {
-        const [nowPlayingRes, recentRes] = await Promise.all([
-          fetch("/api/now-playing"),
-          fetch("/api/recently-played?limit=5"),
-        ]);
-
-        const nowPlayingData = await nowPlayingRes.json();
-        const recentData = await recentRes.json();
-
-        setNowPlaying(nowPlayingData);
-        setRecentTracks(recentData.tracks || []);
-      } catch (error) {
-        console.error("Failed to fetch Spotify data:", error);
-        setNowPlaying({ isPlaying: false });
-        setRecentTracks([]);
-      }
-    };
-
-    fetchData();
-    const interval = setInterval(fetchData, 30000);
-
-    return () => clearInterval(interval);
-  }, [isOpen]);
 
   return (
     <MotionConfig transition={{ type: "spring", duration: 0.3, bounce: 0 }}>
@@ -330,6 +293,7 @@ export default function PersonalInfo() {
                             nowPlaying={nowPlaying}
                             isExpand={isRecentOpen}
                             setExpand={setRecentOpen}
+                            onSongEnd={refetch}
                           />
                         </motion.div>
                       </motion.div>
