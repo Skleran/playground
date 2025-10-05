@@ -9,11 +9,11 @@ export default function SettingsBox() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant={"ghost"} size={"icon"}>
+        <Button variant={"secondary"} size={"icon"}>
           <Settings2 />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto flex flex-col gap-3 p-2">
+      <PopoverContent className="w-auto flex flex-col gap-3 p-2 origin-top-right mr-6 md:mr-0 md:origin-top">
         {" "}
         <ChangeThemeTabs animationKey="theme" key={"theme"} />
         <LocaleSelectBox />

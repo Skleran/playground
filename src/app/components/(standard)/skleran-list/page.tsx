@@ -1,5 +1,6 @@
 "use client";
 import ComponentWrapper from "@/components/custom/component-wrapper";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,13 +9,14 @@ import React, { useEffect, useState } from "react";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
+  const t = useTranslations();
 
   useEffect(() => {
     setMounted(true);
   }, []);
   return (
     <ComponentWrapper
-      date="July 2025"
+      date={t("Date.september") + " 2025"}
       title="Skleran List"
       githubUrl="/"
       subdomain="skleran-list"
@@ -27,8 +29,8 @@ export default function Page() {
           <Image
             src={
               !mounted || resolvedTheme === "dark"
-                ? "/images/skleran-list-dark.png"
-                : "/images/skleran-list-light.png"
+                ? "/images/skleran-list-dark.webp"
+                : "/images/skleran-list-light.webp"
             }
             alt=""
             fill

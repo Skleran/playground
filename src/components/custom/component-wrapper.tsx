@@ -149,7 +149,7 @@ export default function ComponentWrapper({
             <div
               style={{ viewTransitionName: "component-wrapper" }}
               className={cn(
-                "w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-neutral-50 dark:bg-card ring-1 ring-border flex items-center justify-center overflow-hidden",
+                "w-full mx-auto min-h-[400px] overflow-x-hidden px-6 py-18 sm:py-22 rounded-2xl bg-neutral-50 dark:bg-card border-1 border-border dark:border-border/50 flex items-center justify-center overflow-hidden",
                 className
               )}
             >
@@ -163,12 +163,15 @@ export default function ComponentWrapper({
             {description}
           </p>
           {/* previous / next navigation */}
-          <div className="flex justify-between pt-6 pb-10">
+          <div
+            style={{ viewTransitionName: "nav-buttons" }}
+            className="flex justify-between pt-6 pb-10"
+          >
             {prevProject ? (
               <Button
                 asChild
                 variant={"none"}
-                className="flex flex-col items-start px-0 group gap-1.5"
+                className="flex flex-col items-start px-0 group gap-1.5 select-none"
               >
                 <Link href={`/components/${prevProject.subdomain}`}>
                   <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
@@ -187,7 +190,7 @@ export default function ComponentWrapper({
               <Button
                 asChild
                 variant={"none"}
-                className="flex flex-col items-end px-0 group gap-1.5"
+                className="flex flex-col items-end px-0 group gap-1.5 select-none"
               >
                 <Link href={`/components/${nextProject.subdomain}`}>
                   <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
