@@ -29,7 +29,6 @@ export default function PersonalInfo() {
   const y = useMotionValue(0);
   const DRAG_THRESHOLD = 100;
   const [height, bounds] = useMeasure();
-  const [isAnimating, setIsAnimating] = useState(false);
   const [isRecentOpen, setRecentOpen] = useState(false);
 
   const getTimeBasedMessage = () => {
@@ -300,13 +299,10 @@ export default function PersonalInfo() {
                         initial={{
                           opacity: 0,
                           filter: "blur(4px)",
-                          y: -90,
                         }}
-                        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                        exit={{ opacity: 0, filter: "blur(4px)", y: -80 }}
-                        onAnimationStart={() => setIsAnimating(true)}
-                        onAnimationComplete={() => setIsAnimating(false)}
-                        className={`relative ${isAnimating ? "-z-10" : ""}`}
+                        animate={{ opacity: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, filter: "blur(4px)" }}
+                        className={`relative`}
                       >
                         <AnimatePresence mode="popLayout">
                           {isRecentOpen && (
@@ -322,11 +318,20 @@ export default function PersonalInfo() {
                             </motion.div>
                           )}
                         </AnimatePresence>
-                        <MusicInfo
-                          nowPlaying={nowPlaying}
-                          isExpand={isRecentOpen}
-                          setExpand={setRecentOpen}
-                        />
+                        <motion.div
+                          layout
+                          transition={{
+                            type: "spring",
+                            duration: 0.4,
+                            bounce: 0,
+                          }}
+                        >
+                          <MusicInfo
+                            nowPlaying={nowPlaying}
+                            isExpand={isRecentOpen}
+                            setExpand={setRecentOpen}
+                          />
+                        </motion.div>
                       </motion.div>
                     )}
                   </AnimatePresence>
