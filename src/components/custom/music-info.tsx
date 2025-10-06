@@ -239,7 +239,7 @@ export default function MusicInfo({
                     {nowPlaying.artist}
                   </p>
                 </div>
-                <Pause className="stroke-accent-foreground/40 mt-2" />
+                <Pause className="fill-primary stroke-primary mt-2 opacity-50" />
               </div>
             </div>
             {nowPlaying.duration !== undefined && (

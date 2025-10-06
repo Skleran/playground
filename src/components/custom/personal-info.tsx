@@ -32,6 +32,7 @@ export default function PersonalInfo() {
   const [height, bounds] = useMeasure();
   const [isRecentOpen, setRecentOpen] = useState(false);
   const { nowPlaying, recentTracks, refetch } = useSpotify(isOpen);
+  const [isColorfulLogo, setIsColorfulLogo] = useState(false);
 
   const getTimeBasedMessage = () => {
     const hour = timeParts.h;
@@ -159,7 +160,26 @@ export default function PersonalInfo() {
     <MotionConfig transition={{ type: "spring", duration: 0.3, bounce: 0 }}>
       <div className="w-full relative pb-10 sm:pb-12">
         <div className="relative w-full h-15 flex items-center justify-between">
-          <img src={imageSrc} alt="" className="size-15" draggable={false} />
+          <button
+            onClick={() => setIsColorfulLogo(!isColorfulLogo)}
+            className="p-0 m-0 hover:cursor-pointer"
+          >
+            <img
+              src={imageSrc}
+              alt="logo of erdem koyuncu"
+              className="size-15"
+              draggable={false}
+            />
+            {isColorfulLogo ? (
+              <span className="pops w-15">
+                <span className="pop"></span>
+                <span className="pop"></span>
+                <span className="pop"></span>
+                <span className="pop"></span>
+                <span className="pop"></span>
+              </span>
+            ) : null}
+          </button>
 
           <Button
             ref={buttonRef}

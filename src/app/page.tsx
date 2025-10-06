@@ -158,16 +158,6 @@ export default function Home() {
     <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-10 sm:py-18 text-neutral-800 dark:text-neutral-100">
       <main>
         <div className="flex items-center justify-between">
-          {/* <img
-            src={
-              !mounted || resolvedTheme === "dark"
-                ? "/me-icon-dark.svg"
-                : "/me-icon-light.svg"
-            }
-            alt=""
-            className="size-15"
-            draggable={false}
-          /> */}
           <PersonalInfo />
         </div>
 
