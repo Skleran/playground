@@ -11,13 +11,6 @@ export default function Page() {
       title={t("HomePage.game_store_interaction")}
       githubUrl="/"
       subdomain="game-store-interaction"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className=""
     >
       <GameStoreInteraction />

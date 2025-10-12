@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.animated_button_bg")}
       githubUrl="/"
       subdomain="animated-button-bg"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
     >
       <AnimatedButtonBg />
     </ComponentWrapper>

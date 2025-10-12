@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.led_matrix_display")}
       githubUrl="/"
       subdomain="led-matrix-display"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className="flex-col gap-4 sm:gap-8"
     >
       <LedTicker

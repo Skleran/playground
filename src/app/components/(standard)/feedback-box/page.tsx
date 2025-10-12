@@ -11,13 +11,6 @@ export default function Page() {
       title={t("HomePage.feedback_box")}
       githubUrl="/"
       subdomain="feedback-box"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className="p-0 sm:p-0 h-full w-full flex items-center justify-center"
     >
       <FeedbackBox />

@@ -11,13 +11,6 @@ export default function Page() {
       title={t("HomePage.animated_user_box")}
       githubUrl="/"
       subdomain="animated-user-box"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
     >
       <UserBox />
     </ComponentWrapper>

@@ -11,13 +11,6 @@ export default function Page() {
       title={t("HomePage.dynamic_island")}
       githubUrl="/"
       subdomain="dynamic-island"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className=""
     >
       <DynamicIsland />

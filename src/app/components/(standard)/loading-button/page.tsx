@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.loading_button")}
       githubUrl="/"
       subdomain="loading-button"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
     >
       <LoadingButton />
     </ComponentWrapper>

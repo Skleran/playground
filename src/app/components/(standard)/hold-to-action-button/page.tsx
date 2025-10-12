@@ -11,13 +11,6 @@ export default function Page() {
       title={t("HomePage.hold_to_action_button")}
       githubUrl="/"
       subdomain="hold-to-action-button"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
     >
       <HoldToActionButton className="w-50" />
     </ComponentWrapper>

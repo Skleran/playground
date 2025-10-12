@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.animate_height")}
       githubUrl="/"
       subdomain="animate-height"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className="p-0 sm:py-0"
     >
       <AnimateHeight />

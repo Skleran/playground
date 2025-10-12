@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.drag_gesture")}
       githubUrl="/"
       subdomain="drag-gesture"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className="w-full h-full px-0 py-0 sm:py-0"
     >
       <DragGesture />

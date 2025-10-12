@@ -6,6 +6,7 @@ import FixedReturnButton from "./fixed-return-button";
 import { projects } from "@/lib/projects";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
+import { useTranslations } from "next-intl";
 
 // basic mobile version - no animations
 function ComponentWrapperBasic({
@@ -21,6 +22,8 @@ function ComponentWrapperBasic({
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+  const t = useTranslations();
+
   return (
     <div className="relative h-[100svh] overflow-y-scroll">
       <div className="h-[250px] rounded-b-2xl relative">
@@ -36,7 +39,7 @@ function ComponentWrapperBasic({
             >
               <Link href={`/components/${prevProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Previous
+                  {t("ComponentWrapper.previous")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {prevProject.name}
@@ -55,7 +58,7 @@ function ComponentWrapperBasic({
             >
               <Link href={`/components/${nextProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Next
+                  {t("ComponentWrapper.next")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {nextProject.name}
@@ -88,7 +91,7 @@ function ComponentWrapperBasic({
             >
               <Link href={`/components/${prevProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Previous
+                  {t("ComponentWrapper.previous")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {prevProject.name}
@@ -107,7 +110,7 @@ function ComponentWrapperBasic({
             >
               <Link href={`/components/${nextProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Next
+                  {t("ComponentWrapper.next")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {nextProject.name}
@@ -142,6 +145,8 @@ function ComponentWrapperAnimated({
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+
+  const t = useTranslations();
 
   const dimensionsCache = useRef({
     containerHeight: 0,
@@ -413,7 +418,7 @@ function ComponentWrapperAnimated({
             >
               <Link href={`/components/${prevProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Previous
+                  {t("ComponentWrapper.previous")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {prevProject.name}
@@ -432,7 +437,7 @@ function ComponentWrapperAnimated({
             >
               <Link href={`/components/${nextProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Next
+                  {t("ComponentWrapper.next")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {nextProject.name}
@@ -492,7 +497,7 @@ function ComponentWrapperAnimated({
             >
               <Link href={`/components/${prevProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Previous
+                  {t("ComponentWrapper.previous")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {prevProject.name}
@@ -511,7 +516,7 @@ function ComponentWrapperAnimated({
             >
               <Link href={`/components/${nextProject.subdomain}`}>
                 <p className="text-muted-foreground/80 group-hover:text-primary/70 transition-colors duration-200">
-                  Next
+                  {t("ComponentWrapper.next")}
                 </p>
                 <p className="text-primary/80 group-hover:text-accent-foreground transition-colors duration-200">
                   {nextProject.name}

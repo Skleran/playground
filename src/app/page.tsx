@@ -183,11 +183,7 @@ export default function Home() {
           {/* <LocaleSelectBox />
           <ChangeThemeTabs animationKey="theme" key={"theme"} /> */}
         </div>
-        <div className="text-muted-foreground">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore
-          cupiditate saepe architecto doloribus voluptatibus officiis, sint,
-          obcaecati incidunt.
-        </div>
+        <div className="text-muted-foreground">{t("HomePage.desc")}</div>
         <div className="flex flex-row gap-4 mt-6">
           <Button
             asChild

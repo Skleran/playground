@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.multistep_dialog")}
       githubUrl="/"
       subdomain="multistep-dialog"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       className="px-2 py-4 sm:px-4 sm:py-2 min-h-110"
     >
       <MultistepDialog />

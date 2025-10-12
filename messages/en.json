@@ -9,6 +9,7 @@
   },
   "HomePage": {
     "intro": "Hey, I'm",
+    "desc": "I’m a software engineering student who loves crafting meaningful experiences for the modern web. I enjoy experimenting with new technologies and aim to build products that feel as good to use as they are to look at.",
     "projects": "Projects",
     "local_time": "local time",
     "greeting": {

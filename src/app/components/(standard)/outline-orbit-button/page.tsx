@@ -12,13 +12,6 @@ export default function Page() {
       title={t("HomePage.outline_orbit_button")}
       githubUrl="/"
       subdomain="outline-orbit-button"
-      description={
-        <>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          nobis ab officia! Eveniet unde dolorem facilis nisi expedita?
-          Voluptas, nobis?
-        </>
-      }
       // className=""
     >
       <OutlineOrbitButton />
