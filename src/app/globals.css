@@ -451,3 +451,35 @@ h1 > span:nth-of-type(2) {
     scale: var(--s2);
   }
 }
+
+.plus-symbol {
+  @apply text-[2rem] font-semibold grid place-items-center select-none scale-[1.5] transition-all;
+  @apply duration-[1500ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] grayscale;
+  transition-property: color, filter, transform, opacity;
+  filter: grayscale(1);
+  aspect-ratio: 1 / 1;
+  transform-origin: center;
+  will-change: transform, filter;
+}
+.plus-symbol svg {
+  opacity: 0.5;
+}
+.dark .plus-symbol svg {
+  opacity: 1;
+}
+
+/* active state */
+.plus-symbol:hover,
+.plus-symbol[data-hover="true"] {
+  transition-duration: 0ms;
+  filter: grayscale(0) brightness(1.4);
+  opacity: 1;
+  transform: none;
+}
+
+/* default state */
+.plus-symbol:not(:hover):not([data-hover="true"]) {
+  transition-duration: 1500ms;
+  filter: grayscale(1) brightness(1);
+  transform: rotate(calc(var(--grade) * 90deg));
+}

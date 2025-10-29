@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Cursor Trails",
+    subdomain: "cursor-trails",
+    isExperimental: false,
+  },
+  {
     name: "Folder Interaction",
     subdomain: "folder-interaction",
     isExperimental: false,

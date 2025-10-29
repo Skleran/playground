@@ -33,6 +33,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.cursor_trails"),
+      subdomain: "cursor-trails",
+      isExperimental: false,
+    },
+    {
       name: t("HomePage.folder_interaction"),
       subdomain: "folder-interaction",
       isExperimental: false,
