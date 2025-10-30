@@ -59,7 +59,8 @@
     "feedback_box": "Feedback Box",
     "multistep_dialog": "Multistep Dialog",
     "folder_interaction": "Folder Interaction",
-    "cursor_trails": "Cursor Trails"
+    "cursor_trails": "Cursor Trails",
+    "accordion_interaction": "Accordion Interaction"
   },
   "ComponentWrapper": {
     "visit": "Visit",

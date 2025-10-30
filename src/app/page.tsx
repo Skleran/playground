@@ -33,6 +33,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.accordion_interaction"),
+      subdomain: "accordion-interaction",
+      isExperimental: true,
+    },
+    {
       name: t("HomePage.cursor_trails"),
       subdomain: "cursor-trails",
       isExperimental: false,

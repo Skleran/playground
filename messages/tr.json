@@ -60,7 +60,8 @@
     "feedback_box": "Geri Bildirim Kutusu",
     "multistep_dialog": "Çok Adımlı Diyalog",
     "folder_interaction": "Klasör Etkileşimi",
-    "cursor_trails": "İmleç İzleri"
+    "cursor_trails": "İmleç İzleri",
+    "accordion_interaction": "Akordeon Etkileşimi"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

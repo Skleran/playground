@@ -1,5 +1,5 @@
+import AccordionInteraction from "@/components/custom/accordion-interaction";
 import ComponentWrapper from "@/components/custom/component-wrapper";
-import CursorTrails from "@/components/custom/cursor-trails";
 import { useTranslations } from "next-intl";
 
 import React from "react";
@@ -9,12 +9,12 @@ export default function Page() {
   return (
     <ComponentWrapper
       date={t("Date.october") + " 2025"}
-      title={t("HomePage.cursor_trails")}
+      title={t("HomePage.accordion_interaction")}
       githubUrl="/"
-      subdomain="cursor-trails"
-      className="w-full h-full px-0 py-0 sm:py-0"
+      subdomain="accordion-interaction"
+      className=""
     >
-      <CursorTrails />
+      <AccordionInteraction />
     </ComponentWrapper>
   );
 }
