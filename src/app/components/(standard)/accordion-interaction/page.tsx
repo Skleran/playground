@@ -12,7 +12,7 @@ export default function Page() {
       title={t("HomePage.accordion_interaction")}
       githubUrl="/"
       subdomain="accordion-interaction"
-      className=""
+      className="py-8 sm:py-8"
     >
       <AccordionInteraction />
     </ComponentWrapper>
