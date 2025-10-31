@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/custom/motion-accordion";
+import { Accessibility, Cog, Rocket, Shield, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import React from "react";
@@ -19,39 +20,74 @@ export default function Page() {
       subdomain="motion-accordion"
       className="py-0 sm:py-0 min-h-[450px] max-w-full"
     >
-      <Accordion defaultValue="item-1">
+      <Accordion
+        type="single"
+        collapsible
+        defaultValue="item-1"
+        className="w-full max-w-90 mx-auto"
+      >
         <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionTrigger>
+            <div className="flex items-center gap-2">
+              <Accessibility className="w-5 h-5 text-blue-500" />
+              Is it accessible?
+            </div>
+          </AccordionTrigger>
           <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
+            Absolutely. All components follow WAI-ARIA accessibility guidelines
+            and are keyboard navigable by default.
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-2">
-          <AccordionTrigger>How does it work?</AccordionTrigger>
+          <AccordionTrigger>
+            <div className="flex items-center gap-2">
+              <Cog className="w-5 h-5 text-amber-500" />
+              How does it work?
+            </div>
+          </AccordionTrigger>
           <AccordionContent>
-            It uses Framer Motion for smooth animations.
+            The accordion leverages Framer Motion for smooth open/close
+            transitions and Radix UI primitives for state handling.
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-3">
-          <AccordionTrigger>How does it work?</AccordionTrigger>
+          <AccordionTrigger>
+            <div className="flex items-center gap-2">
+              <Rocket className="w-5 h-5 text-emerald-500" />
+              Is it performant?
+            </div>
+          </AccordionTrigger>
           <AccordionContent>
-            It uses Framer Motion for smooth animations.
+            Yes — animations are GPU-accelerated and only active when visible,
+            ensuring minimal performance impact.
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-4">
-          <AccordionTrigger>How does it work?</AccordionTrigger>
+          <AccordionTrigger>
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-red-500" />
+              Is it secure?
+            </div>
+          </AccordionTrigger>
           <AccordionContent>
-            It uses Framer Motion for smooth animations.
+            The component never exposes internal state or DOM mutations
+            directly. Security best practices are followed throughout.
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-5">
-          <AccordionTrigger>How does it work?</AccordionTrigger>
+          <AccordionTrigger>
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-500" />
+              Can I customize it?
+            </div>
+          </AccordionTrigger>
           <AccordionContent>
-            It uses Framer Motion for smooth animations.
+            Definitely. You can style it using Tailwind, replace icons, or
+            modify animation parameters for a unique look and feel.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

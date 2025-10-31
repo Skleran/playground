@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, easeOut } from "framer-motion";
 import useMeasure from "react-use-measure";
 
 import { cn } from "@/lib/utils";
@@ -65,7 +65,6 @@ function AccordionItem({
   const [isAfterOpen, setIsAfterOpen] = React.useState(false);
   const [isFirst, setIsFirst] = React.useState(false);
   const [isLast, setIsLast] = React.useState(false);
-  const [hasClosedNext, setHasClosedNext] = React.useState(false);
 
   React.useEffect(() => {
     if (!ref.current) return;
@@ -74,17 +73,12 @@ function AccordionItem({
     if (!accordion) return;
 
     const items = Array.from(
-      accordion.querySelectorAll('[data-slot="accordion-item"]')
+      accordion.querySelectorAll('[data-slot="accordion-item-wrapper"]')
     );
     const currentIndex = items.indexOf(ref.current);
 
     setIsFirst(currentIndex === 0);
     setIsLast(currentIndex === items.length - 1);
-
-    const nextItem = items[currentIndex + 1];
-    setHasClosedNext(
-      nextItem ? nextItem.getAttribute("data-state") === "closed" : false
-    );
 
     if (!activeValue) {
       setIsBeforeOpen(false);
@@ -93,7 +87,10 @@ function AccordionItem({
     }
 
     const openItemIndex = items.findIndex(
-      (item) => item.getAttribute("data-state") === "open"
+      (item) =>
+        item
+          .querySelector('[data-slot="accordion-item"]')
+          ?.getAttribute("data-state") === "open"
     );
 
     setIsBeforeOpen(openItemIndex !== -1 && currentIndex === openItemIndex - 1);
@@ -101,32 +98,40 @@ function AccordionItem({
   }, [activeValue]);
 
   return (
-    <AccordionPrimitive.Item
+    <motion.div
       ref={ref}
-      data-slot="accordion-item"
-      value={value}
-      className={cn(
-        "ring-b ring transition-all duration-400 ease-in-out px-3 w-90 overflow-hidden relative will-change-transform",
-        "data-[state=open]:my-4 data-[state=open]:rounded-3xl data-[state=open]:bg-accent-foreground/15 data-[state=open]:hover:bg-accent-foreground/20",
-        "data-[state=closed]:my-0  data-[state=closed]:bg-accent data-[state=closed]:hover:bg-accent-foreground/20",
+      data-slot="accordion-item-wrapper"
+      animate={{
+        marginTop: isThisItemOpen ? 16 : 0,
+        marginBottom: isThisItemOpen ? 16 : 0,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 150,
+        damping: 7,
+        mass: 0.8,
+      }}
+    >
+      <AccordionPrimitive.Item
+        data-slot="accordion-item"
+        value={value}
+        {...props}
+        className={cn(
+          "ring-b ease-in-out px-3 overflow-hidden relative will-change-transform transition-all bg-[#f1f1f1] dark:bg-accent hover:bg-[#e6e6e6] dark:hover:bg-[#313131]",
+          "data-[state=open]:rounded-3xl",
 
-        !isThisItemOpen && hasClosedNext && "ring-b-0",
+          !isAnyItemOpen && isFirst && "rounded-t-3xl",
+          !isAnyItemOpen && isLast && "rounded-b-3xl",
 
-        !isAnyItemOpen && [
-          isFirst && "rounded-t-3xl",
-          isLast && "rounded-b-3xl",
-        ],
+          isAnyItemOpen && !isThisItemOpen && isFirst && "rounded-t-3xl",
+          isAnyItemOpen && !isThisItemOpen && isLast && "rounded-b-3xl",
+          isAnyItemOpen && isBeforeOpen && "rounded-b-3xl",
+          isAnyItemOpen && isAfterOpen && "rounded-t-3xl",
 
-        isAnyItemOpen && [
-          !isThisItemOpen && isFirst && "rounded-t-3xl",
-          !isThisItemOpen && isLast && "rounded-b-3xl",
-          isBeforeOpen && "rounded-b-3xl",
-          isAfterOpen && "rounded-t-3xl",
-        ],
-        className
-      )}
-      {...props}
-    />
+          className
+        )}
+      />
+    </motion.div>
   );
 }
 
@@ -146,7 +151,7 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <div className="[&[data-state=open]>svg]:rotate-180">
+        <div className="flex-shrink-0 [&[data-state=open]>svg]:rotate-180 transition-transform duration-200">
           <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5" />
         </div>
       </AccordionPrimitive.Trigger>
@@ -157,8 +162,7 @@ function AccordionTrigger({
 function AccordionContent({
   className,
   children,
-}: // ...props
-React.ComponentProps<typeof AccordionPrimitive.Content>) {
+}: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   const [measureRef, bounds] = useMeasure();
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -183,7 +187,7 @@ React.ComponentProps<typeof AccordionPrimitive.Content>) {
   return (
     <motion.div
       animate={{ height: isOpen ? bounds.height || "auto" : 0 }}
-      transition={{ type: "spring", duration: 0.3, bounce: 0.35 }}
+      transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
       className="overflow-hidden"
     >
       <div ref={measureRef}>
@@ -191,10 +195,10 @@ React.ComponentProps<typeof AccordionPrimitive.Content>) {
           <AnimatePresence mode="popLayout">
             {isOpen && (
               <motion.div
-                initial={{ opacity: 0, y: 0, filter: "blur(3px)" }}
+                initial={{ opacity: 0, y: -10, filter: "blur(2px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: 0, filter: "blur(3px)" }}
-                transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+                exit={{ opacity: 0, filter: "blur(2px)" }}
+                transition={{ ease: easeOut, duration: 0.3 }}
                 data-slot="accordion-content"
                 className={cn("text-sm", className)}
               >
