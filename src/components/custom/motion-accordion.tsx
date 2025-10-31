@@ -108,7 +108,7 @@ function AccordionItem({
       transition={{
         type: "spring",
         stiffness: 150,
-        damping: 7,
+        damping: 12,
         mass: 0.8,
       }}
     >
@@ -145,14 +145,17 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "hover:cursor-pointer focus-visible:ring-ring flex flex-1 items-start justify-between gap-4 py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50",
+          "group hover:cursor-pointer focus-visible:ring-ring flex flex-1 items-start justify-between gap-4 py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50", // <-- 1. ADD 'group' HERE
           className
         )}
         {...props}
       >
         {children}
-        <div className="flex-shrink-0 [&[data-state=open]>svg]:rotate-180 transition-transform duration-200">
-          <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5" />
+
+        <div className="flex-shrink-0">
+          <ChevronDownIcon
+            className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" // <-- 3. ADDED CLASSES HERE
+          />
         </div>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
@@ -187,7 +190,7 @@ function AccordionContent({
   return (
     <motion.div
       animate={{ height: isOpen ? bounds.height || "auto" : 0 }}
-      transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
+      transition={{ type: "spring", duration: 0.3, bounce: 0.2 }}
       className="overflow-hidden"
     >
       <div ref={measureRef}>
@@ -198,7 +201,7 @@ function AccordionContent({
                 initial={{ opacity: 0, y: -10, filter: "blur(2px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, filter: "blur(2px)" }}
-                transition={{ ease: easeOut, duration: 0.3 }}
+                transition={{ ease: easeOut, duration: 0.2 }}
                 data-slot="accordion-content"
                 className={cn("text-sm", className)}
               >

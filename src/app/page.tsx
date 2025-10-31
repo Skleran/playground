@@ -35,7 +35,7 @@ export default function Home() {
     {
       name: t("HomePage.motion_accordion"),
       subdomain: "motion-accordion",
-      isExperimental: true,
+      isExperimental: false,
     },
     {
       name: t("HomePage.accordion_interaction"),
