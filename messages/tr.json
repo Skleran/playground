@@ -61,7 +61,8 @@
     "multistep_dialog": "Çok Adımlı Diyalog",
     "folder_interaction": "Klasör Etkileşimi",
     "cursor_trails": "İmleç İzleri",
-    "accordion_interaction": "Akordeon Etkileşimi"
+    "accordion_interaction": "Akordeon Etkileşimi",
+    "motion_accordion": "Motion Akordeon"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

@@ -60,7 +60,8 @@
     "multistep_dialog": "Multistep Dialog",
     "folder_interaction": "Folder Interaction",
     "cursor_trails": "Cursor Trails",
-    "accordion_interaction": "Accordion Interaction"
+    "accordion_interaction": "Accordion Interaction",
+    "motion_accordion": "Motion Accordion"
   },
   "ComponentWrapper": {
     "visit": "Visit",
