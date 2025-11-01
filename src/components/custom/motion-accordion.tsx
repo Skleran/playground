@@ -111,13 +111,15 @@ function AccordionItem({
         damping: 12,
         mass: 0.8,
       }}
+      className="relative has-[[data-slot=accordion-trigger]:focus-visible]:z-10"
     >
       <AccordionPrimitive.Item
         data-slot="accordion-item"
         value={value}
         {...props}
         className={cn(
-          "ring-b ease-in-out px-3 overflow-hidden relative will-change-transform transition-all bg-[#f1f1f1] dark:bg-accent hover:bg-[#e6e6e6] dark:hover:bg-[#313131]",
+          "has-[[data-slot=accordion-trigger]:focus-visible]:ring-ring has-[[data-slot=accordion-trigger]:focus-visible]:ring-[3px]",
+          "ease-in-out px-3 overflow-hidden relative will-change-transform transition-all bg-[#f1f1f1] dark:bg-accent hover:bg-[#e6e6e6] dark:hover:bg-[#313131]",
           "data-[state=open]:rounded-3xl",
 
           !isAnyItemOpen && isFirst && "rounded-t-3xl",
@@ -145,7 +147,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group hover:cursor-pointer focus-visible:ring-ring flex flex-1 items-start justify-between gap-4 py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50", // <-- 1. ADD 'group' HERE
+          "group hover:cursor-pointer flex flex-1 items-start justify-between gap-4 py-4 text-left text-sm font-medium transition-all outline-none hover:underline disabled:pointer-events-none disabled:opacity-50",
           className
         )}
         {...props}
@@ -153,9 +155,7 @@ function AccordionTrigger({
         {children}
 
         <div className="flex-shrink-0">
-          <ChevronDownIcon
-            className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" // <-- 3. ADDED CLASSES HERE
-          />
+          <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </div>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
