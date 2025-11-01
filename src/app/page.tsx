@@ -33,6 +33,11 @@ export default function Home() {
 
   const projects: ProjectCardProps[] = [
     {
+      name: t("HomePage.art_showcase"),
+      subdomain: "art-showcase",
+      isExperimental: true,
+    },
+    {
       name: t("HomePage.motion_accordion"),
       subdomain: "motion-accordion",
       isExperimental: false,

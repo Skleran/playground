@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/components/(standard)/loading-button"
+    "src/app/components/(standard)/loading-button",
+    "src/app/components/(standard)/art-showcase"
   ],
   "exclude": ["node_modules"]
 }

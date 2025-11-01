@@ -6,7 +6,8 @@
     "july": "July",
     "august": "August",
     "september": "September",
-    "october": "October"
+    "october": "October",
+    "november": "November"
   },
   "HomePage": {
     "intro": "Hey, I'm",
@@ -61,7 +62,8 @@
     "folder_interaction": "Folder Interaction",
     "cursor_trails": "Cursor Trails",
     "accordion_interaction": "Accordion Interaction",
-    "motion_accordion": "Motion Accordion"
+    "motion_accordion": "Motion Accordion",
+    "art_showcase": "Art Showcase"
   },
   "ComponentWrapper": {
     "visit": "Visit",

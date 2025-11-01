@@ -6,7 +6,8 @@
     "july": "Temmuz",
     "august": "Ağustos",
     "september": "Eylül",
-    "october": "Ekim"
+    "october": "Ekim",
+    "november": "Kasım"
   },
   "HomePage": {
     "intro": "Merhaba, ben",
@@ -62,7 +63,8 @@
     "folder_interaction": "Klasör Etkileşimi",
     "cursor_trails": "İmleç İzleri",
     "accordion_interaction": "Akordeon Etkileşimi",
-    "motion_accordion": "Motion Akordeon"
+    "motion_accordion": "Motion Akordeon",
+    "art_showcase": "Sanat Sergisi"
   },
   "ComponentWrapper": {
     "visit": "Ziyaret Et",

@@ -11,6 +11,11 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
+    name: "Art Showcase",
+    subdomain: "art-showcase",
+    isExperimental: false,
+  },
+  {
     name: "Motion Accordion",
     subdomain: "motion-accordion",
     isExperimental: false,
