@@ -16,15 +16,13 @@ export default function ArtShowcase() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
 
-  // 1. Define your image sources
   const imageUrls = useMemo(
     () => [
       "/images/folder-interaction-images/Mistnova_square.avif",
       "/images/folder-interaction-images/Celestials_square.avif",
       "/images/folder-interaction-images/BlueRays_square.avif",
-      "/images/folder-interaction-images/Mistnova_square.avif",
+      // "/images/folder-interaction-images/Mistnova_square.avif",
       "/images/folder-interaction-images/SwiftGlow_square.avif",
-      // Add your other image paths here...
     ],
     []
   );
@@ -132,34 +130,32 @@ export default function ArtShowcase() {
   }, [api, imagesLoaded]);
 
   return (
-    <div className="h-full w-full flex items-center justify-center overflow-hidden rounded-3xl">
-      <div className="">
-        {/*
-          4. Pass setApi to the Carousel to get control
-        */}
-        <Carousel setApi={setApi} className="max-w-xs">
-          <CarouselContent>
-            {imageUrls.map((src, index) => (
-              <CarouselItem key={index}>
-                <div className="">
-                  <img
-                    src={src}
-                    alt={`Art ${index + 1}`}
-                    className="h-70 object-cover rounded-3xl"
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+    <div className="h-full w-full flex items-center justify-center overflow-hidden">
+      <div>
+        <Carousel setApi={setApi} className="max-w-70 select-none">
+          <div className="overflow-hidden rounded-3xl">
+            <CarouselContent>
+              {imageUrls.map((src, index) => (
+                <CarouselItem key={index}>
+                  <div>
+                    <img
+                      src={src}
+                      alt={`Art ${index + 1}`}
+                      className="h-70 object-cover rounded-3xl select-none"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </div>
+          <CarouselPrevious className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex" />
+          <CarouselNext className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex" />
         </Carousel>
       </div>
 
-      {/* 5. The canvas ref is correct */}
       <canvas
         ref={canvasRef}
-        className="absolute mx-auto max-w-full w-full inset-0 h-full scale-125 blur-[300px] -z-10"
+        className="absolute mx-auto max-w-full w-full inset-0 h-full brightness-115 blur-[300px] -z-10"
       />
     </div>
   );

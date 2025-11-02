@@ -12,7 +12,7 @@ export default function Page() {
       title={t("HomePage.art_showcase")}
       githubUrl="/"
       subdomain="art-showcase"
-      className="py-0 sm:py-0 min-h- max-w-full"
+      className="py-0 sm:py-0 min-h- max-w-full relative overflow-visible"
     >
       <ArtShowcase />
     </ComponentWrapper>
