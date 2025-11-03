@@ -179,7 +179,7 @@ export default function ArtShowcase() {
         // todo: may need to play with values
         transition={{ duration: 0.5, ease: "easeInOut", delay: 1 }}
       >
-        <div className="mb-2 w-full flex items-center justify-between">
+        <div className="mb-2 sm:mb-2.5 w-full flex items-center justify-between">
           <div className="flex items-center gap-2 relative">
             {/* removed poplayout and made absolute to animate it wherever it is */}
             <AnimatePresence initial={false}>
@@ -199,7 +199,7 @@ export default function ArtShowcase() {
                 transition={{ type: "spring", bounce: 0, duration: 0.8 }}
                 className="absolute"
               >
-                <Avatar className="size-6 select-none">
+                <Avatar className="size-6 sm:size-7 select-none">
                   <AvatarImage src={currentArtwork.avatarSrc} />
                   <AvatarFallback>
                     {currentArtwork.painterName.substring(0, 2)}
@@ -213,7 +213,7 @@ export default function ArtShowcase() {
                 animate={{ opacity: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, filter: "blur(2px)" }}
                 transition={{ ease: "easeOut", duration: 0.5, delay: 0.1 }}
-                className="text-xs font-semibold text-nowrap absolute ml-8"
+                className="text-xs font-semibold text-nowrap absolute ml-8 sm:ml-9"
               >
                 {currentArtwork.painterName}
               </motion.div>
@@ -283,7 +283,7 @@ export default function ArtShowcase() {
         animate={{ opacity: 1 }}
         // todo: may need to play with values
         transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
-        className="absolute mx-auto max-w-full w-full inset-0 h-full brightness-115 blur-[200px] -z-10"
+        className="absolute mx-auto max-w-full w-full inset-0 h-full brightness-140 dark:brightness-115 blur-[120px] dark:blur-[200px] -z-10"
       />
     </div>
   );
