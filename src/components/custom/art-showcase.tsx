@@ -15,6 +15,7 @@ import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { artworksData } from "@/lib/artworksData";
 import useMeasure from "react-use-measure";
+import NextImage from "next/image";
 
 export default function ArtShowcase() {
   const [api, setApi] = useState<CarouselApi>();
@@ -78,9 +79,9 @@ export default function ArtShowcase() {
 
       // Set canvas drawing buffer size to match one slide
       // The images have `h-70` (280px) and are square
-      const h = 280;
-      canvas.width = h;
-      canvas.height = h;
+      // const h = 280;
+      // canvas.width = h;
+      // canvas.height = h;
 
       // Get dimensions from our manually-created rects
       slideWidth = slideRects[0].width;
@@ -225,7 +226,7 @@ export default function ArtShowcase() {
           </div>
         </div>
 
-        <Carousel setApi={setApi} className="max-w-70 select-none">
+        <Carousel setApi={setApi} className="max-w-70 md:max-w-80 select-none">
           <motion.div
             animate={{ height: carouselHeight }}
             transition={{ type: "spring", bounce: 0, duration: 0.6 }}
@@ -240,11 +241,17 @@ export default function ArtShowcase() {
                       animate={{ height: bounds.height || "auto" }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <div ref={isActive ? measureRef : null}>
-                        <motion.img
+                      <div
+                        ref={isActive ? measureRef : null}
+                        className="relative"
+                      >
+                        <NextImage
+                          draggable="false"
+                          width={500}
+                          height={500}
                           src={artwork.imageSrc}
                           alt={`Artwork by ${artwork.painterName}`}
-                          className="w-70 rounded-3xl select-none"
+                          className="w-70 md:w-80 rounded-3xl select-none"
                         />
                       </div>
                     </motion.div>
