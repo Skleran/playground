@@ -23,6 +23,7 @@ export default function ArtShowcase() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const imageUrls = artworksData.map((art) => art.imageSrc);
   const currentArtwork = artworksData[currentSlide];
+  const [liveDirection, setLiveDirection] = useState(1);
 
   // 2. Preload all images for smooth drawing
   useEffect(() => {
@@ -126,6 +127,7 @@ export default function ArtShowcase() {
     };
   }, [api, imagesLoaded]);
 
+  // scroll direction handler
   useEffect(() => {
     if (!api) {
       return;
@@ -133,13 +135,27 @@ export default function ArtShowcase() {
 
     setCurrentSlide(api.selectedScrollSnap());
 
+    const onScroll = () => {
+      const engine = api.internalEngine();
+      const currentPos = engine.location.get();
+      const targetPos = engine.target.get();
+
+      if (currentPos === targetPos) return;
+
+      const newDirection = targetPos > currentPos ? 1 : -1;
+
+      setLiveDirection(newDirection);
+    };
+
     const onSelect = () => {
       setCurrentSlide(api.selectedScrollSnap());
     };
 
+    api.on("scroll", onScroll);
     api.on("select", onSelect);
 
     return () => {
+      api.off("scroll", onScroll);
       api.off("select", onSelect);
     };
   }, [api]);
@@ -151,11 +167,18 @@ export default function ArtShowcase() {
           <div className="flex items-center gap-2 w-full">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
-                // to-do: rotation according to scroll direction
                 key={currentArtwork.id + "-avatar"}
-                initial={{ rotate: -90, filter: "blur(3px)", opacity: 0 }}
+                initial={{
+                  rotate: 90 * liveDirection,
+                  filter: "blur(3px)",
+                  opacity: 0,
+                }}
                 animate={{ rotate: 0, filter: "blur(0px)", opacity: 1 }}
-                exit={{ rotate: 90, filter: "blur(3px)", opacity: 0 }}
+                exit={{
+                  rotate: -90 * liveDirection,
+                  filter: "blur(3px)",
+                  opacity: 0,
+                }}
                 transition={{ type: "spring", bounce: 0, duration: 0.8 }}
               >
                 <Avatar className="size-6 select-none">
@@ -202,8 +225,20 @@ export default function ArtShowcase() {
               ))}
             </CarouselContent>
           </div>
-          <CarouselPrevious className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex" />
-          <CarouselNext className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex" />
+          <CarouselPrevious
+            onClick={() => {
+              setLiveDirection(1);
+              api?.scrollPrev();
+            }}
+            className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex"
+          />
+          <CarouselNext
+            onClick={() => {
+              setLiveDirection(-1);
+              api?.scrollNext();
+            }}
+            className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex"
+          />
         </Carousel>
       </div>
 
