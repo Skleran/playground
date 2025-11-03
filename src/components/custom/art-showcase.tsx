@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { artworksData } from "@/lib/artworksData";
+import useMeasure from "react-use-measure";
 
 export default function ArtShowcase() {
   const [api, setApi] = useState<CarouselApi>();
@@ -24,6 +25,8 @@ export default function ArtShowcase() {
   const imageUrls = artworksData.map((art) => art.imageSrc);
   const currentArtwork = artworksData[currentSlide];
   const [liveDirection, setLiveDirection] = useState(1);
+  const [carouselHeight, setCarouselHeight] = useState<number | "auto">("auto");
+  const [measureRef, bounds] = useMeasure();
 
   // 2. Preload all images for smooth drawing
   useEffect(() => {
@@ -160,12 +163,25 @@ export default function ArtShowcase() {
     };
   }, [api]);
 
+  useEffect(() => {
+    // We only want to set the height if it's a valid number
+    if (bounds.height > 0) {
+      setCarouselHeight(bounds.height);
+    }
+  }, [bounds.height, currentSlide]);
+
   return (
-    <div className="h-full w-full flex items-center justify-center overflow-hidden">
-      <div>
+    <div className="h-full w-full flex items-start justify-center overflow-hidden pt-3 pb-5">
+      <motion.div
+        initial={{ opacity: 0, filter: "blur(3px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        // todo: may need to play with values
+        transition={{ duration: 0.5, ease: "easeInOut", delay: 1 }}
+      >
         <div className="mb-2 w-full flex items-center justify-between">
-          <div className="flex items-center gap-2 w-full">
-            <AnimatePresence mode="popLayout" initial={false}>
+          <div className="flex items-center gap-2 relative">
+            {/* removed poplayout and made absolute to animate it wherever it is */}
+            <AnimatePresence initial={false}>
               <motion.div
                 key={currentArtwork.id + "-avatar"}
                 initial={{
@@ -180,6 +196,7 @@ export default function ArtShowcase() {
                   opacity: 0,
                 }}
                 transition={{ type: "spring", bounce: 0, duration: 0.8 }}
+                className="absolute"
               >
                 <Avatar className="size-6 select-none">
                   <AvatarImage src={currentArtwork.avatarSrc} />
@@ -188,15 +205,14 @@ export default function ArtShowcase() {
                   </AvatarFallback>
                 </Avatar>
               </motion.div>
-            </AnimatePresence>
-            <AnimatePresence mode="popLayout" initial={false}>
+
               <motion.div
                 key={currentArtwork.id + "-name"}
                 initial={{ opacity: 0, filter: "blur(2px)" }}
                 animate={{ opacity: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, filter: "blur(2px)" }}
                 transition={{ ease: "easeOut", duration: 0.5, delay: 0.1 }}
-                className="text-xs font-semibold text-nowrap"
+                className="text-xs font-semibold text-nowrap absolute ml-8"
               >
                 {currentArtwork.painterName}
               </motion.div>
@@ -210,21 +226,33 @@ export default function ArtShowcase() {
         </div>
 
         <Carousel setApi={setApi} className="max-w-70 select-none">
-          <div className="overflow-hidden rounded-3xl">
+          <motion.div
+            animate={{ height: carouselHeight }}
+            transition={{ type: "spring", bounce: 0, duration: 0.6 }}
+            className="overflow-hidden rounded-3xl"
+          >
             <CarouselContent>
-              {artworksData.map((artwork, _) => (
-                <CarouselItem key={artwork.id}>
-                  <div>
-                    <img
-                      src={artwork.imageSrc}
-                      alt={`Artwork by ${artwork.painterName}`}
-                      className="h-70 object-cover rounded-3xl select-none"
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
+              {artworksData.map((artwork, index) => {
+                const isActive = index === currentSlide;
+                return (
+                  <CarouselItem key={artwork.id}>
+                    <motion.div
+                      animate={{ height: bounds.height || "auto" }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div ref={isActive ? measureRef : null}>
+                        <motion.img
+                          src={artwork.imageSrc}
+                          alt={`Artwork by ${artwork.painterName}`}
+                          className="w-70 rounded-3xl select-none"
+                        />
+                      </div>
+                    </motion.div>
+                  </CarouselItem>
+                );
+              })}
             </CarouselContent>
-          </div>
+          </motion.div>
           <CarouselPrevious
             onClick={() => {
               setLiveDirection(1);
@@ -240,10 +268,14 @@ export default function ArtShowcase() {
             className="bg-primary/5 border border-primary/20 hover:bg-primary/7 opacity-90 hover:opacity-100 hidden sm:flex"
           />
         </Carousel>
-      </div>
+      </motion.div>
 
-      <canvas
+      <motion.canvas
         ref={canvasRef}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        // todo: may need to play with values
+        transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
         className="absolute mx-auto max-w-full w-full inset-0 h-full brightness-115 blur-[200px] -z-10"
       />
     </div>
