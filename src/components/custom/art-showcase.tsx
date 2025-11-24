@@ -29,7 +29,7 @@ export default function ArtShowcase() {
   const [carouselHeight, setCarouselHeight] = useState<number | "auto">("auto");
   const [measureRef, bounds] = useMeasure();
 
-  // 2. Preload all images for smooth drawing
+  // preload images
   useEffect(() => {
     let loadedCount = 0;
     const images: HTMLImageElement[] = [];
@@ -53,7 +53,6 @@ export default function ArtShowcase() {
     });
   }, [imageUrls]);
 
-  // 3. Set up the animation loop (FIXED)
   useEffect(() => {
     if (!api || !imagesLoaded || !canvasRef.current) {
       return;
@@ -165,7 +164,6 @@ export default function ArtShowcase() {
   }, [api]);
 
   useEffect(() => {
-    // We only want to set the height if it's a valid number
     if (bounds.height > 0) {
       setCarouselHeight(bounds.height);
     }
@@ -230,7 +228,7 @@ export default function ArtShowcase() {
           <motion.div
             animate={{ height: carouselHeight }}
             transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-            className="overflow-hidden rounded-3xl"
+            className="overflow-hidden corner-squircle rounded-[40px]"
           >
             <CarouselContent>
               {artworksData.map((artwork, index) => {
@@ -251,7 +249,7 @@ export default function ArtShowcase() {
                           height={500}
                           src={artwork.imageSrc}
                           alt={`Artwork by ${artwork.painterName}`}
-                          className="w-70 md:w-80 rounded-3xl select-none"
+                          className="w-70 md:w-80 corner-squircle rounded-[40px] select-none"
                         />
                       </div>
                     </motion.div>

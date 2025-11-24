@@ -21,11 +21,6 @@ export const projects: Project[] = [
     isExperimental: false,
   },
   {
-    name: "Accordion Interaction",
-    subdomain: "accordion-interaction",
-    isExperimental: false,
-  },
-  {
     name: "Cursor Trails",
     subdomain: "cursor-trails",
     isExperimental: false,
