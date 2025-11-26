@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import PersonalInfo from "@/components/custom/personal-info";
+import AnimatedSign from "@/components/custom/animated-sign";
 // import { useTransitionRouter } from "next-view-transitions";
 // import Link from "next/link";
 // import { Link } from "next-view-transitions";
@@ -170,7 +171,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 py-10 sm:py-18 text-neutral-800 dark:text-neutral-100">
+    <div className="max-w-[700px] mx-auto overflow-x-hidden px-6 pt-10 pb-24 sm:py-18 sm:pb-20 text-neutral-800 dark:text-neutral-100">
       <main>
         <div className="flex items-center justify-between">
           <PersonalInfo />
@@ -271,7 +272,9 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <footer className=""></footer>
+      <footer className="w-full flex justify-center mt-8">
+        <AnimatedSign />
+      </footer>
     </div>
   );
 }
